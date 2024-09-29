@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Workbench\App\Models\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -29,9 +29,15 @@ class AuthenticationController extends Controller
             if (Auth::attempt( $credentials)) {
 
                 $user = User::find(Auth::user()->id);
-                $user->createToken('token')->delete();
+                $token = $user->createToken('token')->plainTextToken;
 
-                return Auth::user();
+                return response()->json([
+                    'status' => true,
+                    'token' => $token,
+                    'id' => Auth::user()->id
+                ]);
+
+
 
         } else {
             return response()->json([
