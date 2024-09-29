@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Workbench\App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,6 +27,9 @@ class AuthenticationController extends Controller
                  'password' => $request->password];
 
             if (Auth::attempt( $credentials)) {
+
+                $user = User::find(Auth::user()->id);
+                $user->createToken('token')->delete();
 
                 return Auth::user();
 
