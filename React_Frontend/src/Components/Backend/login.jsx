@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const {
@@ -20,7 +21,13 @@ const Login = () => {
 
         const result = await res.json();
 
-        console.log(result);
+        if (result.status === false) {
+
+            toast(result.message);
+
+        }
+
+    }    // console.log(result);
     
   };
 

@@ -1,16 +1,24 @@
-import React from 'react';
+import React from 'react'
 import { BrowserRouter } from 'react-router-dom';
-import Navbar from './Components/Navbar';
 import RouteApp from './Routes/RouteApp';
-
+import HeroSection from './Components/Herosection';
+import Login from './Components/Backend/login';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
+    <>
     <BrowserRouter>
-      <Navbar />
-      <RouteApp />
-    </BrowserRouter>
-  );
-};
+    <HeroSection />
+    <Login />
+    <RouteApp />
 
-export default App;
+    </BrowserRouter>
+    <ToastContainer />
+    
+    </>
+  )
+}
+
+export default App
