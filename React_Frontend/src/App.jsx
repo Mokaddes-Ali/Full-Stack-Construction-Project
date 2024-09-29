@@ -1,10 +1,12 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RouteApp from './Routes/RouteApp';
 import HeroSection from './Components/Herosection';
 import Login from './Components/Backend/login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Dashboard from './Components/Backend/Dashboard';
+import Home from './Pages/Home';
 
 const App = () => {
   return (
@@ -12,10 +14,16 @@ const App = () => {
     <BrowserRouter>
     <HeroSection />
     <Login />
-    <RouteApp />
+    {/* <RouteApp /> */}
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+    </Routes>
 
     </BrowserRouter>
-    <ToastContainer />
+    <ToastContainer
+    position="center"
+    />
     
     </>
   )

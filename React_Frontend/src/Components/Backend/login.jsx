@@ -1,44 +1,44 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit =async (data) => {
-    // console.log('Form Data:', data);
-    const res = fetch('http://127.0.0.1:8000/api/register', {
+  const onSubmit = async (data) => {
+    try {
+      const res = await fetch('http://127.0.0.1:8000/api/register', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-        });
+      });
 
-        const result = await res.json();
+      const result = await res.json();
 
-        if (result.status === false) {
-
-            toast(result.message);
-
-        }
-
-    }    // console.log(result);
-    
+      if (result.status === false) {
+        toast.error(result.message); // Show error toast if status is false
+      } else {
+        navigate('/dashboard'); // Redirect to dashboard if login is successful
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Something went wrong. Please try again later.');
+    }
   };
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <ToastContainer /> {/* Toast container for showing notifications */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          alt="Your Company"
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-          className="mx-auto h-10 w-auto"
-        />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account
         </h2>
