@@ -27,6 +27,8 @@ class AuthenticationController extends Controller
 
             if (Auth::attempt( $credentials)) {
 
+                return Auth::user();
+
         } else {
             return response()->json([
                 'status' => false,
