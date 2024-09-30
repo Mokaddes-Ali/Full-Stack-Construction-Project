@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Collapse, Typography, Button, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import NavList from "./NavList";
+import NavbarList from "./NavbarList";
 
 export default function NavbarSection() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -10,6 +10,7 @@ export default function NavbarSection() {
     window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
   }, []);
 
+
   return (
     <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
       <div className="flex items-center justify-between text-blue-gray-900">
@@ -17,7 +18,7 @@ export default function NavbarSection() {
           Material Tailwind
         </Typography>
         <div className="hidden lg:block">
-          <NavList />
+          <NavbarList />
         </div>
         <div className="hidden gap-2 lg:flex">
           <Button variant="text" size="sm" color="blue-gray">
@@ -32,7 +33,7 @@ export default function NavbarSection() {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <NavList />
+        <NavbarList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
             Log In

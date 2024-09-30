@@ -7,11 +7,13 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Components/Backend/Dashboard';
 import Home from './Pages/Home';
+import NavbarSection from './Components/Navbar/NavbarSection';
 
 const App = () => {
   return (
     <>
     <BrowserRouter>
+    <NavbarSection />
    
     <Login />
     {/* <RouteApp /> */}
