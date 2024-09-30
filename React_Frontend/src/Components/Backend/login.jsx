@@ -13,7 +13,9 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    try {
+
+    console.log(data);
+  
       const res = await fetch('http://127.0.0.1:8000/api/register', {
         method: 'POST',
         headers: {
@@ -24,20 +26,15 @@ const Login = () => {
 
       const result = await res.json();
 
-      if (result.status === false) {
-        toast.error(result.message); // Show error toast if status is false
+      if (result.status == false) {
+        toast.error(result.message); 
       } else {
-        navigate('/dashboard'); // Redirect to dashboard if login is successful
+        navigate('/dashboard'); 
       }
-    } catch (error) {
-      console.error('Error:', error);
-      toast.error('Something went wrong. Please try again later.');
-    }
   };
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <ToastContainer /> {/* Toast container for showing notifications */}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Sign in to your account

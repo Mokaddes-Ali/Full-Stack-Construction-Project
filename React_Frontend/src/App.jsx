@@ -21,9 +21,7 @@ const App = () => {
     </Routes>
 
     </BrowserRouter>
-    <ToastContainer
-    position="center"
-    />
+    <ToastContainer /> {/* Toast container for showing notifications */}
     
     </>
   )
