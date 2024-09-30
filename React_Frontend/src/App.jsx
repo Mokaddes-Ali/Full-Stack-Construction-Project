@@ -12,7 +12,7 @@ const App = () => {
   return (
     <>
     <BrowserRouter>
-    <HeroSection />
+   
     <Login />
     {/* <RouteApp /> */}
     <Routes>
@@ -21,7 +21,10 @@ const App = () => {
     </Routes>
 
     </BrowserRouter>
-    <ToastContainer /> {/* Toast container for showing notifications */}
+    <ToastContainer 
+    position="top-center"
+    
+    /> {/* Toast container for showing notifications */}
     
     </>
   )
