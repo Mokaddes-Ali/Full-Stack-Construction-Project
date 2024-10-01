@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './Components/Backend/Dashboard';
 import Home from './Pages/Home';
 import NavbarSection from './Components/Navbar/NavbarSection';
+import RequireAuth from './Components/RequireAuth';
 
 const App = () => {
   return (
@@ -19,7 +20,11 @@ const App = () => {
     {/* <RouteApp /> */}
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={
+          <RequireAuth>
+          <Dashboard />
+          </RequireAuth>
+        } />
     </Routes>
 
     </BrowserRouter>

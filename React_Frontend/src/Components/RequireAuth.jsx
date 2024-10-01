@@ -1,4 +1,4 @@
-import React from 'react';
+import {useContext} from 'react';
 import { AuthContext } from './Backend/context/Auth';
 import { Navigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const RequireAuth = ({children}) => {
         return  <Navigate to = 'admin/login' />
     }
 
-  return children 
+  return children;
   
   
 }
