@@ -103,7 +103,7 @@ export default function PagesListMenu() {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
+        <MenuList className="hidden  bg-deep-orange-600 w-screen rounded-xl lg:block">
           <ul className="grid grid-cols-3 gap-y-2 outline-none outline-0">{renderItems}</ul>
         </MenuList>
       </Menu>
