@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,13 +28,29 @@ class UserController extends Controller
             'users' => User::find($id)], 200);
     }
 
-    
 
-    public function store(Request $request)
+
+    public function store(UserStoreRequest $request)
     {
-        $user = User::create($request->all());
-        return response()->json(['user' => $user], 201);
+        try {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => bcrypt($request->password)
+            ]);
+            return response()->json([
+                'message' => "User created successfully"
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => "Something went really wrong"
+            ], 500);
+        }
+
     }
+
+
 
     public function update(Request $request, $id)
     {
