@@ -51,12 +51,34 @@ class UserController extends Controller
     }
 
 
-
-    public function update(Request $request, $id)
+    public function update(UserStoreRequest $request, $id)
     {
-        $user = User::find($id);
-        $user->update($request->all());
-        return response()->json(['user' => $user], 200);
+        try {
+            $users = User::find($id);
+            if (!$users) {
+                return response()->json([
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+            $users->name = $request->name;
+            $users->email = $request->email;
+            $users->password = bcrypt($request->password);
+
+            $users->save();
+
+            return response()->json([
+                'message' => "User updated successfully"
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => "Something went really wrong"
+            ], 500);
+        }
+        // $user = User::find($id);
+        // $user->update($request->all());
+        // return response()->json(['user' => $user], 200);
     }
 
     public function destroy($id)
