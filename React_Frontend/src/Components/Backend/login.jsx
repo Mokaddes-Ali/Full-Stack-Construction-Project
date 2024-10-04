@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from './context/Auth';
 
 const Login = () => {
+  const {login} = useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
@@ -36,7 +38,7 @@ const Login = () => {
          
         }
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
+        login(userInfo);   
         navigate('admin/dashboard'); 
         
       }
