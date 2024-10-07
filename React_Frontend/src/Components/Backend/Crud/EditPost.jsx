@@ -9,7 +9,7 @@ const EditPost = () => {
 
     const fetchPost = async () => {
         try {
-            const response = await axios.get(`/posts/${id}`);
+            const response = await axios.get(`/posts/edit/${id}`); // Updated URL
             setTitle(response.data.title);
             setContent(response.data.content);
         } catch (error) {
@@ -20,7 +20,7 @@ const EditPost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`/posts/${id}`, { title, content });
+            await axios.put(`/posts/update/${id}`, { title, content });
             alert('Post updated successfully!');
         } catch (error) {
             console.error('Error updating post', error);

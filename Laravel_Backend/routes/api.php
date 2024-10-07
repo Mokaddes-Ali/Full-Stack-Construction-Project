@@ -34,11 +34,18 @@ Route::post('updates', [UserController::class, 'update']);
 // Route::post('/register', [AuthController::class, 'register']);
 
 
-    Route::get('posts', [PostController::class, 'index']);
-    Route::post('posts/create', [PostController::class, 'store']);
-    Route::get('posts/show/{id}', [PostController::class, 'show']);
-    Route::put('posts/update/{id}', [PostController::class, 'update']);
-    Route::delete('/posts/delete/{id}', [PostController::class, 'destroy']);
+    // Route::get('/posts', [PostController::class, 'index']);
+    // Route::post('/posts/create', [PostController::class, 'store']);
+    // Route::get('/posts/show/{id}', [PostController::class, 'show']);
+    // Route::put('/posts/update/{id}', [PostController::class, 'update']);
+    // Route::delete('/posts/delete/{id}', [PostController::class, 'destroy']);
+
+    Route::get('posts', [PostController::class, 'index']); // Get all posts
+    Route::get('posts/show', [PostController::class, 'show']); // Show a specific post
+    Route::post('posts/create', [PostController::class, 'store']); // Create a new post
+    Route::get('posts/edit/{id}', [PostController::class, 'show']); // Get a specific post for editing
+    Route::put('posts/update/{id}', [PostController::class, 'update']); // Update a post
+    Route::delete('posts/delete/{id}', [PostController::class, 'destroy']); // Delete a post
 
 
 
