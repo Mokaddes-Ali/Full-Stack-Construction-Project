@@ -34,6 +34,7 @@ const App = () => {
 <Route path="/show" element={<ShowPosts />}/>
 <Route path="/create-post" element={<CreatePost />} />
 <Route path="/edit-post/:id" element={<EditPost />} />
+
        
     </Routes>
 
