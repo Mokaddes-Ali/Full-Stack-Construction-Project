@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from '../Crud/axiosInstance';
 
 const CreatePost = () => {
@@ -8,7 +8,7 @@ const CreatePost = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/posts', { title, content });
+            await axios.post('/posts/create', { title, content });
             alert('Post created successfully!');
         } catch (error) {
             console.error('Error creating post', error);

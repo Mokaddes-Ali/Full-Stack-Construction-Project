@@ -10,13 +10,17 @@ import Home from './Pages/Home';
 import NavbarSection from './Components/Navbar/NavbarSection';
 import RequireAuth from './Components/RequireAuth';
 
+import CreatePost from './Components/Backend/Crud/CreatePost';
+import ShowPosts from './Components/Backend/Crud/ShowPosts';
+import EditPost from './Components/Backend/Crud/EditPost';
+
 const App = () => {
   return (
     <>
     <BrowserRouter>
     <NavbarSection />
    
-    <Login />
+  
     {/* <RouteApp /> */}
     <Routes>
         <Route path="/" element={<Home />} />
@@ -25,7 +29,12 @@ const App = () => {
           <RequireAuth>
           <Dashboard />
           </RequireAuth>
-        } />
+           } />
+
+<Route path="/show" element={<ShowPosts />}/>
+<Route path="/create-post" element={<CreatePost />} />
+<Route path="/edit-post/:id" element={<EditPost />} />
+       
     </Routes>
 
     </BrowserRouter>
