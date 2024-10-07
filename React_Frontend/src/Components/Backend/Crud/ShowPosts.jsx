@@ -25,7 +25,7 @@ const ShowPosts = () => {
     const handleDelete = async (id) => {
         if (window.confirm("Are you sure you want to delete this post?")) {
             try {
-                await axios.delete(`/posts/delete/${id}`); // Updated URL
+                await axios.delete(`/posts/delete/${id}`); // Delete the post
                 fetchPosts(); // Refresh posts after deletion
             } catch (error) {
                 setError('Error deleting post'); // Set error message
@@ -35,7 +35,7 @@ const ShowPosts = () => {
     };
 
     const handleEdit = (id) => {
-        navigate(`/posts/edit/${id}`); // Redirect to edit page
+        navigate(`/edit-post/${id}`); // Redirect to edit page
     };
 
     useEffect(() => {
@@ -64,4 +64,3 @@ const ShowPosts = () => {
 };
 
 export default ShowPosts;
-

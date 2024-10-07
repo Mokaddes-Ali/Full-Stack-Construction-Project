@@ -12,7 +12,7 @@ const EditPost = () => {
 
     const fetchPost = async () => {
         try {
-            const response = await axios.get(`/posts/edit/${id}`);
+            const response = await axios.get(`/posts/${id}`); // Fetch the specific post
             setTitle(response.data.title);
             setContent(response.data.content);
         } catch (error) {
@@ -28,7 +28,7 @@ const EditPost = () => {
         try {
             await axios.put(`/posts/update/${id}`, { title, content });
             alert('Post updated successfully!');
-            navigate(`/posts/${id}`); // Redirect to the updated post page
+            navigate('/'); // Redirect to the posts list after update
         } catch (error) {
             setError('Error updating post');
             console.error('Error updating post', error);
@@ -40,7 +40,7 @@ const EditPost = () => {
     }, [id]);
 
     if (loading) return <p>Loading...</p>;
-    if (error) return <p>{error}</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
 
     return (
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white shadow-md rounded">
