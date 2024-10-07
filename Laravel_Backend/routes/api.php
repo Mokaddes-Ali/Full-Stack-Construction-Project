@@ -33,12 +33,12 @@ Route::post('updates', [UserController::class, 'update']);
 // Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/register', [AuthController::class, 'register']);
 
-Route::middleware(['auth:api'])->group(function () {
-    Route::get('/posts', [PostController::class, 'index']);
-    Route::post('/posts', [PostController::class, 'store']);
-    Route::get('/posts/{id}', [PostController::class, 'show']);
-    Route::put('/posts/{id}', [PostController::class, 'update']);
-    Route::delete('/posts/{id}', [PostController::class, 'destroy']);
-});
+
+    Route::get('posts', [PostController::class, 'index']);
+    Route::post('posts/create', [PostController::class, 'store']);
+    Route::get('posts/show/{id}', [PostController::class, 'show']);
+    Route::put('posts/update/{id}', [PostController::class, 'update']);
+    Route::delete('/posts/delete/{id}', [PostController::class, 'destroy']);
+
 
 
