@@ -21,6 +21,7 @@ class AuthenticationController extends Controller
             'status' => false,
             'errors' => $validator->errors(),
         ]);
+            //else
         } else{
             $credentials = [
                 'email' => $request->email,
