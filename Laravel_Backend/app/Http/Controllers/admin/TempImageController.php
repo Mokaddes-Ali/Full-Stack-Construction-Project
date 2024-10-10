@@ -6,6 +6,9 @@ use App\Models\TempImage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
 
 class TempImageController extends Controller
 {
@@ -32,6 +35,16 @@ class TempImageController extends Controller
             $model->name = $imageName;
             $model->save();
             $image->move(public_path('uploads/temp'), $imageName);
+
+            // create new image instance (800 x 600)
+            $sourcePath = public_path('uploads/temp'.$imageName);
+
+            $destPath = public_path('uploads/temp/thumbImage'.$imageName);
+            $manager = new ImageManager(Driver::class);
+            $image = $manager->read($sourcePath);
+            $image -> coverDown(200, 300);
+            $image -> save($destPath);
+
 
             return response()->json([
                 'status' => true,
