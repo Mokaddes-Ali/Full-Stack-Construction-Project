@@ -19,8 +19,13 @@ Route::post('register', [AuthenticationController::class, 'authenticate']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('logout', [AuthenticationController::class, 'logout']);
+
+
     Route::post('services',[ServicesController::class, 'store']);
     Route::get('services/show',[ServicesController::class, 'index']);
+    Route::put('services/update/{id}',[ServicesController::class, 'update']);
+
+
     Route::post('temp-image',[TempImageController::class, 'store']);
 
 
