@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\services;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\services;
 use Illuminate\Support\Facades\Validator;
 
 class ServicesController extends Controller
 {
     public function index()
     {
-        return view('admin.services.index');
+
+        $services = Services::orderBy('created_at', 'desc')->get();
+
+        return response()->json([
+            'status' => true,
+            'data' => $services
+        ]);
+
+
     }
 
 
@@ -20,33 +29,29 @@ class ServicesController extends Controller
         $validator = Validator::make($request->all(),[
             'title' => 'required',
             'slug' => 'required|unique:services,slug',
-            // 'short_desc' => 'required',
-            // 'content' => 'required',
-            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        // $imageName = time().'.'.$request->image->extension();
-        // $request->image->move(public_path('images'), $imageName);
-
 
 
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'error' => $validator->errors()
+                'errors' => $validator->errors()
             ]);
         }
 
         $model = new services();
         $model->title = $request->title;
         $model->short_desc = $request->short_desc;
-        $model->slug = $request->title;
+        $model->slug = Str::slug($request->slug) ;
         $model->content = $request->content;
         $model->status = $request->status;
         $model->save();
 
-        // return redirect()->route('admin.services.index')
-        //                 ->with('success','Service created successfully.');
+        return response()->json([
+            'status' => true,
+            'message' => 'Service added successfully'
+        ]);
+
     }
 
 }

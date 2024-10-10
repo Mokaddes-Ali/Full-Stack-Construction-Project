@@ -11,11 +11,13 @@ use App\Http\Controllers\admin\DashboardController;
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
 
+Route::post('services',[ServicesController::class, 'store']);
+Route::get('services/show',[ServicesController::class, 'index']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('logout', [AuthenticationController::class, 'logout']);
-    Route::post('services',[ServicesController::class, 'store']);
+
 
 });
 
@@ -42,12 +44,12 @@ Route::get('/user', function (Request $request) {
     // Route::put('/posts/update/{id}', [PostController::class, 'update']);
     // Route::delete('/posts/delete/{id}', [PostController::class, 'destroy']);
 
-    Route::get('posts', [PostController::class, 'index']); // Get all posts
-    Route::get('posts/show', [PostController::class, 'show']); // Show a specific post
-    Route::post('posts/create', [PostController::class, 'store']); // Create a new post
-    Route::get('posts/edit/{id}', [PostController::class, 'show']); // Get a specific post for editing
-    Route::put('posts/update/{id}', [PostController::class, 'update']); // Update a post
-    Route::delete('posts/delete/{id}', [PostController::class, 'destroy']); // Delete a post
+    // Route::get('posts', [PostController::class, 'index']); // Get all posts
+    // Route::get('posts/show', [PostController::class, 'show']); // Show a specific post
+    // Route::post('posts/create', [PostController::class, 'store']); // Create a new post
+    // Route::get('posts/edit/{id}', [PostController::class, 'show']); // Get a specific post for editing
+    // Route::put('posts/update/{id}', [PostController::class, 'update']); // Update a post
+    // Route::delete('posts/delete/{id}', [PostController::class, 'destroy']); // Delete a post
 
 
 
