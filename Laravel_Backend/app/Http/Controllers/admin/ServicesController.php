@@ -7,11 +7,12 @@ use App\Models\TempImage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
-
 use function Symfony\Component\Clock\now;
+
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class ServicesController extends Controller
 {
@@ -129,6 +130,8 @@ class ServicesController extends Controller
         //save temp image
 
         if ($request->imageId > 0) {
+             $oldImage = $service->image;
+
             $tempImage = TempImage::find($request->imageId);
             if ($tempImage != null) {
                 $extArray = explode('.',$tempImage->name);
@@ -154,9 +157,16 @@ class ServicesController extends Controller
                        $image -> scaleDown(1200);
                        $image -> save($destPath);
 
+                       $service->image = $fileName;
+                       $service->save();
+
+                       if ($oldImage != '') {
+                            File::delete(public_path('uploads/services/small/'.$oldImage));
+                            File::delete(public_path('uploads/services/large/'.$oldImage));
+                         }
+
+                       }
             }
-           ;
-        }
 
         return response()->json([
             'status' => true,
