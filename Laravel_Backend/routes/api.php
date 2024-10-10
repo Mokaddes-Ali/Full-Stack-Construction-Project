@@ -11,12 +11,15 @@ use App\Http\Controllers\admin\DashboardController;
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
 
-Route::post('services',[ServicesController::class, 'store']);
-Route::get('services/show',[ServicesController::class, 'index']);
+
+
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('logout', [AuthenticationController::class, 'logout']);
+    Route::post('services',[ServicesController::class, 'store']);
+Route::get('services/show',[ServicesController::class, 'index']);
 
 
 });
