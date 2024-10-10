@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\admin\ServicesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\TempImageController;
 
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
@@ -19,7 +20,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('logout', [AuthenticationController::class, 'logout']);
     Route::post('services',[ServicesController::class, 'store']);
-Route::get('services/show',[ServicesController::class, 'index']);
+    Route::get('services/show',[ServicesController::class, 'index']);
+    Route::post('temp-image',[TempImageController::class, 'store']);
 
 
 });
