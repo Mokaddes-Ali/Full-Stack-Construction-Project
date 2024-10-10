@@ -37,9 +37,10 @@ class TempImageController extends Controller
             $image->move(public_path('uploads/temp'), $imageName);
 
             // create new image instance (800 x 600)
-            $sourcePath = public_path('uploads/temp'.$imageName);
 
-            $destPath = public_path('uploads/temp/thumbImage/'.$imageName);
+            $sourcePath = public_path('uploads/temp/'.$imageName);
+
+            $destPath = public_path('uploads/temp/thumb/'.$imageName);
             $manager = new ImageManager(Driver::class);
             $image = $manager->read($sourcePath);
             $image -> coverDown(200, 300);
