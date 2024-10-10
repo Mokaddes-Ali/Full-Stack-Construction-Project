@@ -53,6 +53,44 @@ class ServicesController extends Controller
         $model->status = $request->status;
         $model->save();
 
+        //save temp image
+
+        if ($request->imageId > 0) {
+
+           $tempImage = TempImage::find($request->imageId);
+           if ($tempImage != null) {
+               $extArray = explode('.',$tempImage->name);
+               $ext = last($extArray);
+
+               $fileName = strtotime('now').$model->id.'.'.$ext;
+
+                // create new image instance (800 x 600)
+
+                     $sourcePath = public_path('uploads/temp/'.$tempImage->name);
+
+                      $destPath = public_path('uploads/services/small/'.$fileName);
+                      $manager = new ImageManager(Driver::class);
+                      $image = $manager->read($sourcePath);
+                      $image -> coverDown(500, 600);
+                      $image -> save($destPath);
+
+                      //large
+
+                      $destPath = public_path('uploads/services/large/'.$fileName);
+                      $manager = new ImageManager(Driver::class);
+                      $image = $manager->read($sourcePath);
+                      $image -> scaleDown(1200);
+                      $image -> save($destPath);
+
+                      $model->image = $fileName;
+                      $model->save();
+
+
+                      }
+           }
+
+
+
         return response()->json([
             'status' => true,
             'message' => 'Service added successfully'
