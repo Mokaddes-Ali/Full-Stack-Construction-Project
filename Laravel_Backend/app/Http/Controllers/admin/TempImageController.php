@@ -10,6 +10,7 @@ use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 
 
+
 class TempImageController extends Controller
 {
     public function store(Request $request)

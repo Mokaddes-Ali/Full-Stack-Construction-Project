@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\services;
+use App\Models\TempImage;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+
+use function Symfony\Component\Clock\now;
 
 class ServicesController extends Controller
 {
@@ -120,6 +125,38 @@ class ServicesController extends Controller
         $service->content = $request->content;
         $service->status = $request->status;
         $service->save();
+
+        //save temp image
+
+        if ($request->imageId > 0) {
+            $tempImage = TempImage::find($request->imageId);
+            if ($tempImage != null) {
+                $extArray = explode('.',$tempImage->name);
+                $ext = last($extArray);
+
+                $fileName = strtotime('now').$service->id.'.'.$ext;
+
+                 // create new image instance (800 x 600)
+
+                      $sourcePath = public_path('uploads/temp/'.$tempImage->name);
+
+                       $destPath = public_path('uploads/services/small/'.$fileName);
+                       $manager = new ImageManager(Driver::class);
+                       $image = $manager->read($sourcePath);
+                       $image -> coverDown(500, 600);
+                       $image -> save($destPath);
+
+                       //large
+
+                       $destPath = public_path('uploads/services/large/'.$fileName);
+                       $manager = new ImageManager(Driver::class);
+                       $image = $manager->read($sourcePath);
+                       $image -> scaleDown(1200);
+                       $image -> save($destPath);
+
+            }
+           ;
+        }
 
         return response()->json([
             'status' => true,
