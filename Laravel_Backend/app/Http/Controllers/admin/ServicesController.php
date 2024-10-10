@@ -54,12 +54,25 @@ class ServicesController extends Controller
 
     }
 
+   public function show($id)
+   {
+        $service = Services::find($id);
+
+        if ($service === null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Service not found'
+            ]);
+        }
+        return response()->json([
+            'status' => true,
+            'data' => $service
+        ]);
+    }
 
 
 
-
-    public function edit($id)
-    {
+    public function edit($id){
         // $service = Services::find($id);
 
         // if ($service) {
@@ -73,6 +86,7 @@ class ServicesController extends Controller
         //         'message' => 'Service not found'
         //     ]);
         // }
+
     }
 
     public function update(Request $request, $id)
@@ -116,20 +130,21 @@ class ServicesController extends Controller
 
     public function destroy($id)
     {
-        // $service = Services::find($id);
+        $service = Services::find($id);
 
-        // if ($service) {
-        //     $service->delete();
-        //     return response()->json([
-        //         'status' => true,
-        //         'message' => 'Service deleted successfully'
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'status' => false,
-        //         'message' => 'Service not found'
-        //     ]);
-        // }
+        if ($service == null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Service not found'
+            ]);
     }
 
+    $service->delete();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Service deleted successfully'
+    ]);
+
+}
 }
