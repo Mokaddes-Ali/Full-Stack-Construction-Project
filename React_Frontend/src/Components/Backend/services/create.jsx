@@ -1,54 +1,59 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { apiUrl, token } from '../../http';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import JoditEditor from 'jodit-react';
 
+const CreateService = ({ placeholder }) => { // Destructure placeholder from props
+  const editor = useRef(null);
+  const [content, setContent] = useState('');
 
-const CreateService = () => {
-
+  const config = useMemo(() => ({
+    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
+    placeholder: placeholder || 'Content', // Default placeholder
+  }), [placeholder]);
 
   const {
     register,
-    handleSubmit,watch,
+    handleSubmit,
     formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
 
- 
-    
-
   const onSubmit = async (data) => {
-    // console.log(data);
-  
+    const newData = { ...data, content }; // Simplified content assignment
+
+    try {
       const res = await fetch(apiUrl + 'services/store', {
         method: 'POST',
         headers: {
-          'Content-type': 'application/json',
+          'Content-Type': 'application/json',
           Accept: 'application/json',
           Authorization: `Bearer ${token()}`,
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(newData),
       });
 
       const result = await res.json();
-        // console.log(result);
-        if (result.status == true) {
-            toast.success(result.message);
-            navigate('admin/services');
 
-            } else {
-            toast.error(result.message);
-            }
-}
-  
+      if (result.status === true) {
+        toast.success(result.message);
+        navigate('admin/services');
+      } else {
+        toast.error(result.message);
+      }
+    } catch (error) {
+      toast.error('An error occurred while submitting the form.');
+      console.error(error); // Log the error for debugging
+    }
+  };
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Add New Service
@@ -67,9 +72,7 @@ const CreateService = () => {
                 type="text"
                 {...register('title', { required: 'Service Name is required' })}
                 placeholder='Service Name'
-                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                  errors.title ? 'ring-red-500 focus:ring-red-500' : ''
-                }`}
+                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.title ? 'ring-red-500 focus:ring-red-500' : ''}`}
               />
               {errors.title && (
                 <span className="text-sm text-red-600">{errors.title.message}</span>
@@ -86,9 +89,7 @@ const CreateService = () => {
               <textarea
                 {...register('short_desc', { required: 'Description is required' })}
                 placeholder='Description'
-                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                  errors.short_desc ? 'ring-red-500 focus:ring-red-500' : ''
-                }`}
+                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.short_desc ? 'ring-red-500 focus:ring-red-500' : ''}`}
               />
               {errors.short_desc && (
                 <span className="text-sm text-red-600">{errors.short_desc.message}</span>
@@ -102,16 +103,14 @@ const CreateService = () => {
               Content
             </label>
             <div className="mt-2">
-              <textarea
-                {...register('content', { required: 'Content is required' })}
-                placeholder='Content'
-                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                  errors.content ? 'ring-red-500 focus:ring-red-500' : ''
-                }`}
+              <JoditEditor
+                ref={editor}
+                value={content}
+                config={config}
+                tabIndex={1} // tabIndex of textarea
+                onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
+                onChange={newContent => {}} // This can be omitted if not used
               />
-              {errors.content && (
-                <span className="text-sm text-red-600">{errors.content.message}</span>
-              )}
             </div>
           </div>
 
@@ -125,9 +124,7 @@ const CreateService = () => {
                 type="text"
                 {...register('slug', { required: 'Slug is required' })}
                 placeholder='Slug'
-                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
-                  errors.slug ? 'ring-red-500 focus:ring-red-500' : ''
-                }`}
+                className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${errors.slug ? 'ring-red-500 focus:ring-red-500' : ''}`}
               />
               {errors.slug && (
                 <span className="text-sm text-red-600">{errors.slug.message}</span>
