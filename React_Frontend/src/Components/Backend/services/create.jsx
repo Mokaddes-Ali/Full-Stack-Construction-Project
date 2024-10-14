@@ -1,14 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 import { apiUrl, token } from '../../http';
 
 
 const CreateService = () => {
 
-  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,watch,
@@ -20,7 +19,7 @@ const CreateService = () => {
 
   const onSubmit = async (data) => {
     // console.log(data);
-    try {
+  
       const res = await fetch(apiUrl + 'services/store', {
         method: 'POST',
         headers: {
@@ -32,18 +31,12 @@ const CreateService = () => {
       });
 
       const result = await res.json();
-    //   console.log('API Result:', result); // Checking the response in console
-
-      // Assuming the data is in result.data
-      onSubmit(result.data || result);  // Adjust based on your API response structure
-    } catch (error) {
-      console.error('Error fetching services:', error);  // Log errors
-    }
+        console.log(result);
   };
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-      <ToastContainer />
+
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Add New Service
@@ -134,8 +127,8 @@ const CreateService = () => {
                 {...register('status', { required: 'Status is required' })}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               >
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
               </select>
               {errors.status && (
                 <span className="text-sm text-red-600">{errors.status.message}</span>
