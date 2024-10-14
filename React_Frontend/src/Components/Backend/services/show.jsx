@@ -1,92 +1,100 @@
-import  {useEffect, useState} from 'react'
-import { apiUrl, token } from '../../http';
+import{useState, useEffect} from 'react'
+import { apiUrl,token } from '../../http';
 
 const show = () => {
 
-    const [services, setServices] = useState([]);
+  const [services, setServices] = useState([]);
 
-    const fetchServices = async () => {
-
-        const res = await fetch(apiUrl+'services',
-        {
-            method: 'GET',
-            headers: 
-            {
-                'Content-type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-
-            }
-        });
-
-        const result = await res.json();
-        console.log(result);
+  const fetchServices = async () => {
+    const res = await fetch(apiUrl+'services',{
+      'method': 'GET', 
+      'headers': {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token()}`
     }
+    
+  });
 
-    useEffect(() => {
-        fetchServices();
-    });
+  const result = await res.json();
+  console.log(result);
+}
+
+useEffect(() => {
+  fetchServices();
+});
+
   return (
     <>
-     <div className="flex h-screen">
+
+<div className="flex h-screen">
       {/* Sidebar */}
       <div className="w-64 bg-gray-800 text-white p-4">
-        <h1 className="text-xl font-bold">My Sidebar</h1>
-        <ul className="mt-4">
-          <li className="py-2 hover:bg-gray-700 cursor-pointer">Home</li>
-          <li className="py-2 hover:bg-gray-700 cursor-pointer">About</li>
-          <li className="py-2 hover:bg-gray-700 cursor-pointer">Services</li>
-          <li className="py-2 hover:bg-gray-700 cursor-pointer">Contact</li>
+        <h2 className="text-2xl font-bold mb-8">Sidebar</h2>
+        <ul>
+          <li className="mb-4 hover:text-yellow-500">
+            <a href="#">Dashboard</a>
+          </li>
+          <li className="mb-4 hover:text-yellow-500">
+            <a href="#">Services</a>
+          </li>
+          <li className="mb-4 hover:text-yellow-500">
+            <a href="#">Analytics</a>
+          </li>
+          <li className="mb-4 hover:text-yellow-500">
+            <a href="#">Settings</a>
+          </li>
         </ul>
       </div>
 
-      {/* Main Content */}
+      {/* Main content */}
       <div className="flex-1 flex flex-col">
         {/* Topbar */}
-        <div className="bg-gray-900 text-white p-4 flex justify-between items-center">
-          <h1 className="text-2xl">My Topbar</h1>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">
-            Logout
-          </button>
+        <div className="bg-gray-100 p-4 shadow-md">
+          <div className="flex justify-between">
+            <h1 className="text-2xl font-semibold">Topbar</h1>
+            <div>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Profile</button>
+              <button className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-red-600">Logout</button>
+            </div>
+          </div>
         </div>
 
-        {/* Content Area */}
-        <div className="flex-1 p-4 overflow-auto">
-          <h2 className="text-xl font-bold mb-4">My Table</h2>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">
-            Create
-          </button>
-          <div className="overflow-x-auto">
-            <table className="min-w-full bg-white border border-gray-300">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="py-2 px-4 border-b border-gray-300">ID</th>
-                  <th className="py-2 px-4 border-b border-gray-300">Name</th>
-                  <th className="py-2 px-4 border-b border-gray-300">Slug</th>
-                  <th className="py-2 px-4 border-b border-gray-300">Status</th>
-                  <th className="py-2 px-4 border-b border-gray-300">Action</th>
+        {/* Table Content */}
+        <div className="p-4 flex-1 bg-gray-50">
+          <h2 className="text-xl font-bold mb-4">Service Table</h2>
+          <table className="min-w-full bg-white border border-gray-300">
+            <thead>
+              <tr className="bg-gray-200 text-left">
+                <th className="py-2 px-4 border-b">ID</th>
+                <th className="py-2 px-4 border-b">Name</th>
+                <th className="py-2 px-4 border-b">Slug</th>
+                <th className="py-2 px-4 border-b">Status</th>
+                <th className="py-2 px-4 border-b">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
 
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="hover:bg-gray-100">
-                  <td className="py-2 px-4 border-b border-gray-300">1</td>
-                  <td className="py-2 px-4 border-b border-gray-300">Alice</td>
-                  <td className="py-2 px-4 border-b border-gray-300">alice@example.com</td>
-                  <td className="py-2 px-4 border-b border-gray-300">Active</td>
-                    <td className="py-2 px-4 border-b border-gray-300">
-                        <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded">
-                        Edit
-                        </button>
-                        <button className="bg-red-500 hover:bg-red-600 text-white py-1 px-4 rounded">
-                        Delete
-                        </button>
-                    </td>
-                </tr>
-                {/* Add more rows as needed */}
-              </tbody>
-            </table>
-          </div>
+            {
+  services && services.map((service) => {
+    return (
+      <tr className="border-b" key={service.id}>
+        <td className="py-2 px-4">{service.id}</td>
+        <td className="py-2 px-4">{service.name}</td>
+        <td className="py-2 px-4">{service.slug}</td>
+        <td className="py-2 px-4">{service.status}</td>
+        <td className="py-2 px-4">
+          <button className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 mr-2">Edit</button>
+          <button className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">Delete</button>
+        </td>
+      </tr>
+    );
+  })
+}
+
+    
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
