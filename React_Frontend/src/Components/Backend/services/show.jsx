@@ -12,7 +12,7 @@ const show = () => {
             method: 'GET',
             headers: 
             {
-                'Content-Type': 'application/json',
+                'Content-type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': `Bearer ${token}`
 
@@ -25,7 +25,7 @@ const show = () => {
 
     useEffect(() => {
         fetchServices();
-    }, []);
+    });
   return (
     <>
      <div className="flex h-screen">
