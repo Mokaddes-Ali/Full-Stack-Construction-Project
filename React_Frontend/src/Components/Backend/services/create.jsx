@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { apiUrl, token } from '../../http';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 const CreateService = () => {
@@ -13,6 +15,8 @@ const CreateService = () => {
     handleSubmit,watch,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
 
  
     
@@ -31,8 +35,16 @@ const CreateService = () => {
       });
 
       const result = await res.json();
-        console.log(result);
-  };
+        // console.log(result);
+        if (result.status == true) {
+            toast.success(result.message);
+            navigate('admin/services');
+
+            } else {
+            toast.error(result.message);
+            }
+}
+  
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -54,6 +66,7 @@ const CreateService = () => {
               <input
                 type="text"
                 {...register('title', { required: 'Service Name is required' })}
+                placeholder='Service Name'
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                   errors.title ? 'ring-red-500 focus:ring-red-500' : ''
                 }`}
@@ -72,6 +85,7 @@ const CreateService = () => {
             <div className="mt-2">
               <textarea
                 {...register('short_desc', { required: 'Description is required' })}
+                placeholder='Description'
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                   errors.short_desc ? 'ring-red-500 focus:ring-red-500' : ''
                 }`}
@@ -90,6 +104,7 @@ const CreateService = () => {
             <div className="mt-2">
               <textarea
                 {...register('content', { required: 'Content is required' })}
+                placeholder='Content'
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                   errors.content ? 'ring-red-500 focus:ring-red-500' : ''
                 }`}
@@ -109,6 +124,7 @@ const CreateService = () => {
               <input
                 type="text"
                 {...register('slug', { required: 'Slug is required' })}
+                placeholder='Slug'
                 className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 ${
                   errors.slug ? 'ring-red-500 focus:ring-red-500' : ''
                 }`}
