@@ -14,6 +14,7 @@ import CreatePost from './Components/Backend/Crud/CreatePost';
 import ShowPosts from './Components/Backend/Crud/ShowPosts';
 import EditPost from './Components/Backend/Crud/EditPost';
 import {default as ShowServices} from './Components/Backend/services/show';
+import {default as CreateServices} from './Components/Backend/services/create';
 const App = () => {
   return (
     <>
@@ -36,6 +37,14 @@ const App = () => {
           <ShowServices />
           </RequireAuth>
            } />
+
+<Route path="/admin/services/create" element={
+          <RequireAuth>
+        <CreateServices />
+          </RequireAuth>
+           } />
+
+      
 
 <Route path="/show" element={<ShowPosts />}/>
 <Route path="/create-post" element={<CreatePost />} />

@@ -1,33 +1,39 @@
-import{useState, useEffect} from 'react'
-import { apiUrl,token } from '../../http';
+import { useState, useEffect } from 'react';
+import { apiUrl, token } from '../../http';
+import { Link } from 'react-router-dom';
 
-const show = () => {
-
+const Show = () => {
   const [services, setServices] = useState([]);
 
+  // Fetch services from the API
   const fetchServices = async () => {
-    const res = await fetch(apiUrl+'services',{
-      'method': 'GET', 
-      'headers': {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token()}`
+    try {
+      const res = await fetch(apiUrl + 'services', {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token()}`,
+        },
+      });
+
+      const result = await res.json();
+      console.log('API Result:', result); // Checking the response in console
+
+      // Assuming the data is in result.data
+      setServices(result.data || result);  // Adjust based on your API response structure
+    } catch (error) {
+      console.error('Error fetching services:', error);  // Log errors
     }
-    
-  });
+  };
 
-  const result = await res.json();
-  console.log(result);
-}
-
-useEffect(() => {
-  fetchServices();
-});
+  // Fetch services when component mounts
+  useEffect(() => {
+    fetchServices();
+  }, []);
 
   return (
-    <>
-
-<div className="flex h-screen">
+    <div className="flex h-screen">
       {/* Sidebar */}
       <div className="w-64 bg-gray-800 text-white p-4">
         <h2 className="text-2xl font-bold mb-8">Sidebar</h2>
@@ -54,8 +60,10 @@ useEffect(() => {
           <div className="flex justify-between">
             <h1 className="text-2xl font-semibold">Topbar</h1>
             <div>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Profile</button>
-              <button className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-red-600">Logout</button>
+            <Link to="/admin/services/create" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Create</Link>
+              <button className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-red-600">
+                Logout
+              </button>
             </div>
           </div>
         </div>
@@ -68,39 +76,45 @@ useEffect(() => {
               <tr className="bg-gray-200 text-left">
                 <th className="py-2 px-4 border-b">ID</th>
                 <th className="py-2 px-4 border-b">Name</th>
+                <th className="py-2 px-4 border-b">Description</th>
                 <th className="py-2 px-4 border-b">Slug</th>
                 <th className="py-2 px-4 border-b">Status</th>
                 <th className="py-2 px-4 border-b">Actions</th>
               </tr>
             </thead>
             <tbody>
-
-            {
-  services && services.map((service) => {
-    return (
-      <tr className="border-b" key={service.id}>
-        <td className="py-2 px-4">{service.id}</td>
-        <td className="py-2 px-4">{service.name}</td>
-        <td className="py-2 px-4">{service.slug}</td>
-        <td className="py-2 px-4">{service.status}</td>
-        <td className="py-2 px-4">
-          <button className="bg-green-500 text-white px-4 py-1 rounded hover:bg-green-600 mr-2">Edit</button>
-          <button className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600">Delete</button>
-        </td>
-      </tr>
-    );
-  })
-}
-
-    
+              {/* Check if services exist and map through them */}
+              {services && services.map((service) => (
+                <tr key={service.id} className="bg-gray-100 text-left">
+                  <td className="py-2 px-4 border-b">{service.id}</td>
+                  <td className="py-2 px-4 border-b">{service.title}</td>
+                  <td className="py-2 px-4 border-b">{service.short_desc}</td>
+                  <td className="py-2 px-4 border-b">{service.slug}</td>
+                  <td className="py-2 px-4 border-b">
+  <span
+    className={`px-2 py-1 rounded-full text-white ${
+      service.status === 'active' ? 'bg-green-500' : 'bg-red-500'
+    }`}
+  >
+    {service.status === 'active' ? 'Active' : 'Inactive'}
+  </span>
+</td>
+                  <td className="py-2 px-4 border-b">
+                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+                      Edit
+                    </button>
+                    <button className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-red-600">
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
       </div>
     </div>
-    
-    </>
-  )
-}
+  );
+};
 
-export default show
+export default Show;
