@@ -39,7 +39,7 @@ const Login = () => {
         }
         localStorage.setItem('userInfo', JSON.stringify(userInfo));
         login(userInfo);   
-        navigate('admin/dashboard'); 
+        navigate('/logindashboard'); 
         
       }
   };
