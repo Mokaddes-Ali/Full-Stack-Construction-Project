@@ -15,6 +15,7 @@ import ShowPosts from './Components/Backend/Crud/ShowPosts';
 import EditPost from './Components/Backend/Crud/EditPost';
 import {default as ShowServices} from './Components/Backend/services/show';
 import {default as CreateServices} from './Components/Backend/services/create';
+import AppRoute from './Routes/RouteApp';
 const App = () => {
   return (
     <>
@@ -58,6 +59,7 @@ const App = () => {
     position="top-center"
     
     /> {/* Toast container for showing notifications */}
+    <AppRoute />
     
     </>
   )

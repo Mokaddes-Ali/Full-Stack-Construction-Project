@@ -81,25 +81,25 @@
 
 import{ useState } from 'react';
 import { BrowserRouter ,Route, Routes } from 'react-router-dom';
-import Sidebar from '../Components/Sidebar';
-import Topbar from '../Components/Topbar';
-import { ColorProvider } from '../context/ColorContext';
-import Dashboard from '../Pages/Dashboard';
-import Settings from '../Pages/Settings';
-import SettingsProfile from '../Pages/SettingsProfile';
-import SettingsAccount from '../Pages/SettingsAccount';
-import Users from '../Pages/Users';
-import UsersList from '../Pages/UsersList';
-import UsersRoles from '../Pages/UsersRoles';
-import Courses from '../Pages/Courses';
-import CoursesList from '../Pages/CoursesList';
-import CoursesCategories from '../Pages/CoursesCategories';
-import Products from '../Pages/Products';
-import ProductsList from '../Pages/ProductsList';
-import ProductsCategories from '../Pages/ProductsCategories';
-import More from '../Pages/More';
-import Reports from '../Pages/Reports';
-import MoreSettings from '../Pages/MoreSettings';
+import Sidebar from '../Components/AdminDashboard/Sidebar';
+import Topbar from '../Components/AdminDashboard/Topbar';
+import { ColorProvider } from '../Components/AdminDashboard/context/ColorContext';
+import Dashboard from '../Pages/AdminPages/Dashboard';
+import Settings from '../Pages/AdminPages/Settings';
+import SettingsProfile from '../Pages/AdminPages/SettingsProfile';
+import SettingsAccount from '../Pages/AdminPages/SettingsAccount';
+import Users from '../Pages/AdminPages/Users';
+import UsersList from '../Pages/AdminPages/UsersList';
+import UsersRoles from '../Pages/AdminPages/UsersRoles';
+import Courses from '../Pages/AdminPages/Courses';
+import CoursesList from '../Pages/AdminPages/CoursesList';
+import CoursesCategories from '../Pages/AdminPages/CoursesCategories';
+import Products from '../Pages/AdminPages/Products';
+import ProductsList from '../Pages/AdminPages/ProductsList';
+import ProductsCategories from '../Pages/AdminPages/ProductsCategories';
+import More from '../Pages/AdminPages/More';
+import Reports from '../Pages/AdminPages/Reports';
+import MoreSettings from '../Pages/AdminPages/MoreSettings';
 
       
 
