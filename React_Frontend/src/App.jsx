@@ -81,7 +81,7 @@ const App = () => {
        <Route path="/logindashboard" element={
         <RequireAuth><LayoutRoute /> </RequireAuth>}>
         {/* All the nested routes will render inside the AdminLayout */}
-        <Route index element={ <RequireAuth><Dashboard /> </RequireAuth>} />
+        <Route index element={ <Dashboard />} />
         <Route path="settings" element={<Settings /> } />
         <Route path="settings/profile" element={<RequireAuth> <SettingsProfile /> </RequireAuth>} />
         <Route path="settings/account" element={<RequireAuth> <SettingsAccount /> </RequireAuth>} />
