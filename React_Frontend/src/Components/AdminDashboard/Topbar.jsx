@@ -4,7 +4,7 @@ import { MdDarkMode, MdLightMode,MdMenu } from 'react-icons/md';
 import { AiOutlineClose } from 'react-icons/ai';
 import { TfiAlignRight,TfiAlignLeft } from "react-icons/tfi";
 import { FaExpand, FaCompress } from 'react-icons/fa';
-import { useColor } from '../context/ColorContext';
+import { useColor } from '../AdminDashboard/context/ColorContext';
 import ThemeControl from './ThemeControl';
 import { CiMenuBurger } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
