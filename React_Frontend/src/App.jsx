@@ -78,14 +78,15 @@ const App = () => {
 
 
 
-       <Route path="/logindashboard" element={<LayoutRoute />}>
+       <Route path="/logindashboard" element={
+        <RequireAuth><LayoutRoute /> </RequireAuth>}>
         {/* All the nested routes will render inside the AdminLayout */}
-        <Route index element={<Dashboard />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="settings/profile" element={<SettingsProfile />} />
-        <Route path="settings/account" element={<SettingsAccount />} />
-        <Route path="users" element={<Users />} />
-        <Route path="users/list" element={<UsersList />} />
+        <Route index element={ <RequireAuth><Dashboard /> </RequireAuth>} />
+        <Route path="settings" element={<Settings /> } />
+        <Route path="settings/profile" element={<RequireAuth> <SettingsProfile /> </RequireAuth>} />
+        <Route path="settings/account" element={<RequireAuth> <SettingsAccount /> </RequireAuth>} />
+        <Route path="users" element={<RequireAuth> <Users /> </RequireAuth>} />
+        <Route path="users/list" element={<RequireAuth> <UsersList /> </RequireAuth>} />
         <Route path="users/roles" element={<UsersRoles />} />
         <Route path="courses" element={<Courses />} />
         <Route path="courses/list" element={<CoursesList />} />
