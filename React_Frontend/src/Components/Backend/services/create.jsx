@@ -10,6 +10,7 @@ import JoditEditor from 'jodit-react';
 const CreateService = ({ placeholder }) => { // Destructure placeholder from props
   const editor = useRef(null);
   const [content, setContent] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const config = useMemo(() => ({
     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
@@ -51,6 +52,30 @@ const CreateService = ({ placeholder }) => { // Destructure placeholder from pro
       console.error(error); // Log the error for debugging
     }
   };
+
+  const handleFile = async (e) => {
+    const formData = new FormData();
+    const file = e.target.files[0];
+    formData.append('image', file);
+
+    await fetch(apiUrl + 'services/upload', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token()}`
+      },
+      body: formData
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result.status == false) {
+          toast.error(result.errors.image);
+        } else {
+          toast.success(result.message);
+        }
+      })
+
+
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -131,6 +156,13 @@ const CreateService = ({ placeholder }) => { // Destructure placeholder from pro
               )}
             </div>
           </div>
+    {/* // Service Image */}
+          <div>
+            <label className="block text-sm font-medium leading-6 text-gray-900">Service Image</label>
+            <br />
+            <input onChange={handleFile} type="file" className="" />
+
+          </div>
 
           {/* Status */}
           <div>
@@ -152,7 +184,7 @@ const CreateService = ({ placeholder }) => { // Destructure placeholder from pro
           {/* Submit Button */}
           <div>
             <button
-              type="submit"
+              type="submit" disabled={isDisabled}
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Add Service
