@@ -11,6 +11,7 @@ const CreateService = ({ placeholder }) => { // Destructure placeholder from pro
   const editor = useRef(null);
   const [content, setContent] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
+  const [imageId, setImageId] = useState(null);
 
   const config = useMemo(() => ({
     readonly: false, // all options from https://xdsoft.net/jodit/docs/,
@@ -71,9 +72,11 @@ const CreateService = ({ placeholder }) => { // Destructure placeholder from pro
         if (result.status == false) {
           toast.error(result.errors.image);
         } else {
+          setImageId(result.id);
           toast.success(result.message);
         }
       })
+    }
 
 
 
