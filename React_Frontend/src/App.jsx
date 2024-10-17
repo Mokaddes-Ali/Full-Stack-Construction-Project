@@ -99,7 +99,6 @@ const App = () => {
         <Route path="more/settings" element={<MoreSettings />} />
       </Route>
 
-
        
     </Routes>
 
