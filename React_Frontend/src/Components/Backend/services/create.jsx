@@ -1,21 +1,21 @@
 import { useState, useRef, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-
 import 'react-toastify/dist/ReactToastify.css';
 import { apiUrl, token } from '../../http';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
 
-const CreateService = ({ placeholder }) => { // Destructure placeholder from props
+
+const CreateService = ({ placeholder }) => { 
   const editor = useRef(null);
   const [content, setContent] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
   const [imageId, setImageId] = useState(null);
 
   const config = useMemo(() => ({
-    readonly: false, // all options from https://xdsoft.net/jodit/docs/,
-    placeholder: placeholder || 'Content', // Default placeholder
+    readonly: false, 
+    placeholder: placeholder || 'Content', 
   }), [placeholder]);
 
   const {
@@ -27,7 +27,7 @@ const CreateService = ({ placeholder }) => { // Destructure placeholder from pro
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    const newData = { ...data, content }; // Simplified content assignment
+    const newData = { ...data, content };
 
     try {
       const res = await fetch(apiUrl + 'services/store', {
