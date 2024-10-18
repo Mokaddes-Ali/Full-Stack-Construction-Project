@@ -89,10 +89,10 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen1 && (
       <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
-        <NavLink to="logindashboard/create-post" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/create-post" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Profile Settings
         </NavLink>
-        <NavLink to="logindashboard/settings/account" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/settings/account" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Account Settings
         </NavLink>
       </div>
@@ -122,10 +122,10 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen2 && (
       <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
-        <NavLink to="logindashboard/users/list" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/users/list" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           User List
         </NavLink>
-        <NavLink to="logindashboard/users/roles" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/users/roles" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           User Roles
         </NavLink>
       </div>
@@ -155,10 +155,10 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen3 && (
       <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
-        <NavLink to="logindashboard/courses/list" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/courses/list" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Course List
         </NavLink>
-        <NavLink to="logindashboard/courses/categories" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/courses/categories" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Course Categories
         </NavLink>
       </div>
@@ -188,10 +188,10 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen4 && (
       <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
-        <NavLink to="logindashboard/products/list" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/products/list" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Product List
         </NavLink>
-        <NavLink to="logindashboard/products/categories" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/products/categories" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Product Categories
         </NavLink>
       </div>
@@ -221,10 +221,10 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen5 && (
       <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
-        <NavLink to="logindashboard/more/reports" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/more/reports" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Reports
         </NavLink>
-        <NavLink to="logindashboard/more/settings" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="/more/settings" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           More Settings
         </NavLink>
       </div>
