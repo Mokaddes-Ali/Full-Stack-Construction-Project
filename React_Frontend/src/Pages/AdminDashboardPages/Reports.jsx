@@ -1,5 +1,4 @@
-
-import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
+import AdminLayout from '../../layouts/AdminLayout';
 
 export const Reports = () => {
   return (

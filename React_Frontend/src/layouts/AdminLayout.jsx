@@ -1,6 +1,6 @@
-// layouts/AdminLayout.js
-import Sidebar from '../Sidebar';
-import Topbar from '../Topbar';
+
+import Sidebar from '../Components/AdminDashboard/Sidebar';
+import Topbar from '../Components/AdminDashboard/Topbar';
 import { useState } from 'react';
 
 const AdminLayout = ({ children }) => {

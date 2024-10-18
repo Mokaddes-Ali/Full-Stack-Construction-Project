@@ -1,5 +1,4 @@
-import { Routes, Route } from '@angular/router';"react-router-dom"
-
+import { Routes, Route } from "react-router-dom";
 import Login from "../Components/Backend/login";
 
 
