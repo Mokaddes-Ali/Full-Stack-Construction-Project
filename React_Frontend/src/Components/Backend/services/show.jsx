@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { apiUrl, token } from '../../http';
 import { Link } from 'react-router-dom';
-import AdminLayout from '../../AdminDashboard/layouts/AdminLayout';
+import AdminLayout from '../../../layouts/AdminLayout';
+
 
 const Show = () => {
   const [services, setServices] = useState([]);
