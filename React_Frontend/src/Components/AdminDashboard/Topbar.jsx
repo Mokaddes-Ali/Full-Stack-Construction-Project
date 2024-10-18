@@ -86,13 +86,10 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
   return (
     <>
     <div className="flex items-center  justify-between p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
-      {/* Mobile Sidebar Toggle Button */}
-      <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
+    <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
         <MdMenu className="h-6 w-6" />
       </button>
-      {/* Large Screen Sidebar Toggle Button */}
       <button onClick={toggleLargeScreenSidebar} className="hidden ml-4 md:flex focus:outline-none">
-        {/* Icon change based on Sidebar state */}
         {isLargeScreenOpen ? (
           <TfiAlignRight className="h-7 w-7 hover:text-blue-700" />
         ) : (
