@@ -53,38 +53,38 @@ const App = () => {
 
             <Route path="/admin/services"element={
               <RequireAuth><ShowServices /></RequireAuth>} />
-
             <Route path="/admin/services/create" element={
               <RequireAuth><CreateServices /></RequireAuth>}/>
 
             <Route path="/show" element={<ShowPosts />} />
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/edit-post/:id" element={<EditPost />} />
-            <Route
-              path="create-post"
-              element={
-                <RequireAuth><CreateServices />
-                </RequireAuth>
-              }
-            />
-            <Route
-              path="settings/account"
-              element={
+            <Route path="create-post" element={
+                <RequireAuth><CreateServices /></RequireAuth> }/>
+            <Route path="settings/account" element={
                 <RequireAuth>
-                  {" "}
-                  <SettingsAccount />{" "}
-                </RequireAuth>
+          
+                  <SettingsAccount />
+    </RequireAuth>
               }
             />
+            
             <Route
-              path="/users/list"
-              element={
+              path="/logindashboard" element={
                 <RequireAuth>
-                  {" "}
-                  <UsersList />{" "}
+                  <Dashboard />
                 </RequireAuth>
               }
             />
+
+            <Route
+              path="/users/list" element={
+                <RequireAuth>
+                  <UsersList />
+                </RequireAuth>
+              }
+            />
+
             <Route path="/users/roles" element={<UsersRoles />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/list" element={<CoursesList />} />
