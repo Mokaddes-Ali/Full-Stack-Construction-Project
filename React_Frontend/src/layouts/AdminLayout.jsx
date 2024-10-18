@@ -16,7 +16,8 @@ const AdminLayout = ({ children }) => {
   };
 
   return (
-    <div className="flex h-screen bg-slate-300 dark:bg-gray-800 dark:text-white">
+    <>
+    <div className="flex h-screen w-screen bg-slate-300 dark:bg-gray-800 dark:text-white">
       <Sidebar
         isOpen={isSidebarOpen}
         isLargeScreenOpen={isLargeScreenSidebarOpen}
@@ -33,6 +34,7 @@ const AdminLayout = ({ children }) => {
         </main>
       </div>
     </div>
+    </>
   );
 };
 
