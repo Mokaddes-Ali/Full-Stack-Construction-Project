@@ -1,7 +1,16 @@
-import React from 'react';
+import React from 'react'
+import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
 const More = () => {
-  return <div>More Options Page</div>;
-};
+  return (
+    <>
+    <AdminLayout>
+      <div>
+    More
+    </div>
+    </AdminLayout>
+    </>
+  )
+}
 
-export default More;
+export default More

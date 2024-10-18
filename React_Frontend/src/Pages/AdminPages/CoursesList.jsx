@@ -1,7 +1,14 @@
-import React from 'react';
+import React from 'react'
+import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
 const CoursesList = () => {
-  return <div>Course List Page</div>;
-};
+  return (
+    <>
+    <AdminLayout>
+    <div>CoursesList</div>
+    </AdminLayout>
+    </>
+  )
+}
 
-export default CoursesList;
+export default CoursesList
