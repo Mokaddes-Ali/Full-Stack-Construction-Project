@@ -39,6 +39,7 @@ import More from './Pages/AdminPages/More';
 import Reports from './Pages/AdminPages/Reports';
 import MoreSettings from './Pages/AdminPages/MoreSettings';
 import { ColorProvider } from './Components/AdminDashboard/context/ColorContext';
+import Ali from './Components/Ali';
 
 const App = () => {
   return (
@@ -69,6 +70,8 @@ const App = () => {
         <CreateServices />
           </RequireAuth>
            } />
+
+<Route path="/ad" element = { <Ali />}/>
 
       
 
