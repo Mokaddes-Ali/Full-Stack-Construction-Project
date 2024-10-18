@@ -76,18 +76,16 @@ const App = () => {
 <Route path="/create-post" element={<CreatePost />} />
 <Route path="/edit-post/:id" element={<EditPost />} />
 
-
-
        <Route path="/logindashboard" element={
         <RequireAuth><LayoutRoute /> </RequireAuth>}>
         {/* All the nested routes will render inside the AdminLayout */}
         <Route index element={ <Dashboard />} />
-        <Route path="settings" element={<Settings /> } />
+        <Route path="logindashboard/settings" element={<Settings /> } />
         <Route path="settings/profile" element={<RequireAuth> <SettingsProfile /> </RequireAuth>} />
         <Route path="settings/account" element={<RequireAuth> <SettingsAccount /> </RequireAuth>} />
         <Route path="users" element={<RequireAuth> <Users /> </RequireAuth>} />
         <Route path="users/list" element={<RequireAuth> <UsersList /> </RequireAuth>} />
-        <Route path="users/roles" element={<UsersRoles />} />
+        <Route path="logindashboard/users/roles" element={<UsersRoles />} />
         <Route path="courses" element={<Courses />} />
         <Route path="courses/list" element={<CoursesList />} />
         <Route path="courses/categories" element={<CoursesCategories />} />

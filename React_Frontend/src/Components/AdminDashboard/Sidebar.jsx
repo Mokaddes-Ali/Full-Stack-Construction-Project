@@ -125,7 +125,7 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
         <NavLink to="/users/list" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           User List
         </NavLink>
-        <NavLink to="/users/roles" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
+        <NavLink to="logindashboard/users/roles" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           User Roles
         </NavLink>
       </div>
