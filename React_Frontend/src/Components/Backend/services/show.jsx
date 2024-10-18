@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { apiUrl, token } from '../../http';
 import { Link } from 'react-router-dom';
+import AdminLayout from '../../AdminDashboard/layouts/AdminLayout';
 
 const Show = () => {
   const [services, setServices] = useState([]);
@@ -33,40 +34,10 @@ const Show = () => {
   }, []);
 
   return (
+    <>
+    <AdminLayout>
     <div className="flex h-screen">
-      {/* Sidebar */}
-      <div className="w-64 bg-gray-800 text-white p-4">
-        <h2 className="text-2xl font-bold mb-8">Sidebar</h2>
-        <ul>
-          <li className="mb-4 hover:text-yellow-500">
-            <a href="#">Dashboard</a>
-          </li>
-          <li className="mb-4 hover:text-yellow-500">
-            <a href="#">Services</a>
-          </li>
-          <li className="mb-4 hover:text-yellow-500">
-            <a href="#">Analytics</a>
-          </li>
-          <li className="mb-4 hover:text-yellow-500">
-            <a href="#">Settings</a>
-          </li>
-        </ul>
-      </div>
-
-      {/* Main content */}
-      <div className="flex-1 flex flex-col">
-        {/* Topbar */}
-        <div className="bg-gray-100 p-4 shadow-md">
-          <div className="flex justify-between">
-            <h1 className="text-2xl font-semibold">Topbar</h1>
-            <div>
-            <Link to="/admin/services/create" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Create</Link>
-              <button className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-red-600">
-                Logout
-              </button>
-            </div>
-          </div>
-        </div>
+    
 
         {/* Table Content */}
         <div className="p-4 flex-1 bg-gray-50">
@@ -113,7 +84,8 @@ const Show = () => {
           </table>
         </div>
       </div>
-    </div>
+      </AdminLayout>
+    </>
   );
 };
 

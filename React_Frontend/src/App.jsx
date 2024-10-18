@@ -1,4 +1,4 @@
-import React from "react";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Components/Backend/login";
 import { ToastContainer } from "react-toastify";
@@ -24,7 +24,6 @@ import CoursesCategories from "./Pages/AdminDashboardPages/CoursesCategories";
 import ProductsList from "./Pages/AdminDashboardPages/ProductsList";
 import ProductsCategories from "./Pages/AdminDashboardPages/ProductsCategories";
 import More from "./Pages/AdminDashboardPages/More";
-import Reports from "./Pages/AdminDashboardPages/Reports";
 import MoreSettings from "./Pages/AdminDashboardPages/MoreSettings";
 import { ColorProvider } from "./Components/AdminDashboard/context/ColorContext";
 
@@ -34,7 +33,7 @@ const App = () => {
     <>
       <ColorProvider>
         <BrowserRouter>
-          <NavbarSection />
+          {/* <NavbarSection /> */}
 
           {/* <RouteApp /> */}
           <Routes>
@@ -70,13 +69,14 @@ const App = () => {
             <Route path="/create-post" element={<CreatePost />} />
             <Route path="/edit-post/:id" element={<EditPost />} />
             <Route
-              path="create-post"
+              path="create-service"
               element={
                 <RequireAuth>
                   <CreateServices />
                 </RequireAuth>
               }
             />
+
             <Route
               path="settings/account"
               element={
@@ -105,16 +105,42 @@ const App = () => {
             />
 
             <Route path="/users/roles" element={<UsersRoles />} />
-            <Route path="/courses/list" element={<CoursesList />} />
-            <Route path="/courses/categories" element={<CoursesCategories />} />
-            <Route path="/products/list" element={<ProductsList />} />
+            <Route path="/courses/list" element={
+                 <RequireAuth>
+              
+                 <ShowServices />
+                 </RequireAuth>
+              //  <CoursesList />
+               } />
+            <Route path="/courses/categories" element={
+               <RequireAuth>
+               <CreateServices />
+               </RequireAuth>
+              // <CoursesCategories />
+              } />
+            <Route path="/products/list" element={
+               <RequireAuth>
+              <ProductsList />
+              </RequireAuth>
+              } />
             <Route
               path="/products/categories"
-              element={<ProductsCategories />}
+              element={
+               <RequireAuth> 
+               <ProductsCategories />
+               </RequireAuth>
+              }
             />
-            <Route path="/more" element={<More />} />
-            <Route path="/more/reports" element={<Reports />} />
-            <Route path="/more/settings" element={<MoreSettings />} />
+            <Route path="/more" element={
+               <RequireAuth>
+               <More />
+               </RequireAuth>
+               } />
+            <Route path="/more/settings" element={
+               <RequireAuth>
+              <MoreSettings />
+               </RequireAuth>
+               } />
           </Routes>
         </BrowserRouter>
         <ToastContainer position="top-center" />{" "}

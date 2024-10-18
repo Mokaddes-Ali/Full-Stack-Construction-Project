@@ -5,6 +5,7 @@ import { apiUrl, token } from '../../http';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
+import AdminLayout from '../../AdminDashboard/layouts/AdminLayout';
 
 
 const CreateService = ({ placeholder }) => { 
@@ -81,6 +82,8 @@ const CreateService = ({ placeholder }) => {
 
 
   return (
+    <>
+    <AdminLayout>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -196,6 +199,8 @@ const CreateService = ({ placeholder }) => {
         </form>
       </div>
     </div>
+    </AdminLayout>
+    </>
   );
 };
 

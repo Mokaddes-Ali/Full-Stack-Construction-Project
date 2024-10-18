@@ -89,9 +89,7 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen1 && (
       <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
-        <NavLink to="/create-post" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
-          Profile Settings
-        </NavLink>
+       
         <NavLink to="/settings/account" className="block p-2 rounded-md hover:bg-blue-800 hover:text-white" onClick={handleSidebarClose}>
           Account Settings
         </NavLink>
