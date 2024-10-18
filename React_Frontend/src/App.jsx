@@ -79,22 +79,23 @@ const App = () => {
        <Route path="/logindashboard" element={
         <RequireAuth><LayoutRoute /> </RequireAuth>}>
         {/* All the nested routes will render inside the AdminLayout */}
+        
         <Route index element={ <Dashboard />} />
         <Route path="logindashboard/settings" element={<Settings /> } />
-        <Route path="settings/profile" element={<RequireAuth> <SettingsProfile /> </RequireAuth>} />
-        <Route path="settings/account" element={<RequireAuth> <SettingsAccount /> </RequireAuth>} />
-        <Route path="users" element={<RequireAuth> <Users /> </RequireAuth>} />
-        <Route path="users/list" element={<RequireAuth> <UsersList /> </RequireAuth>} />
+        <Route path="logindashboard/create-post" element={<RequireAuth>   <CreateServices /> </RequireAuth>} />
+        <Route path="logindashboard/settings/account" element={<RequireAuth> <SettingsAccount /> </RequireAuth>} />
+        <Route path="logindashboard/users" element={<RequireAuth> <Users /> </RequireAuth>} />
+        <Route path="logindashboard/users/list" element={<RequireAuth> <UsersList /> </RequireAuth>} />
         <Route path="logindashboard/users/roles" element={<UsersRoles />} />
-        <Route path="courses" element={<Courses />} />
-        <Route path="courses/list" element={<CoursesList />} />
-        <Route path="courses/categories" element={<CoursesCategories />} />
-        <Route path="products" element={<Products />} />
-        <Route path="products/list" element={<ProductsList />} />
-        <Route path="products/categories" element={<ProductsCategories />} />
-        <Route path="more" element={<More />} />
-        <Route path="more/reports" element={<Reports />} />
-        <Route path="more/settings" element={<MoreSettings />} />
+        <Route path="logindashboard/courses" element={<Courses />} />
+        <Route path="logindashboard/courses/list" element={<CoursesList />} />
+        <Route path="logindashboard/courses/categories" element={<CoursesCategories />} />
+        <Route path="logindashboard/products" element={<Products />} />
+        <Route path="logindashboard/products/list" element={<ProductsList />} />
+        <Route path="logindashboard/products/categories" element={<ProductsCategories />} />
+        <Route path="logindashboard/more" element={<More />} />
+        <Route path="logindashboard/more/reports" element={<Reports />} />
+        <Route path="logindashboard/more/settings" element={<MoreSettings />} />
       </Route>
 
        
