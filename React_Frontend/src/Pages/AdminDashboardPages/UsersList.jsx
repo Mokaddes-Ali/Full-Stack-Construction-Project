@@ -1,7 +1,14 @@
-import React from 'react';
+
+import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
 const UsersList = () => {
-  return <div>User List Page</div>;
-};
+  return (
+    <>
+    <AdminLayout>
+    <div>UsersList</div>
+    </AdminLayout>
+    </>
+  )
+}
 
-export default UsersList;
+export default UsersList

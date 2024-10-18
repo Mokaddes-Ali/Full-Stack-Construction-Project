@@ -1,7 +1,12 @@
-import React from 'react';
 
-const Reports = () => {
-  return <div>Reports Page</div>;
-};
+import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
-export default Reports;
+export const Reports = () => {
+  return (
+    <>
+    <AdminLayout>
+    <div>Reports</div>
+    </AdminLayout>
+    </>
+  )
+}

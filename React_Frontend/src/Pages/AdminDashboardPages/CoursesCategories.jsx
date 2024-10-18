@@ -1,7 +1,14 @@
-import React from 'react';
+
+import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
 const CoursesCategories = () => {
-  return <div>Course Categories Page</div>;
-};
+  return (
+    <>
+    <AdminLayout>
+    <div>CoursesCategories</div>
+    </AdminLayout>
+    </>
+  )
+}
 
-export default CoursesCategories;
+export default CoursesCategories

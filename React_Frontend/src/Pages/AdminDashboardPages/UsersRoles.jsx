@@ -1,7 +1,14 @@
-import React from 'react';
+
+import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
 const UsersRoles = () => {
-  return <div>User Roles Page</div>;
-};
+  return (
+    <>
+    <AdminLayout>
+    <div>UsersRoles</div>
+    </AdminLayout>
+    </>
+  )
+}
 
-export default UsersRoles;
+export default UsersRoles

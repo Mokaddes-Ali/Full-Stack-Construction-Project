@@ -14,18 +14,18 @@ import EditPost from "./Components/Backend/Crud/EditPost";
 import { default as ShowServices } from "./Components/Backend/services/show";
 import { default as CreateServices } from "./Components/Backend/services/create";
 
-import SettingsProfile from "./Pages/AdminPages/SettingsProfile";
-import SettingsAccount from "./Pages/AdminPages/SettingsAccount";
+import SettingsProfile from "./Pages/AdminDashboardPages/SettingsProfile";
+import SettingsAccount from "./Pages/AdminDashboardPages/SettingsAccount";
 
-import UsersList from "./Pages/AdminPages/UsersList";
-import UsersRoles from "./Pages/AdminPages/UsersRoles";
-import CoursesList from "./Pages/AdminPages/CoursesList";
-import CoursesCategories from "./Pages/AdminPages/CoursesCategories";
-import ProductsList from "./Pages/AdminPages/ProductsList";
-import ProductsCategories from "./Pages/AdminPages/ProductsCategories";
-import More from "./Pages/AdminPages/More";
-import Reports from "./Pages/AdminPages/Reports";
-import MoreSettings from "./Pages/AdminPages/MoreSettings";
+import UsersList from "./Pages/AdminDashboardPages/UsersList";
+import UsersRoles from "./Pages/AdminDashboardPages/UsersRoles";
+import CoursesList from "./Pages/AdminDashboardPages/CoursesList";
+import CoursesCategories from "./Pages/AdminDashboardPages/CoursesCategories";
+import ProductsList from "./Pages/AdminDashboardPages/ProductsList";
+import ProductsCategories from "./Pages/AdminDashboardPages/ProductsCategories";
+import More from "./Pages/AdminDashboardPages/More";
+import Reports from "./Pages/AdminDashboardPages/Reports";
+import MoreSettings from "./Pages/AdminDashboardPages/MoreSettings";
 import { ColorProvider } from "./Components/AdminDashboard/context/ColorContext";
 
 

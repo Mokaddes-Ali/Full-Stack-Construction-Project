@@ -1,7 +1,14 @@
-import React from 'react';
+
+import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
 const SettingsAccount = () => {
-  return <div>Account Settings Page</div>;
-};
+  return (
+    <>
+    <AdminLayout>
+    <div>SettingsAccount</div>
+    </AdminLayout>
+    </>
+  )
+}
 
-export default SettingsAccount;
+export default SettingsAccount

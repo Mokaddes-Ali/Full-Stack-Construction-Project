@@ -1,4 +1,4 @@
-import React from 'react'
+
 import AdminLayout from '../../Components/AdminDashboard/layouts/AdminLayout'
 
 const More = () => {
