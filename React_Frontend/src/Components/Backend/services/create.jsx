@@ -11,7 +11,7 @@ import AdminLayout from '../../../layouts/AdminLayout';
 const CreateService = ({ placeholder }) => { 
   const editor = useRef(null);
   const [content, setContent] = useState('');
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisable, setIsDisable] = useState(false);
   const [imageId, setImageId] = useState(null);
 
   const config = useMemo(() => ({
@@ -28,7 +28,7 @@ const CreateService = ({ placeholder }) => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    const newData = { ...data, content };
+    const newData = { ...data, content, imageId: imageId };
 
     try {
       const res = await fetch(apiUrl + 'services/store', {
@@ -60,6 +60,7 @@ const CreateService = ({ placeholder }) => {
     const file = e.target.files[0];
     formData.append('image', file);
 
+    //temporary image upload
     await fetch(apiUrl + 'temp-image', {
       method: 'POST',
       headers: {
@@ -67,13 +68,12 @@ const CreateService = ({ placeholder }) => {
         Authorization: `Bearer ${token()}`
       },
       body: formData
-    })
-      .then(response => response.json())
+    }).then(response => response.json())
       .then(result => {
         if (result.status == false) {
-          toast.error(result.errors.image);
+          toast.error(result.errors.image[0]);
         } else {
-          setImageId(result.id);
+          setImageId(result.data.id);
           toast.success(result.message);
         }
       })
@@ -84,7 +84,7 @@ const CreateService = ({ placeholder }) => {
   return (
     <>
     <AdminLayout>
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Add New Service
@@ -138,9 +138,9 @@ const CreateService = ({ placeholder }) => {
                 ref={editor}
                 value={content}
                 config={config}
-                tabIndex={1} // tabIndex of textarea
-                onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                onChange={newContent => {}} // This can be omitted if not used
+                tabIndex={1} 
+                onBlur={newContent => setContent(newContent)} 
+                onChange={newContent => {}} 
               />
             </div>
           </div>
@@ -190,10 +190,10 @@ const CreateService = ({ placeholder }) => {
           {/* Submit Button */}
           <div>
             <button
-              type="submit" disabled={isDisabled}
+             disabled={isDisable}
               className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              Add Service
+              Submit
             </button>
           </div>
         </form>
