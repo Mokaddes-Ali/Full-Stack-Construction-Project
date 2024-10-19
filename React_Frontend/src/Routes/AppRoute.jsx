@@ -12,6 +12,7 @@ import ShowPosts from "../Components/Backend/Crud/ShowPosts";
 import EditPost from "../Components/Backend/Crud/EditPost";
 import { default as ShowServices } from "../Components/Backend/services/show";
 import { default as CreateServices } from "../Components/Backend/services/create";
+import { default as EditServices } from "../Components/Backend/services/edit";
 
 import SettingsProfile from "../Pages/AdminDashboardPages/SettingsProfile";
 import SettingsAccount from "../Pages/AdminDashboardPages/SettingsAccount";
@@ -54,6 +55,14 @@ const AppRoute = () => {
               element={
                 <RequireAuth>
                   <CreateServices />
+                </RequireAuth>
+              }
+            />
+               <Route
+              path="/admin/services/edit/:id"
+              element={
+                <RequireAuth>
+                 <EditServices />
                 </RequireAuth>
               }
             />

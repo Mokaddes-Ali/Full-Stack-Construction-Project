@@ -72,9 +72,8 @@ const Show = () => {
   </span>
 </td>
                   <td className="py-2 px-4 border-b">
-                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                      Edit
-                    </button>
+                   
+                      <Link to={`/admin/services/edit/${service.id}`}>Edit</Link>
                     <button className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2 hover:bg-red-600">
                       Delete
                     </button>
