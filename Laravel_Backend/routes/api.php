@@ -8,10 +8,10 @@ use App\Http\Controllers\admin\ServicesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\TempImageController;
-
+use App\Http\Controllers\front\ServiceController as FrontServiceController;
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
-
+Route::get('get-services', [FrontServiceController::class, 'index']);
 
 
 
