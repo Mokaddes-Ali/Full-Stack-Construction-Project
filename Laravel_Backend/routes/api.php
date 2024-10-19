@@ -12,6 +12,8 @@ use App\Http\Controllers\front\ServiceController as FrontServiceController;
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
+Route::get('get-latest-service', [FrontServiceController::class, 'latestService']);
+
 
 
 

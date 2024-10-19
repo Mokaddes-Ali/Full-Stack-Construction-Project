@@ -14,4 +14,12 @@ class ServiceController extends Controller
         $services = services::where('status',1)->orderBy('created_at', 'DESC')->get();
          return   $services;
     }
+
+    //this method will return latesty active serviices
+    public function latestService(Request $request){
+        $services = services::where('status',1)
+        ->take($request ->get('limit'))
+        ->orderBy('created_at', 'DESC')->get();
+        return   $services;
+    }
 }
