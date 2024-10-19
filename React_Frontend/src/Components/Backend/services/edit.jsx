@@ -14,11 +14,13 @@ const edit = ({ placeholder }) => {
   const [isDisable, setIsDisable] = useState(false);
   const [imageId, setImageId] = useState(null);
   const params = useParams();
+  
 
   const config = useMemo(() => ({
     readonly: false, 
     placeholder: placeholder || 'Content', 
   }), [placeholder]);
+
 
   const {
     register,
