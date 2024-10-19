@@ -18,7 +18,7 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isCardVisible, setIsCardVisible] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const { textColor } = useColor(); // Get colors from context
+  const { textColor } = useColor(); 
 
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
@@ -85,7 +85,7 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
   }, []);
   return (
     <>
-    <div className="flex items-center  justify-between p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
+    <div className="flex items-center justify-between w-screen p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
     <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
         <MdMenu className="h-6 w-6" />
       </button>
