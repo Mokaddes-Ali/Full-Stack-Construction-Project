@@ -134,10 +134,9 @@ const [services, setServices] = useState([]);
 
  const fetchLatestServices = async () => {
   const res = await fetch(apiUrl + 'get-latest-service?limit=3', {
-    method: 'POST',
-    body: JSON.stringify(newData),
-  });
+    method: 'GET',
 
+  });
 
   const result = await res.json();
   console.log(result);
