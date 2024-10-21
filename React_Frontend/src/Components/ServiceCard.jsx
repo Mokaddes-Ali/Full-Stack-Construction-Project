@@ -97,6 +97,8 @@
 //   },
 // ];
 
+import React, {useState, useEffect} from 'react'
+import { apiUrl, token } from './http';
 
 
 
@@ -127,6 +129,25 @@ const callouts = [
 ];
 
 export default function ServiceCard() {
+
+const [services, setServices] = useState([]);
+
+ const fetchLatestServices = async () => {
+  const res = await fetch(apiUrl + 'get-latest-service?limit=3', {
+    method: 'POST',
+    body: JSON.stringify(newData),
+  });
+
+
+  const result = await res.json();
+  console.log(result);
+  setServices(result.data);
+}
+
+useEffect(() => {
+    fetchLatestServices();
+}, []);
+
 
   return (
     <>
