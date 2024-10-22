@@ -12,7 +12,13 @@ class ServiceController extends Controller
     {
         // thuis method will return all active services
         $services = services::where('status',1)->orderBy('created_at', 'DESC')->get();
-         return   $services;
+
+        return response()->json([
+            'status' => true,
+            'data' => $services
+
+        ]);
+
     }
 
     //this method will return latesty active serviices
@@ -20,6 +26,12 @@ class ServiceController extends Controller
         $services = services::where('status',1)
         ->take($request ->get('limit'))
         ->orderBy('created_at', 'DESC')->get();
-        return   $services;
+
+        return response()->json([
+            'status' => true,
+            'data' => $services
+
+        ]);
+        
     }
 }
