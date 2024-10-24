@@ -64,13 +64,13 @@ class ServicesController extends Controller
 
                $fileName = strtotime('now').$model->id.'.'.$ext;
 
-                // create new image instance (500 x 600)
+                // create new image instance (300 x 400)
                      $sourcePath = public_path('uploads/temp/'.$tempImage->name);
 
                       $destPath = public_path('uploads/services/small/'.$fileName);
                       $manager = new ImageManager(Driver::class);
                       $image = $manager->read($sourcePath);
-                      $image -> coverDown(500, 600);
+                      $image -> coverDown(300, 400);
                       $image -> save($destPath);
 
                       //large
@@ -176,14 +176,14 @@ class ServicesController extends Controller
 
                 $fileName = strtotime('now').$service->id.'.'.$ext;
 
-                 // create new image instance (800 x 600)
+                 // create new image instance (300 x 400)
 
                       $sourcePath = public_path('uploads/temp/'.$tempImage->name);
 
                        $destPath = public_path('uploads/services/small/'.$fileName);
                        $manager = new ImageManager(Driver::class);
                        $image = $manager->read($sourcePath);
-                       $image -> coverDown(500, 600);
+                       $image -> coverDown(300, 400);
                        $image -> save($destPath);
 
                        //large

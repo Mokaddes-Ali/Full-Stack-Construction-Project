@@ -25,10 +25,11 @@ export default function ScrollNavbarSection() {
 
   return (
     <>
-  <div className="w-screen bg-red-500">
+  <div className={`w-screen bg-red-500`}>
     <motion.nav
-      className={`fixed mx-auto max-w-7xl top-0 left-0  z-50 px-4 py-2 transition-all duration-300 shadow-lg ${
-        scrolled ? "bg-gray-800 text-white" : ""
+      className={`fixed  top-0 left-0  z-50 px-4 py-2 transition-all duration-300 shadow-lg ${
+        scrolled ? "bg-gray-800 text-white mx-auto max-w-7xl w-screen ml-10 mr-10 rounded-2xl" : 
+        "bg-gray-800 text-white mx-auto max-w-7xl w-screen ml-10 mr-10 rounded-2xl"
       }`}
       initial={{ y: "-100%" }} // Initially hide the navbar
       animate={{ y: scrolled ? 10 : "-100%" }} // Show on scroll
