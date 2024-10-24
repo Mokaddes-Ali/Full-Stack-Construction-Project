@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ServicesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\DashboardController;
@@ -32,6 +33,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('services/delete/{id}',[ServicesController::class, 'destroy']);
 
     Route::post('temp-image',[TempImageController::class, 'store']);
+
+
+    //Project
+    Route::post('projects',[ProjectController::class, 'store']);
 
 
 });
