@@ -25,9 +25,9 @@ export default function ScrollNavbarSection() {
 
   return (
     <>
-    <div className="mx-auto max-w-7xl">
+  <div className="w-screen bg-red-500">
     <motion.nav
-      className={`fixed top-0 left-0  z-50 px-4 py-2 transition-all duration-300 shadow-lg ${
+      className={`fixed mx-auto max-w-7xl top-0 left-0  z-50 px-4 py-2 transition-all duration-300 shadow-lg ${
         scrolled ? "bg-gray-800 text-white" : ""
       }`}
       initial={{ y: "-100%" }} // Initially hide the navbar
