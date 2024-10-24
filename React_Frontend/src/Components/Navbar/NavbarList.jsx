@@ -3,6 +3,8 @@ import { List, Typography, ListItem } from "@material-tailwind/react";
 import ProjectListMenu from "./ProjectListMenu";
 import PagesListMenu from "./PagesListMenu";
 import ServicesListMenu from "./ServicesListMenu";
+import AboutListMenu from "./AboutListMenu";
+
 
 export default function NavbarList() {
   return (
@@ -10,10 +12,12 @@ export default function NavbarList() {
       <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
         <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
       </Typography>
-
+      <AboutListMenu />
       <ProjectListMenu />
-      <PagesListMenu />
       <ServicesListMenu />
+      <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
+        <ListItem className="flex items-center gap-2 py-2 pr-4">Blog</ListItem>
+      </Typography>
       <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
         <ListItem className="flex items-center gap-2 py-2 pr-4">Contact Us</ListItem>
       </Typography>

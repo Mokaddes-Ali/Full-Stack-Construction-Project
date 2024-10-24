@@ -4,18 +4,15 @@ import { NavLink } from "react-router-dom";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const navListMenuItems = [
-  { title: "Architecture Design",   path: "/architecture_design" },
-  { title: "Building Construction", path: "/building_construction" },
-  { title: "Building Maintenance", path: "/building_maintenance" },
-  { title: "BuildingRenovation", path: "/building_renovation" },
-  { title: "Flooring Roofing", path: "/flooring_roofing" },
-  { title: "Project Management", path: "/project_management" },
-
+  { title: "About Company", path: "/about" },
+  { title: "Leaderdship", path: "/leaderdship" },
+  { title: "History", path: "/history" },
+ 
 ];
 
-export default function ServicesListMenu() {
-  const [isServiceMenuOpen, setIsServiceMenuOpen] = React.useState(false);
-  const [isServiceMobileMenuOpen, setServiceIsMobileMenuOpen] = React.useState(false);
+export default function  AboutListMenu() {
+  const [isAboutMenuOpen, setIsAboutMenuOpen] = React.useState(false);
+  const [isAboutMobileMenuOpen, setIsAboutMobileMenuOpen] = React.useState(false);
 
   const renderItems = navListMenuItems.map(({  title, path }, key) => (
     <NavLink
@@ -39,25 +36,25 @@ export default function ServicesListMenu() {
 
   return (
     <React.Fragment>
-      <Menu open={isServiceMenuOpen} handler={ setIsServiceMenuOpen} offset={{ mainAxis: 20 }} placement="bottom" allowHover={true}>
+      <Menu open={isAboutMenuOpen} handler={setIsAboutMenuOpen} offset={{ mainAxis: 20 }} placement="bottom" allowHover={true}>
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
               className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
-              selected={isServiceMenuOpen ||isServiceMobileMenuOpen}
-              onClick={() => setServiceIsMobileMenuOpen((cur) => !cur)}
+              selected={isAboutMenuOpen || isAboutMobileMenuOpen}
+              onClick={() => setIsAboutMobileMenuOpen((cur) => !cur)}
             >
-             Services
+              About
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
-                    isServiceMenuOpen ? "rotate-180" : ""
+                    isAboutMenuOpen ? "rotate-180" : ""
                 }`}
               />
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`block h-3 w-3 transition-transform lg:hidden ${
-                    isServiceMobileMenuOpen ? "rotate-180" : ""
+                  isAboutMobileMenuOpen ? "rotate-180" : ""
                 }`}
               />
             </ListItem>
@@ -68,11 +65,10 @@ export default function ServicesListMenu() {
         </MenuList>
       </Menu>
       <div className="block lg:hidden">
-        <Collapse open={isServiceMobileMenuOpen}>{renderItems}</Collapse>
+        <Collapse open={isAboutMobileMenuOpen}>{renderItems}</Collapse>
       </div>
     </React.Fragment>
   );
 }
 
  
-
