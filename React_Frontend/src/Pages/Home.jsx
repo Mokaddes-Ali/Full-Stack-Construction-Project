@@ -8,16 +8,18 @@ import ScrollNavbarSection from '../Components/Navbar/ScrollNavbarSection';
 
 const Home = () => {
   return (
+    <>
     <div>
-      <NavbarSection />
-      <ScrollNavbarSection />
-        <HeroSection />
+      {/* <NavbarSection /> */}
+      {/* <ScrollNavbarSection /> */}
+        {/* <HeroSection /> */}
         <Login />
-        <Testimonial />
-        <ServiceCard />
-        <Project />
+        {/* <Testimonial /> */}
+        {/* <ServiceCard />
+        <Project /> */}
         
     </div>
+    </>
   )
 }
 

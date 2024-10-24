@@ -12,7 +12,8 @@ export default function NavbarSection() {
 
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2">
+    <>
+    <Navbar className="flex mx-auto w-screen px-4 py-2">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography as="a" href="#" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
           Material Tailwind
@@ -44,6 +45,7 @@ export default function NavbarSection() {
         </div>
       </Collapse>
     </Navbar>
+    </>
   );
 }
 

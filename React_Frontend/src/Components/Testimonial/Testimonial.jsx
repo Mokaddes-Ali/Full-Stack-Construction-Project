@@ -63,7 +63,7 @@ const Testimonial = () => {
 
   return (
     <>
-    <div className="bg-blue-gray-300">
+    <div className="mx-auto max-w-7xl bg-blue-gray-300">
           <div className="mx-auto w-max-7xl relative overflow-hidden py-16">
       {/* Background Scrolling Text */}
       <motion.div

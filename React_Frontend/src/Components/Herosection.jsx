@@ -47,7 +47,8 @@ const HeroSection = () => {
   ];
 
   return (
-    <div className="relative w-screen h-[450px] overflow-hidden">
+    <>
+    <div className="relative mx-auto max-w-7xl h-screen overflow-hidden">
       <motion.div
         className="absolute inset-0 bg-cover h-96 bg-center"
         style={{
@@ -94,6 +95,7 @@ const HeroSection = () => {
         </Slider>
       </div>
     </div>
+    </>
   );
 };
 
