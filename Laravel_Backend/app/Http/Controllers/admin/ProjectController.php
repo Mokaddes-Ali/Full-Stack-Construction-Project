@@ -200,5 +200,44 @@ class ProjectController extends Controller
                         ]);
 
                }
+
+    public function show($id)
+    {
+        $project = Project::find($id);
+
+        if ($project == null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Project not found'
+            ]);
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $project
+        ]);
+    }
+
+
+    public function destroy($id){
+        $project = Project::find($id);
+
+        if ($project == null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Project not found'
+            ]);
+        }
+
+        File::delete(public_path('uploads/projects/small/'. $project->image));
+        File::delete(public_path('uploads/projects/large/'. $project->image));
+
+        $project->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Project deleted successfully'
+        ]);
+    }
 }
 
