@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
     //Project
+    Route::get('projects',[ProjectController::class, 'index']);
     Route::post('projects',[ProjectController::class, 'store']);
 
 

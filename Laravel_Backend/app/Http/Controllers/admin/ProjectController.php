@@ -17,9 +17,12 @@ class ProjectController extends Controller
 {
     public function index()
     {
+
+        $projects = Project::orderBy('created_at', 'DESC')->get();
+
         return response()->json([
             'status' => true,
-            'data' => 'ProjectController@index'
+            'data' => $projects
         ]);
     }
 
