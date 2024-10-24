@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import { apiUrl, token, fileUrl } from './http';
+import NavbarSection from './Navbar/NavbarSection';
 
 
 export default function ServiceCard() {
@@ -24,6 +25,7 @@ useEffect(() => {
 
   return (
     <>
+
     <div className="bg-gray-400">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
