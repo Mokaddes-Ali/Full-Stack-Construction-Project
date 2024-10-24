@@ -1,39 +1,31 @@
 import React from "react";
 import { Menu, MenuHandler, MenuList, MenuItem, Collapse, Typography, ListItem } from "@material-tailwind/react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { SquaresPlusIcon, UserGroupIcon, Bars4Icon, SunIcon, GlobeAmericasIcon, PhoneIcon, NewspaperIcon, RectangleGroupIcon, TagIcon } from "@heroicons/react/24/solid";
+import { NavLink } from "react-router-dom";
+
 
 const navListMenuItems = [
-  { title: "Products", description: "Find the perfect solution for your needs.", icon: SquaresPlusIcon },
-  { title: "About Us", description: "Meet and learn about our dedication", icon: UserGroupIcon },
-  { title: "Blog", description: "Find the perfect solution for your needs.", icon: Bars4Icon },
-  { title: "Services", description: "Learn how we can help you achieve your goals.", icon: SunIcon },
-  { title: "Support", description: "Reach out to us for assistance or inquiries", icon: GlobeAmericasIcon },
-  { title: "Contact", description: "Find the perfect solution for your needs.", icon: PhoneIcon },
-  { title: "News", description: "Read insightful articles, tips, and expert opinions.", icon: NewspaperIcon },
-  { title: "Special Offers", description: "Explore limited-time deals and bundles", icon: TagIcon },
+  { title: "Aspen Heights", path: "aspen-heights"},
+  { title: "Bayside Residences",path: "bayside_residences"  },
+  { title: "ForestHillTowers",path: "forest_hill_towers" },
+  { title: "Parkview Plaza", path: "oarkview_plaza" },
 ];
+
 
 export default function  ProjectListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
-  const renderItems = navListMenuItems.map(({ icon, title, description }, key) => (
-    <a href="#" key={key}>
+  const renderItems = navListMenuItems.map(({ title, path }, key) => (
+    <NavLink to={path} key={key}>
       <MenuItem className="flex items-center gap-3 rounded-lg">
-        <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-          {React.createElement(icon, { strokeWidth: 2, className: "h-6 text-gray-900 w-6" })}
-        </div>
         <div>
           <Typography variant="h6" color="blue-gray" className="flex items-center text-sm font-bold">
             {title}
           </Typography>
-          <Typography variant="paragraph" className="text-xs !font-medium text-blue-gray-500">
-            {description}
-          </Typography>
         </div>
       </MenuItem>
-    </a>
+    </NavLink>
   ));
 
   return (
@@ -49,7 +41,7 @@ export default function  ProjectListMenu() {
           </Typography>
         </MenuHandler>
         <MenuList className="hidden max-w-screen-xl rounded-xl lg:block">
-          <ul className="grid grid-cols-3 gap-y-2 outline-none outline-0">{renderItems}</ul>
+          <ul className="grid grid-cols-2 gap-y-2 outline-none outline-0">{renderItems}</ul>
         </MenuList>
       </Menu>
       <div className="block lg:hidden">
