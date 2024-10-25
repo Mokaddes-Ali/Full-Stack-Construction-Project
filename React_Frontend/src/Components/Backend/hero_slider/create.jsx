@@ -129,8 +129,18 @@ const CreateHeroSlide = ({ placeholder }) => {
           </div>
 
           {/* Content */}
-          
-          
+            <div>
+                <label className="block text-sm font-medium leading-6 text-gray-900">Content</label>
+                <div className="mt-2">
+                <JoditEditor
+                    ref={editor}
+                    value={content}
+                    config={config}
+                    tabIndex={1}
+                    onBlur={(newContent) => setContent(newContent)}
+                />
+                </div>
+            </div>
 
           {/* Slug */}
           <div>
