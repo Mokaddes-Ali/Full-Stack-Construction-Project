@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaBell, FaSearch, FaUserCircle } from 'react-icons/fa';
-import { MdDarkMode, MdLightMode,MdMenu } from 'react-icons/md'; 
+import { MdMenu } from 'react-icons/md'; 
 import { AiOutlineClose } from 'react-icons/ai';
 import { TfiAlignRight,TfiAlignLeft } from "react-icons/tfi";
 import { FaExpand, FaCompress } from 'react-icons/fa';
-import { useColor } from '../AdminDashboard/context/ColorContext';
+import { useColor } from './context/ColorContext';
 import ThemeControl from './ThemeControl';
 import { CiMenuBurger } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
@@ -85,7 +85,8 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
   }, []);
   return (
     <>
-    <div className="flex items-center justify-between w-screen p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
+    <div className="w-screen bg-white">
+    <div className="flex w-screen p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
     <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
         <MdMenu className="h-6 w-6" />
       </button>
@@ -182,6 +183,7 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
       </div>
       <div className="space-x-4">
       </div>
+    </div>
     </div>
     </>
   );

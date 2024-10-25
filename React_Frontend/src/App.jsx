@@ -3,7 +3,7 @@ import { BrowserRouter} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { ColorProvider } from "./Components/AdminDashboard/context/ColorContext";
+import { ColorProvider } from "./layouts/context/ColorContext";
 import AppRoute from "./Routes/AppRoute";
 
 

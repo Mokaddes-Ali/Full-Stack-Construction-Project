@@ -1,5 +1,5 @@
 import React from 'react';
-import { useColor } from '../AdminDashboard/context/ColorContext';
+import { useColor } from './context/ColorContext';
 import ChangeDirectionButton from './ChangeDirectionButton';
 
 const ThemeControl = () => {

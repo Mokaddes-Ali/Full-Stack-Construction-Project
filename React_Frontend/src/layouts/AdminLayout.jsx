@@ -1,6 +1,6 @@
 
-import Sidebar from '../Components/AdminDashboard/Sidebar';
-import Topbar from '../Components/AdminDashboard/Topbar';
+import Sidebar from './Sidebar';
+import Topbar from './Topbar';
 import { useState } from 'react';
 
 const AdminLayout = ({ children }) => {
@@ -17,7 +17,8 @@ const AdminLayout = ({ children }) => {
 
   return (
     <>
-    <div className="flex h-screen  bg-slate-300 dark:bg-gray-800 dark:text-white">
+    <div className="w-screen h-screen bg-red-200">
+    <div className="flex bg-slate-300 dark:bg-gray-800 dark:text-white">
       <Sidebar
         isOpen={isSidebarOpen}
         isLargeScreenOpen={isLargeScreenSidebarOpen}
@@ -33,6 +34,7 @@ const AdminLayout = ({ children }) => {
           {children}
         </main>
       </div>
+    </div>
     </div>
     </>
   );
