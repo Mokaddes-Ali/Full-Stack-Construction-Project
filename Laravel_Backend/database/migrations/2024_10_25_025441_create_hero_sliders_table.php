@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('hero_sliders', function (Blueprint $table) {
             $table->id();
             $table->string('hero_title');
-            $table->text('hero_subtitle');
-            $table->string('image');
+            $table->text('hero_subtitle')->nullable();
+            $table->string('image')->nullable();
+            $table->string('button_text')->nullable();
+            $table->string('button_link')->nullable();
+            $table->string('slug');
+            $table->string('status')->default('1');
             $table->timestamps();
         });
     }
