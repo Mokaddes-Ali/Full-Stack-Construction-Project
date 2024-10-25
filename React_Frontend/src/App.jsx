@@ -5,18 +5,34 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { ColorProvider } from "./layouts/context/ColorContext";
 import AppRoute from "./Routes/AppRoute";
+import { useState } from "react";
 
 
 const App = () => {
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLargeScreenSidebarOpen, setIsLargeScreenSidebarOpen] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleLargeScreenSidebar = () => {
+    setIsLargeScreenSidebarOpen(!isLargeScreenSidebarOpen);
+  };
+
   return (
     <>
-      {/* <ColorProvider>
-      <BrowserRouter> */}
-          <AppRoute />
-        {/* </BrowserRouter>
-        {/* Toast for notification */}
-        {/* <ToastContainer position="top-center" /> */}
-      {/* </ColorProvider>  */}
+    <ColorProvider>
+     <BrowserRouter>
+     <AppRoute
+          toggleSidebar={toggleSidebar}
+          toggleLargeScreenSidebar={toggleLargeScreenSidebar}
+          isSidebarOpen={isSidebarOpen}
+          isLargeScreenSidebarOpen={isLargeScreenSidebarOpen}
+        />
+        </BrowserRouter>
+    </ColorProvider>
     </>
   );
 };
