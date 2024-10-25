@@ -20,11 +20,11 @@ class HeroSliderController extends Controller
     public function index()
     {
 
-        $projects = HeroSlider::orderBy('created_at', 'DESC')->get();
+        $heroSlider = HeroSlider::orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'status' => true,
-            'data' => $projects
+            'data' => $heroSlider
         ]);
     }
 
@@ -38,7 +38,7 @@ class HeroSliderController extends Controller
         ]);
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
+            'hero_title' => 'required',
             'slug' => 'required|unique:projects,slug',
         ]);
 
@@ -50,35 +50,32 @@ class HeroSliderController extends Controller
             ]);
         }
 
-        $project = new HeroSlider();
-        $project->title = $request->title;
-        $project->short_desc = $request->short_desc;
-        $project->slug = Str::slug($request->slug);
-        $project->content = $request->content;
-        $project->construction_type = $request->construction_type;
-        $project->sector = $request->sector;
-        $project->location = $request->location;
-        $project->image = $request->image;
-        $project->status = $request->status;
-        $project->save();
-
+        $heroSlider = new HeroSlider();
+        $heroSlider->hero_title = $request->hero_title;
+        $heroSlider->hero_subtitle = $request->hero_subtitle;
+        $heroSlider->image = $request->image;
+        $heroSlider->button_text = $request->button_text;
+        $heroSlider->button_link = $request->button_link;
+        $heroSlider->slug = Str::slug($request->slug);
+        $heroSlider->status = $request->status;
+        $heroSlider->save();
          //save temp image
 
          if ($request->imageId > 0) {
-            $oldImage =   $project->image;
+            $oldImage =  $heroSlider->image;
 
            $tempImage = TempImage::find($request->imageId);
            if ($tempImage != null) {
                $extArray = explode('.',$tempImage->name);
                $ext = last($extArray);
 
-               $fileName = strtotime('now'). $project->id.'.'.$ext;
+               $fileName = strtotime('now').$heroSlider->id.'.'.$ext;
 
                 // create new image instance (300 x 400)
 
                      $sourcePath = public_path('uploads/temp/'.$tempImage->name);
 
-                      $destPath = public_path('uploads/projects/small/'.$fileName);
+                      $destPath = public_path('uploads/heroSlider/small/'.$fileName);
                       $manager = new ImageManager(Driver::class);
                       $image = $manager->read($sourcePath);
                       $image -> coverDown(300, 400);
@@ -86,25 +83,25 @@ class HeroSliderController extends Controller
 
                       //large image size
 
-                      $destPath = public_path('uploads/projects/large/'.$fileName);
+                      $destPath = public_path('uploads/heroSlider/large/'.$fileName);
                       $manager = new ImageManager(Driver::class);
                       $image = $manager->read($sourcePath);
                       $image -> scaleDown(1200);
                       $image -> save($destPath);
 
-                      $project->image = $fileName;
-                      $project->save();
+                      $heroSlider->image = $fileName;
+                      $heroSlider->save();
 
                       if ($oldImage != '') {
-                           File::delete(public_path('uploads/projects/small/'.$oldImage));
-                           File::delete(public_path('uploads/projects/large/'.$oldImage));
+                           File::delete(public_path('uploads/heroSlider/small/'.$oldImage));
+                           File::delete(public_path('uploads/heroSlider/large/'.$oldImage));
                         }
                       }
              }
 
          return response()->json([
             'status' => true,
-            'message' => 'Project added successfully'
+            'message' => 'heroSlider added successfully'
         ]);
     }
 

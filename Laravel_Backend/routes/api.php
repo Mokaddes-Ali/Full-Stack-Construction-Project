@@ -44,6 +44,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 });
 
+//Hero Slider
+Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::get('hero_slider',[ProjectController::class, 'index']);
+Route::post('hero_slider',[ProjectController::class, 'store']);
+Route::put('hero_slider/{id}',[ProjectController::class, 'update']);
+Route::get('hero_slider/{id}',[ProjectController::class, 'show']);
+Route::delete('hero_slider/{id}',[ProjectController::class, 'destroy']);
+});
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
