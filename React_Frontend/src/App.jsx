@@ -10,13 +10,13 @@ import AppRoute from "./Routes/AppRoute";
 const App = () => {
   return (
     <>
-      <ColorProvider>
-      <BrowserRouter>
+      {/* <ColorProvider>
+      <BrowserRouter> */}
           <AppRoute />
-        </BrowserRouter>
+        {/* </BrowserRouter>
         {/* Toast for notification */}
-        <ToastContainer position="top-center" />
-      </ColorProvider>
+        {/* <ToastContainer position="top-center" /> */}
+      {/* </ColorProvider>  */}
     </>
   );
 };

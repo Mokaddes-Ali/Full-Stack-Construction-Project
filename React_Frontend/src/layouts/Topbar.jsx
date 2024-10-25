@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaBell, FaSearch, FaUserCircle } from 'react-icons/fa';
-import { MdMenu } from 'react-icons/md'; 
+import { MdDarkMode, MdLightMode,MdMenu } from 'react-icons/md'; 
 import { AiOutlineClose } from 'react-icons/ai';
 import { TfiAlignRight,TfiAlignLeft } from "react-icons/tfi";
 import { FaExpand, FaCompress } from 'react-icons/fa';
-import { useColor } from './context/ColorContext';
+import { useColor } from '../layouts/context/ColorContext';
 import ThemeControl from './ThemeControl';
 import { CiMenuBurger } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";
@@ -18,7 +18,7 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isCardVisible, setIsCardVisible] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const { textColor } = useColor(); 
+  const { textColor } = useColor(); // Get colors from context
 
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
@@ -84,24 +84,22 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
     };
   }, []);
   return (
-    <>
-    <div className="">
-     <div className="flex items-center justify-between p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
+    <div className="flex items-center justify-between p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
       {/* Mobile Sidebar Toggle Button */}
-      <button onClick={toggleSidebar} className="focus:outline-none md:hidden ">
-        <MdMenu className="h-4 w-4" />
+      <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
+        <MdMenu className="h-6 w-6" />
       </button>
       {/* Large Screen Sidebar Toggle Button */}
-      <button onClick={toggleLargeScreenSidebar} className="hidden md:flex focus:outline-none">
+      <button onClick={toggleLargeScreenSidebar} className="hidden ml-4 md:flex focus:outline-none">
         {/* Icon change based on Sidebar state */}
         {isLargeScreenOpen ? (
-          <TfiAlignRight className="h-3 w-3 hover:text-blue-700" />
+          <TfiAlignRight className="h-7 w-7 hover:text-blue-700" />
         ) : (
-          <TfiAlignLeft className="h-3 w-3 hover:text-blue-700" />
+          <TfiAlignLeft className="h-7 w-7 hover:text-blue-700" />
         )}
       </button>
 
-      <div className="flex items-center justify-between  xl:ml-96 lg:ml-40 sm:ml-48 md:ml-10 gap-4 p-4">
+      <div className="flex items-center justify-between xl:ml-96 lg:ml-80 sm:ml-48 md:ml-10 gap-12 p-4">
         <div className="flex items-center">
          <DarkModeButton />
         </div>
@@ -187,8 +185,6 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
       <div className="space-x-4">
       </div>
     </div>
-    </div>
-    </>
   );
 };
 
