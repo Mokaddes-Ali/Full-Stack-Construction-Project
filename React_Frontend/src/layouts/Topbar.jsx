@@ -85,7 +85,7 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
   }, []);
   return (
     <>
-    <div className="w-[1100px]">
+    <div className="">
      <div className="flex items-center justify-between p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
       {/* Mobile Sidebar Toggle Button */}
       <button onClick={toggleSidebar} className="focus:outline-none md:hidden ">
