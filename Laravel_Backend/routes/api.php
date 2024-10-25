@@ -8,8 +8,10 @@ use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ServicesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\HeroSliderController;
 use App\Http\Controllers\admin\TempImageController;
 use App\Http\Controllers\front\ServiceController as FrontServiceController;
+use App\Models\HeroSlider;
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
@@ -44,13 +46,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 });
 
-//Hero Slider
+//Hero Slider Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-Route::get('hero_slider',[ProjectController::class, 'index']);
-Route::post('hero_slider',[ProjectController::class, 'store']);
-Route::put('hero_slider/{id}',[ProjectController::class, 'update']);
-Route::get('hero_slider/{id}',[ProjectController::class, 'show']);
-Route::delete('hero_slider/{id}',[ProjectController::class, 'destroy']);
+
+Route::get('hero_slider',[HeroSliderController::class, 'index']);
+Route::post('hero_slider',[HeroSliderController::class, 'store']);
+Route::put('hero_slider/{id}',[HeroSliderController::class, 'update']);
+Route::get('hero_slider/{id}',[HeroSliderController::class, 'show']);
+Route::delete('hero_slider/{id}',[HeroSliderController::class, 'destroy']);
 });
 
 Route::get('/user', function (Request $request) {

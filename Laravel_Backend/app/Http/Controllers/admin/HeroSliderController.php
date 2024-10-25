@@ -107,19 +107,19 @@ class HeroSliderController extends Controller
 
     public function edit($id)
     {
-        $project = HeroSlider::find($id);
+        $heroSlider = HeroSlider::find($id);
 
         return response()->json([
             'status' => true,
-            'data' => $project
+            'data' => $heroSlider
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $project = HeroSlider::find($id);
+        $heroSlider = HeroSlider::find($id);
 
-        if ($project == null) {
+        if ($heroSlider == null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Project not found'
@@ -131,9 +131,10 @@ class HeroSliderController extends Controller
         ]);
 
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'slug' => 'required|unique:projects,slug,'.$id.',id',
+            'hero_title' => 'required',
+            'slug' => 'required|unique:projects,slug',
         ]);
+
 
         if ($validator->fails()) {
             return response()->json([
@@ -142,100 +143,100 @@ class HeroSliderController extends Controller
             ]);
         }
 
-        $project->title = $request->title;
-        $project->short_desc = $request->short_desc;
-        $project->slug = Str::slug($request->slug);
-        $project->content = $request->content;
-        $project->construction_type = $request->construction_type;
-        $project->sector = $request->sector;
-        $project->location = $request->location;
-        $project->status = $request->status;
-        $project->save();
+        $heroSlider = new HeroSlider();
+        $heroSlider->hero_title = $request->hero_title;
+        $heroSlider->hero_subtitle = $request->hero_subtitle;
+        $heroSlider->image = $request->image;
+        $heroSlider->button_text = $request->button_text;
+        $heroSlider->button_link = $request->button_link;
+        $heroSlider->slug = Str::slug($request->slug);
+        $heroSlider->status = $request->status;
+        $heroSlider->save();
+         //save temp image
 
-        //save temp image
-
-        if ($request->imageId > 0) {
-            $oldImage = $project->image;
+         if ($request->imageId > 0) {
+            $oldImage =  $heroSlider->image;
 
            $tempImage = TempImage::find($request->imageId);
            if ($tempImage != null) {
                $extArray = explode('.',$tempImage->name);
                $ext = last($extArray);
 
-               $fileName = strtotime('now').$project->id.'.'.$ext;
+               $fileName = strtotime('now').$heroSlider->id.'.'.$ext;
 
                 // create new image instance (300 x 400)
 
                      $sourcePath = public_path('uploads/temp/'.$tempImage->name);
 
-                      $destPath = public_path('uploads/projects/small/'.$fileName);
+                      $destPath = public_path('uploads/heroSlider/small/'.$fileName);
                       $manager = new ImageManager(Driver::class);
                       $image = $manager->read($sourcePath);
                       $image -> coverDown(300, 400);
                       $image -> save($destPath);
 
-                      //large
+                      //large image size
 
-                      $destPath = public_path('uploads/projects/large/'.$fileName);
+                      $destPath = public_path('uploads/heroSlider/large/'.$fileName);
                       $manager = new ImageManager(Driver::class);
                       $image = $manager->read($sourcePath);
                       $image -> scaleDown(1200);
                       $image -> save($destPath);
 
-                      $project->image = $fileName;
-                      $project->save();
+                      $heroSlider->image = $fileName;
+                      $heroSlider->save();
 
-                      }
-
-                        if ($oldImage != '') {
-                             File::delete(public_path('uploads/projects/small/'.$oldImage));
-                             File::delete(public_path('uploads/projects/large/'.$oldImage));
-                            }
+                      if ($oldImage != '') {
+                           File::delete(public_path('uploads/heroSlider/small/'.$oldImage));
+                           File::delete(public_path('uploads/heroSlider/large/'.$oldImage));
                         }
+                      }
+             }
 
-                        return response()->json([
-                            'status' => true,
-                            'message' => 'Project updated successfully'
-                        ]);
+         return response()->json([
+            'status' => true,
+            'message' => 'heroSlider Updated successfully'
+        ]);
+    }
 
-               }
+
 
     public function show($id)
     {
-        $project = HeroSlider::find($id);
+        $heroSlider = HeroSlider::find($id);
 
-        if ($project == null) {
+        if ($heroSlider == null) {
             return response()->json([
                 'status' => false,
-                'message' => 'Project not found'
+                'message' => 'Hero Slider not found'
             ]);
         }
 
         return response()->json([
             'status' => true,
-            'data' => $project
+            'data' => $heroSlider
         ]);
     }
 
 
     public function destroy($id){
-        $project = HeroSlider::find($id);
 
-        if ($project == null) {
+        $heroSlider  = HeroSlider::find($id);
+
+        if (  $heroSlider  == null) {
             return response()->json([
                 'status' => false,
-                'message' => 'Project not found'
+                'message' => 'Hero Slider not found'
             ]);
         }
 
-        File::delete(public_path('uploads/projects/small/'. $project->image));
-        File::delete(public_path('uploads/projects/large/'. $project->image));
+        File::delete(public_path('uploads/heroSlider/small/'. $heroSlider->image));
+        File::delete(public_path('uploads/heroSlider/large/'. $heroSlider->image));
 
-        $project->delete();
+        $heroSlider->delete();
 
         return response()->json([
             'status' => true,
-            'message' => 'Project deleted successfully'
+            'message' => 'Hero Slider deleted successfully'
         ]);
     }
 }
