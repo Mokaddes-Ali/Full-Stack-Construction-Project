@@ -85,20 +85,23 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
   }, []);
   return (
     <>
-    <div className="w-screen bg-white">
-    <div className="flex w-screen p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
-    <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
-        <MdMenu className="h-6 w-6" />
+    <div className="w-[1100px]">
+     <div className="flex items-center justify-between p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
+      {/* Mobile Sidebar Toggle Button */}
+      <button onClick={toggleSidebar} className="focus:outline-none md:hidden ">
+        <MdMenu className="h-4 w-4" />
       </button>
-      <button onClick={toggleLargeScreenSidebar} className="hidden ml-4 md:flex focus:outline-none">
+      {/* Large Screen Sidebar Toggle Button */}
+      <button onClick={toggleLargeScreenSidebar} className="hidden md:flex focus:outline-none">
+        {/* Icon change based on Sidebar state */}
         {isLargeScreenOpen ? (
-          <TfiAlignRight className="h-7 w-7 hover:text-blue-700" />
+          <TfiAlignRight className="h-3 w-3 hover:text-blue-700" />
         ) : (
-          <TfiAlignLeft className="h-7 w-7 hover:text-blue-700" />
+          <TfiAlignLeft className="h-3 w-3 hover:text-blue-700" />
         )}
       </button>
 
-      <div className="flex items-center justify-between xl:ml-96 lg:ml-80 sm:ml-48 md:ml-10 gap-12 p-4">
+      <div className="flex items-center justify-between  xl:ml-96 lg:ml-40 sm:ml-48 md:ml-10 gap-4 p-4">
         <div className="flex items-center">
          <DarkModeButton />
         </div>
