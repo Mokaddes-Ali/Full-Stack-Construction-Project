@@ -4,12 +4,10 @@ import Login from "../Components/Backend/login";
 
 import Dashboard from "../Components/Backend/Dashboard";
 import Home from "../Pages/Home";
-import NavbarSection from "../Components/Navbar/NavbarSection";
 import RequireAuth from "../Components/RequireAuth";
 
-import CreatePost from "../Components/Backend/Crud/CreatePost";
-import ShowPosts from "../Components/Backend/Crud/ShowPosts";
-import EditPost from "../Components/Backend/Crud/EditPost";
+
+
 import { default as ShowServices } from "../Components/Backend/services/show";
 import { default as CreateServices } from "../Components/Backend/services/create";
 import { default as EditServices } from "../Components/Backend/services/edit";
@@ -19,12 +17,12 @@ import SettingsAccount from "../Pages/AdminDashboardPages/SettingsAccount";
 
 import UsersList from "../Pages/AdminDashboardPages/UsersList";
 import UsersRoles from "../Pages/AdminDashboardPages/UsersRoles";
-import CoursesList from "../Pages/AdminDashboardPages/CoursesList";
-import CoursesCategories from "../Pages/AdminDashboardPages/CoursesCategories";
 import ProductsList from "../Pages/AdminDashboardPages/ProductsList";
 import ProductsCategories from "../Pages/AdminDashboardPages/ProductsCategories";
 import More from "../Pages/AdminDashboardPages/More";
 import MoreSettings from "../Pages/AdminDashboardPages/MoreSettings";
+import {default as CreateHeroSlide } from "../Components/Backend/hero_slider/create";
+
 
 
 const AppRoute = () => {
@@ -67,9 +65,16 @@ const AppRoute = () => {
               }
             />
 
-            <Route path="/show" element={<ShowPosts />} />
-            <Route path="/create-post" element={<CreatePost />} />
-            <Route path="/edit-post/:id" element={<EditPost />} />
+          <Route
+              path="/admin/hero_slider/create"
+              element={
+                <RequireAuth>
+                 <CreateHeroSlide />
+                </RequireAuth>
+              }
+            />
+
+           
             <Route
               path="create-service"
               element={

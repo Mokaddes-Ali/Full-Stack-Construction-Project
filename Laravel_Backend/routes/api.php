@@ -39,10 +39,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Project
     Route::get('projects',[ProjectController::class, 'index']);
-    Route::post('projects',[ProjectController::class, 'store']);
+    Route::post('projects/store',[ProjectController::class, 'store']);
     Route::put('projects/{id}',[ProjectController::class, 'update']);
     Route::get('projects/{id}',[ProjectController::class, 'show']);
-    Route::delete('projects/{id}',[ProjectController::class, 'destroy']);
+    Route::delete('projects/delete/{id}',[ProjectController::class, 'destroy']);
 
 });
 
@@ -50,10 +50,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::get('hero_slider',[HeroSliderController::class, 'index']);
-Route::post('hero_slider',[HeroSliderController::class, 'store']);
+Route::post('hero_slider/store',[HeroSliderController::class, 'store']);
 Route::put('hero_slider/{id}',[HeroSliderController::class, 'update']);
 Route::get('hero_slider/{id}',[HeroSliderController::class, 'show']);
-Route::delete('hero_slider/{id}',[HeroSliderController::class, 'destroy']);
+Route::delete('hero_slider/delete/{id}',[HeroSliderController::class, 'destroy']);
 });
 
 Route::get('/user', function (Request $request) {
