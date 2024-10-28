@@ -48,11 +48,11 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
       <div
         className={`fixed top-0 left-0 h-full bg-blue-600 dark:bg-black dark:text-white text-white p-5 transition-all duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 md:relative ${isLargeScreenOpen ? 'w-64' : 'w-20'}`}
+        } md:translate-x-0 md:relative `}
       >
         <div className="flex items-center space-x-2 mb-6">
-          <MdHome className="h-5 w-5" />
-          <span className={`${isLargeScreenOpen ? 'block' : 'hidden md:hidden'}`}>Admin Panel</span>
+
+          <span className={`text-2xl font-body mt-5`}>Admin Panel</span>
         </div>
 <nav>
   {/* Dashboard Link */}
@@ -62,8 +62,8 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     activeClassName="bg-blue-800"
     onClick={handleSidebarClose}
   >
-    <MdDashboard className="h-5 w-5" />
-    <span className={`${isLargeScreenOpen ? 'block' : 'hidden md:hidden'}`}>Dashboard</span>
+    <MdDashboard className="h-5 w-5 text-white" />
+    <span className={`text-white`}>Dashboard</span>
   </NavLink>
 
   {/* Dropdown 1 - Settings */}
@@ -78,13 +78,8 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     >
       <div className="flex items-center space-x-2">
         <MdSettings className="h-5 w-5" />
-        <span className={`${isLargeScreenOpen ? 'block' : 'hidden md:hidden'}`}>Settings</span>
+        <span className="">Settings</span>
       </div>
-      {isLargeScreenOpen && (
-        <span>
-          {isDropdownOpen1 ? <MdExpandLess className="h-5 w-5" /> : <MdExpandMore className="h-5 w-5" />}
-        </span>
-      )}
     </div>
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen1 && (
@@ -111,13 +106,8 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     >
       <div className="flex items-center space-x-2">
         <MdPeople className="h-5 w-5" />
-        <span className={`${isLargeScreenOpen ? 'block' : 'hidden md:hidden'}`}>Users</span>
+        <span className="">Users</span>
       </div>
-      {isLargeScreenOpen && (
-        <span>
-          {isDropdownOpen2 ? <MdExpandLess className="h-5 w-5" /> : <MdExpandMore className="h-5 w-5" />}
-        </span>
-      )}
     </div>
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen2 && (
@@ -144,13 +134,8 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     >
       <div className="flex items-center space-x-2">
         <MdLibraryBooks className="h-5 w-5" />
-        <span className={`${isLargeScreenOpen ? 'block' : 'hidden md:hidden'}`}>Courses</span>
+        <span className="">Courses</span>
       </div>
-      {isLargeScreenOpen && (
-        <span>
-          {isDropdownOpen3 ? <MdExpandLess className="h-5 w-5" /> : <MdExpandMore className="h-5 w-5" />}
-        </span>
-      )}
     </div>
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen3 && (
@@ -177,13 +162,9 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     >
       <div className="flex items-center space-x-2">
         <MdShoppingCart className="h-5 w-5" />
-        <span className={`${isLargeScreenOpen ? 'block' : 'hidden md:hidden'}`}>Products</span>
+        <span className="">Products</span>
       </div>
-      {isLargeScreenOpen && (
-        <span>
-          {isDropdownOpen4 ? <MdExpandLess className="h-5 w-5" /> : <MdExpandMore className="h-5 w-5" />}
-        </span>
-      )}
+
     </div>
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen4 && (
@@ -210,13 +191,8 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
     >
       <div className="flex items-center space-x-2">
         <MdDashboard className="h-5 w-5" />
-        <span className={`${isLargeScreenOpen ? 'block' : 'hidden md:hidden'}`}>More Options</span>
+        <span className="">More Options</span>
       </div>
-      {isLargeScreenOpen && (
-        <span>
-          {isDropdownOpen5 ? <MdExpandLess className="h-5 w-5" /> : <MdExpandMore className="h-5 w-5" />}
-        </span>
-      )}
     </div>
     {/* Dropdown menu outside of sidebar */}
     {isDropdownOpen5 && (

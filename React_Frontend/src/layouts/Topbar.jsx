@@ -12,7 +12,7 @@ import DarkModeButton from './DarkModeButton';
 
 
 
-const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) => {
+const TopBar = ({ toggleSidebar}) => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -88,15 +88,6 @@ const TopBar = ({ toggleSidebar, toggleLargeScreenSidebar, isLargeScreenOpen }) 
       {/* Mobile Sidebar Toggle Button */}
       <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
         <MdMenu className="h-6 w-6" />
-      </button>
-      {/* Large Screen Sidebar Toggle Button */}
-      <button onClick={toggleLargeScreenSidebar} className="hidden ml-4 md:flex focus:outline-none">
-        {/* Icon change based on Sidebar state */}
-        {isLargeScreenOpen ? (
-          <TfiAlignRight className="h-7 w-7 hover:text-blue-700" />
-        ) : (
-          <TfiAlignLeft className="h-7 w-7 hover:text-blue-700" />
-        )}
       </button>
 
       <div className="flex items-center justify-between xl:ml-96 lg:ml-80 sm:ml-48 md:ml-10 gap-12 p-4">

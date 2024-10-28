@@ -4,7 +4,7 @@ const UsersRoles = () => {
   return (
     <>
     <AdminLayout>
-    <div>UsersRoles</div>
+    <div className=''>UsersRoles</div>
     </AdminLayout>
     </>
   )
