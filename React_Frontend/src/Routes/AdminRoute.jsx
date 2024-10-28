@@ -45,6 +45,7 @@ import More from "../Pages/AdminDashboardPages/More";
 import MoreSettings from "../Pages/AdminDashboardPages/MoreSettings";
 import {default as CreateHeroSlide } from "../Components/Backend/hero_slider/create";
 import AdminLayout from "../layouts/AdminLayout";
+import CreateService from "../Pages/AdminDashboardPages/Services/create";
 
 
       
@@ -134,16 +135,16 @@ const AdminRoute = ({ toggleSidebar, toggleLargeScreenSidebar, isSidebarOpen, is
             />
 
             <Route path="/users/roles" element={<UsersRoles />} />
-            <Route path="/courses/list" element={
+            <Route path="/service/list" element={
                  <RequireAuth>
               
                  <ShowServices />
                  </RequireAuth>
               //  <CoursesList />
                } />
-            <Route path="/courses/categories" element={
+            <Route path="/service/add" element={
                <RequireAuth>
-               <CreateServices />
+                <CreateService />
                </RequireAuth>
               // <CoursesCategories />
               } />
