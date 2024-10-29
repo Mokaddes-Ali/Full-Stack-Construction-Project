@@ -1,42 +1,11 @@
-// import{ useState } from 'react';
-// import { Route, Routes } from 'react-router-dom';
-// import Dashboard from '../Pages/Dashboard';
-// import Settings from '../Pages/Settings';
-// import SettingsProfile from '../Pages/SettingsProfile';
-// import SettingsAccount from '../Pages/SettingsAccount';
-// import Users from '../Pages/Users';
-// import UsersList from '../Pages/UsersList';
-// import UsersRoles from '../Pages/UsersRoles';
-// import Courses from '../Pages/Courses';
-// import CoursesList from '../Pages/CoursesList';
-// import CoursesCategories from '../Pages/CoursesCategories';
-// import Products from '../Pages/Products';
-// import ProductsList from '../Pages/ProductsList';
-// import ProductsCategories from '../Pages/ProductsCategories';
-// import More from '../Pages/More';
-// import Reports from '../Pages/Reports';
-// import MoreSettings from '../Pages/MoreSettings';
-// import AdminLayout from '../layouts/AdminLayout';
-
-
 import { Routes, Route } from "react-router-dom";
 import Login from "../Components/Backend/login";
-
-
 import Dashboard from "../Components/Backend/Dashboard";
-import Home from "../Pages/Home";
 import RequireAuth from "../Components/RequireAuth";
-
-
-
-
 import { default as ShowServices } from "../Components/Backend/services/show";
 import { default as CreateServices } from "../Components/Backend/services/create";
 import { default as EditServices } from "../Components/Backend/services/edit";
-
-import SettingsProfile from "../Pages/AdminDashboardPages/SettingsProfile";
 import SettingsAccount from "../Pages/AdminDashboardPages/SettingsAccount";
-
 import UsersList from "../Pages/AdminDashboardPages/UsersList";
 import UsersRoles from "../Pages/AdminDashboardPages/UsersRoles";
 import ProductsList from "../Pages/AdminDashboardPages/ProductsList";
@@ -44,12 +13,11 @@ import ProductsCategories from "../Pages/AdminDashboardPages/ProductsCategories"
 import More from "../Pages/AdminDashboardPages/More";
 import MoreSettings from "../Pages/AdminDashboardPages/MoreSettings";
 import {default as CreateHeroSlide } from "../Components/Backend/hero_slider/create";
-import AdminLayout from "../layouts/AdminLayout";
 import CreateService from "../Pages/AdminDashboardPages/Services/create";
 
 
       
-const AdminRoute = ({  }) => (
+const AdminRoute = () => (
     <Routes>
             <Route path="/login" element={<Login />} />
             <Route
