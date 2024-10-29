@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import {MdSettings,MdDashboard,MdPeople,MdLibraryBooks,MdShoppingCart} from "react-icons/md";
+import {MdSettings,MdDashboard,MdPeople,MdLibraryBooks,MdShoppingCart,MdCheck} from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { HiChevronDown } from "react-icons/hi2";
 
@@ -12,6 +12,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
   const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
   const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
   const [isDropdownOpen5, setIsDropdownOpen5] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Sidebar close function for mobile view
   const handleSidebarClose = () => {
@@ -84,6 +85,11 @@ function Sidebar({ isOpen, toggleSidebar }) {
                 <span className="text-lg">Settings
                 </span>
               </div>
+              <MdCheck
+          className={`h-6 w-6 transform transition-transform duration-300 ${
+            isHovered ? "rotate-180" : ""
+          }`}
+        />
             </div>
             {/* Dropdown menu outside of sidebar */}
             {isDropdownOpen1 && (
