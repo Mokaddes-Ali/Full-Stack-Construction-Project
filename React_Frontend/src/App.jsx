@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ColorProvider } from "./layouts/context/ColorContext";
 import AppRoute from "./Routes/AppRoute";
 import { useState } from "react";
+import AdminRoute from "./Routes/AdminRoute";
 
 
 const App = () => {
@@ -25,12 +26,9 @@ const App = () => {
     <>
     <ColorProvider>
      <BrowserRouter>
-     <AppRoute
-          toggleSidebar={toggleSidebar}
-          toggleLargeScreenSidebar={toggleLargeScreenSidebar}
-          isSidebarOpen={isSidebarOpen}
-          isLargeScreenSidebarOpen={isLargeScreenSidebarOpen}
-        />
+     <AppRoute />
+     <AdminRoute />
+      <ToastContainer />
         </BrowserRouter>
     </ColorProvider>
     </>

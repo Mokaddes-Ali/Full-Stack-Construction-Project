@@ -49,10 +49,8 @@ import CreateService from "../Pages/AdminDashboardPages/Services/create";
 
 
       
-const AdminRoute = ({ toggleSidebar, toggleLargeScreenSidebar, isSidebarOpen, isLargeScreenSidebarOpen }) => (
+const AdminRoute = ({  }) => (
     <Routes>
-      <Route element={<AdminLayout toggleSidebar={toggleSidebar} toggleLargeScreenSidebar={toggleLargeScreenSidebar} isSidebarOpen={isSidebarOpen} isLargeScreenSidebarOpen={isLargeScreenSidebarOpen} />}>
-            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/admin/dashboard"
@@ -171,7 +169,6 @@ const AdminRoute = ({ toggleSidebar, toggleLargeScreenSidebar, isSidebarOpen, is
               <MoreSettings />
                </RequireAuth>
                } />
-        </Route>
     </Routes>
 );
 
