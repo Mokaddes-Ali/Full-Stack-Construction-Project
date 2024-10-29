@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import {MdSettings,MdDashboard,MdPeople,MdLibraryBooks,MdShoppingCart,MdCheck} from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import {MdSettings,MdDashboard,MdPeople,MdLibraryBooks,MdShoppingCart} from "react-icons/md";
 import { HiChevronDown } from "react-icons/hi2";
+import { NavLink } from "react-router-dom";
+
 
 function Sidebar({ isOpen, toggleSidebar }) {
   const location = useLocation();
@@ -12,7 +13,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
   const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
   const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
   const [isDropdownOpen5, setIsDropdownOpen5] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   // Sidebar close function for mobile view
   const handleSidebarClose = () => {
@@ -59,16 +59,17 @@ function Sidebar({ isOpen, toggleSidebar }) {
         <nav>
           {/* Dashboard Link */}
           <NavLink
-            to="/dashboard"
+            to="/"
             className={`flex items-center space-x-2 mb-4`}
             activeClassName="bg-blue-800"
             onClick={handleSidebarClose}
           >
             <MdDashboard className="h-6 w-6 ml-2  text-white" />
-            <span className="text-white text-lg flex ">Dashboard <span className="text-white"> <HiChevronDown className="group-hover:rotate-180" /> </span></span>
+            <span className="text-white text-lg flex ">Dashboard</span>
           </NavLink>
 
-          {/* Dropdown 1 - Settings */}
+        
+          {/* Dropdown 1 - Users */}
           <div
             className="relative"
             onMouseEnter={handleDropdownHover1}
@@ -76,61 +77,25 @@ function Sidebar({ isOpen, toggleSidebar }) {
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
-                location.pathname.includes("/settings") ? "bg-blue-800" : ""
+                location.pathname.includes("/users") ? "bg-blue-800" : ""
               }`}
               onClick={handleDropdownToggle1}
             >
               <div className="flex items-center space-x-2">
-                <MdSettings className="h-6 w-6" />
-                <span className="text-lg">Settings
-                </span>
-              </div>
-              <MdCheck
-          className={`h-6 w-6 transform transition-transform duration-300 ${
-            isHovered ? "rotate-180" : ""
-          }`}
-        />
+                <MdPeople className="h-6 w-6 " />
+                <span className="text-lg">Users</span>
+        
+
+           
+                 </div>
+                 <HiChevronDown 
+                className={`h-5 w-5 ml-3 mt-1 transition-transform duration-300 ${
+                   isDropdownOpen1 ? "text-white rotate-180" : "text-white"
+                }`}
+              />
             </div>
             {/* Dropdown menu outside of sidebar */}
             {isDropdownOpen1 && (
-              <div className="absolute ml-32 top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
-                <NavLink
-                  to="/settings/profile"
-                  className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
-                  onClick={handleSidebarClose}
-                >
-                  Profile Settings
-                </NavLink>
-                <NavLink
-                  to="/settings/account"
-                  className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
-                  onClick={handleSidebarClose}
-                >
-                  Account Settings
-                </NavLink>
-              </div>
-            )}
-          </div>
-
-          {/* Dropdown 2 - Users */}
-          <div
-            className="relative"
-            onMouseEnter={handleDropdownHover2}
-            onMouseLeave={handleDropdownLeave2}
-          >
-            <div
-              className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
-                location.pathname.includes("/users") ? "bg-blue-800" : ""
-              }`}
-              onClick={handleDropdownToggle2}
-            >
-              <div className="flex items-center space-x-2">
-                <MdPeople className="h-6 w-6 " />
-                <span className="text-lg">Users</span>
-              </div>
-            </div>
-            {/* Dropdown menu outside of sidebar */}
-            {isDropdownOpen2 && (
               <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
                 <NavLink
                   to="/users/list"
@@ -150,25 +115,31 @@ function Sidebar({ isOpen, toggleSidebar }) {
             )}
           </div>
 
-          {/* Dropdown 3 - Services */}
+          {/* Dropdown 2 - Services */}
           <div
             className="relative"
-            onMouseEnter={handleDropdownHover3}
-            onMouseLeave={handleDropdownLeave3}
+            onMouseEnter={handleDropdownHover2}
+            onMouseLeave={handleDropdownLeave2}
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
                 location.pathname.includes("/courses") ? "bg-blue-800" : ""
               }`}
-              onClick={handleDropdownToggle3}
+              onClick={handleDropdownToggle2}
             >
               <div className="flex items-center space-x-2">
                 <MdLibraryBooks className="h-6 w-6" />
                 <span className="text-lg">Services</span>
+          
+              <HiChevronDown 
+                className={`h-5 w-5 ml-2 mt-1 transition-transform duration-300 ${
+                   isDropdownOpen2 ? "text-white rotate-180" : "text-white"
+                }`}
+              />
               </div>
             </div>
             {/* Dropdown menu outside of sidebar */}
-            {isDropdownOpen3 && (
+            {isDropdownOpen2 && (
               <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
                 <NavLink
                   to="/service/list"
@@ -188,25 +159,31 @@ function Sidebar({ isOpen, toggleSidebar }) {
             )}
           </div>
 
-          {/* Dropdown 4 - Products */}
+          {/* Dropdown 3 - Project */}
           <div
             className="relative"
-            onMouseEnter={handleDropdownHover4}
-            onMouseLeave={handleDropdownLeave4}
+            onMouseEnter={handleDropdownHover3}
+            onMouseLeave={handleDropdownLeave3}
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
                 location.pathname.includes("/products") ? "bg-blue-800" : ""
               }`}
-              onClick={handleDropdownToggle4}
+              onClick={handleDropdownToggle3}
             >
               <div className="flex items-center space-x-2">
                 <MdShoppingCart className="h-6 w-6" />
                 <span className="text-lg">Products</span>
-              </div>
+           
+              <HiChevronDown 
+                className={`h-5 w-5 ml-2 mt-1 transition-transform duration-300 ${
+                   isDropdownOpen3 ? "text-white rotate-180" : "text-white"
+                }`}
+              />
+                 </div>
             </div>
             {/* Dropdown menu outside of sidebar */}
-            {isDropdownOpen4 && (
+            {isDropdownOpen3 && (
               <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
                 <NavLink
                   to="/products/list"
@@ -226,6 +203,52 @@ function Sidebar({ isOpen, toggleSidebar }) {
             )}
           </div>
 
+            {/* Dropdown 4 - Settings */}
+            <div
+            className="relative"
+            onMouseEnter={handleDropdownHover4}
+            onMouseLeave={handleDropdownLeave4}
+          >
+            <div
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
+                location.pathname.includes("/settings") ? "bg-blue-800" : ""
+              }`}
+              onClick={handleDropdownToggle4}
+            >
+              <div className="flex items-center space-x-2">
+                <MdSettings className="h-6 w-6" />
+                <span className="text-lg">Settings
+                </span>
+              </div>
+
+              <HiChevronDown 
+                className={`h-7 w-7 mt-1 ml-2 transition-transform duration-300 ${
+                   isDropdownOpen4 ? "text-white rotate-180" : "text-white"
+                }`}
+              />
+            </div>
+            {/* Dropdown menu outside of sidebar */}
+            {isDropdownOpen4 && (
+              <div className="absolute ml-32 top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
+                <NavLink
+                  to="/settings/profile"
+                  className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
+                  onClick={handleSidebarClose}
+                >
+                  Profile Settings
+                </NavLink>
+                <NavLink
+                  to="/settings/account"
+                  className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
+                  onClick={handleSidebarClose}
+                >
+                  Account Settings
+                </NavLink>
+              </div>
+            )}
+          </div>
+
+
           {/* Dropdown 5 - More Options */}
           <div
             className="relative"
@@ -242,6 +265,11 @@ function Sidebar({ isOpen, toggleSidebar }) {
                 <MdDashboard className="h-6 w-6" />
                 <span className="text-lg">More Options</span>
               </div>
+              <HiChevronDown 
+                className={`h-5 w-5 mt-1 ml-2 transition-transform duration-300 ${
+                   isDropdownOpen5 ? "text-white rotate-180" : "text-white"
+                }`}
+              />
             </div>
             {/* Dropdown menu outside of sidebar */}
             {isDropdownOpen5 && (
