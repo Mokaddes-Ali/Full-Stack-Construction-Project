@@ -45,19 +45,7 @@ const AppRoute = () => {
 
   return (
     <>
-
-{/* <ColorProvider>
-     <BrowserRouter>
-     <AdminRoutes
-          toggleSidebar={toggleSidebar}
-          toggleLargeScreenSidebar={toggleLargeScreenSidebar}
-          isSidebarOpen={isSidebarOpen}
-          isLargeScreenSidebarOpen={isLargeScreenSidebarOpen}
-        />
-        </BrowserRouter>
-    </ColorProvider> */}
-
-    <Routes>
+ <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route
@@ -77,14 +65,14 @@ const AppRoute = () => {
                 </RequireAuth>
               }
             />
-            <Route
+            {/* <Route
               path="/admin/services/create"
               element={
                 <RequireAuth>
                   <CreateServices />
                 </RequireAuth>
               }
-            />
+            /> */}
                <Route
               path="/admin/services/edit/:id"
               element={
@@ -102,16 +90,13 @@ const AppRoute = () => {
                 </RequireAuth>
               }
             />
-
            
-            <Route
-              path="create-service"
-              element={
-                <RequireAuth>
-                  <CreateServices />
-                </RequireAuth>
-              }
-            />
+           <Route path="/service/add" element={
+               <RequireAuth>
+                <CreateServices />
+               </RequireAuth>
+              // <CoursesCategories />
+              } />
 
             <Route
               path="settings/account"
