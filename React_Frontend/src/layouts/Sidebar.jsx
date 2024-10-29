@@ -1,17 +1,10 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import {
-  MdHome,
-  MdSettings,
-  MdExpandMore,
-  MdExpandLess,
-  MdDashboard,
-  MdPeople,
-  MdLibraryBooks,
-  MdShoppingCart,
-} from "react-icons/md";
+import {MdSettings,MdDashboard,MdPeople,MdLibraryBooks,MdShoppingCart} from "react-icons/md";
 import { NavLink } from "react-router-dom";
-function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
+import { HiChevronDown } from "react-icons/hi2";
+
+function Sidebar({ isOpen, toggleSidebar }) {
   const location = useLocation();
   // Each dropdown state
   const [isDropdownOpen1, setIsDropdownOpen1] = useState(false);
@@ -71,7 +64,7 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
             onClick={handleSidebarClose}
           >
             <MdDashboard className="h-6 w-6 ml-2  text-white" />
-            <span className="text-white text-lg ">Dashboard</span>
+            <span className="text-white text-lg flex ">Dashboard <span className="text-white"> <HiChevronDown className="group-hover:rotate-180" /> </span></span>
           </NavLink>
 
           {/* Dropdown 1 - Settings */}
@@ -88,7 +81,8 @@ function Sidebar({ isOpen, isLargeScreenOpen, toggleSidebar }) {
             >
               <div className="flex items-center space-x-2">
                 <MdSettings className="h-6 w-6" />
-                <span className="text-lg">Settings</span>
+                <span className="text-lg">Settings
+                </span>
               </div>
             </div>
             {/* Dropdown menu outside of sidebar */}
