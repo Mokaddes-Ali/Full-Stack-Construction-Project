@@ -217,7 +217,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
-                location.pathname.includes("/products") ? "bg-blue-800" : ""
+                location.pathname.includes("/hero") ? "bg-blue-800" : ""
               }`}
               onClick={handleDropdownToggle6}
             >
@@ -237,18 +237,18 @@ function Sidebar({ isOpen, toggleSidebar }) {
             {isDropdownOpen6 && (
               <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
                 <NavLink
-                  to="/products/list"
+                  to="/hero/list"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
-                  Product List
+                  HeroSlider List
                 </NavLink>
                 <NavLink
-                  to="/products/categories"
+                  to="/hero/add"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
-                  Product Categories
+                  HeroSlider Add
                 </NavLink>
               </div>
             )}

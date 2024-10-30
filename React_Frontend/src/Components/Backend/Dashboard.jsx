@@ -8,7 +8,8 @@ const Dashboard = () => {
   return (
     <>
     <AdminLayout>
-    <div>Dashboard
+    <div>
+      Dashboard
       <button onClick={logout} className="bg-blue-gray-900 text-deep-orange-900">Logout</button>
     </div>
     </AdminLayout>

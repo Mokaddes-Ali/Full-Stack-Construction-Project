@@ -55,7 +55,6 @@ class HeroSliderController extends Controller
         $heroSlider->hero_subtitle = $request->hero_subtitle;
         $heroSlider->image = $request->image;
         $heroSlider->button_text = $request->button_text;
-        $heroSlider->button_link = $request->button_link;
         $heroSlider->slug = Str::slug($request->slug);
         $heroSlider->status = $request->status;
         $heroSlider->save();

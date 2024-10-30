@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('hero_subtitle')->nullable();
             $table->string('image')->nullable();
             $table->string('button_text')->nullable();
-            $table->string('button_link')->nullable();
             $table->string('slug');
             $table->string('status')->default('1');
             $table->timestamps();

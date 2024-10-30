@@ -6,6 +6,7 @@ import Testimonial from '../Components/Testimonial/Testimonial';
 import NavbarSection from '../Components/Navbar/NavbarSection';
 import ScrollNavbarSection from '../Components/Navbar/ScrollNavbarSection';
 import HeroSection from '../Components/HeroSection';
+import Footer from '../Components/Footer/Footer';
 
 const homePage = () => {
   return (
@@ -13,12 +14,13 @@ const homePage = () => {
     <div>
       <NavbarSection />
        <ScrollNavbarSection />
-         <HeroSection /> 
+         {/* <HeroSection />  */}
 
         <Login />
-        <Testimonial />
-       <ServiceCard />  
-         <Project /> 
+        <Footer />
+        {/* <Testimonial /> */}
+       {/* <ServiceCard />   */}
+         {/* <Project />  */}
         
     </div>
     </>

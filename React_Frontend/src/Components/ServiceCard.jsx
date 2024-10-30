@@ -35,7 +35,7 @@ export default function ServiceCard() {
                         <img
                           alt=""
                           src={`${fileUrl}uploads/services/small/${service.image}`}
-                          className="h-full w-full object-cover object-center"
+                          className="h-full w-full bg-cover bg-center"
                         />
                         {/* Title always visible on image */}
                         <h3 className="absolute bottom-1 left-0 right-0 text-lg font-bold text-white p-4 bg-opacity-50 transition-transform duration-300
