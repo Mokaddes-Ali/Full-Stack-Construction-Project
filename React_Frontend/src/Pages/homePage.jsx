@@ -1,10 +1,11 @@
-import HeroSection from '../Components/Herosection';
+
 import Login from '../Components/Backend/login';
 import ServiceCard from '../Components/ServiceCard';
 import { Project } from '../Components/project';
 import Testimonial from '../Components/Testimonial/Testimonial';
 import NavbarSection from '../Components/Navbar/NavbarSection';
 import ScrollNavbarSection from '../Components/Navbar/ScrollNavbarSection';
+import HeroSection from '../Components/HeroSection';
 
 const homePage = () => {
   return (
@@ -15,9 +16,9 @@ const homePage = () => {
          <HeroSection /> 
 
         <Login />
-        {/* <Testimonial />
-       <ServiceCard />  */}
-        {/* <Project />  */}
+        <Testimonial />
+       <ServiceCard />  
+         <Project /> 
         
     </div>
     </>
