@@ -63,7 +63,7 @@ export default function ServicesListMenu() {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden  bg-deep-orange-600 w-screen rounded-xl lg:block">
+        <MenuList className="hidden  bg-deep-orange-600 max-w-7xl rounded-xl lg:block">
           <ul className="grid grid-cols-2 gap-y-2 outline-none outline-0">{renderItems}</ul>
         </MenuList>
       </Menu>

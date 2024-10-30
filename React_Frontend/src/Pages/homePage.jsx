@@ -6,10 +6,11 @@ import Testimonial from '../Components/Testimonial/Testimonial';
 import NavbarSection from '../Components/Navbar/NavbarSection';
 import ScrollNavbarSection from '../Components/Navbar/ScrollNavbarSection';
 
-const Home = () => {
+const homePage = () => {
   return (
     <>
     <div>
+      <NavbarSection />
        <ScrollNavbarSection />
          <HeroSection /> 
         <Login />
@@ -22,4 +23,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default homePage

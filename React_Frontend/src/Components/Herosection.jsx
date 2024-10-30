@@ -50,7 +50,6 @@ const HeroSection = () => {
   return (
     <>
     <div className="h-[450px] w-screen">
-    <NavbarSection />
     <div className="relative mx-auto max-w-7xl h-screen overflow-hidden">
 
       <motion.div

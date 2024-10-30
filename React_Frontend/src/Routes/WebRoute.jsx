@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "../Pages/Home";
+import HomePage from "../Pages/homePage";
 
 
 const AppRoute = () => {
@@ -8,7 +8,7 @@ const AppRoute = () => {
   return (
     <>
  <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomePage/>} />
             
           </Routes>
     </>
