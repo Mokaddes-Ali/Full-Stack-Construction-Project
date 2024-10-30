@@ -68,8 +68,7 @@ const Show = () => {
   return (
     <>
     <AdminLayout>
-    <div className="flex h-screen">
-    
+    <div className="">
 
         {/* Table Content */}
         <div className="p-4 flex-1 bg-gray-50">

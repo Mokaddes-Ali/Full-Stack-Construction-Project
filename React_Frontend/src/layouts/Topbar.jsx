@@ -84,6 +84,8 @@ const TopBar = ({ toggleSidebar}) => {
     };
   }, []);
   return (
+    <>
+    <div className="w-full lg:w-full md:w-full sm:w-full">
     <div className="flex items-center justify-between p-1 h-16 shadow dark:bg-black dark:text-white bg-green-100 " style={{ color: textColor }}>
       {/* Mobile Sidebar Toggle Button */}
       <button onClick={toggleSidebar} className="focus:outline-none md:hidden ml-4">
@@ -176,6 +178,8 @@ const TopBar = ({ toggleSidebar}) => {
       <div className="space-x-4">
       </div>
     </div>
+    </div>
+    </>
   );
 };
 

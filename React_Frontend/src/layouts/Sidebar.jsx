@@ -13,6 +13,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
   const [isDropdownOpen3, setIsDropdownOpen3] = useState(false);
   const [isDropdownOpen4, setIsDropdownOpen4] = useState(false);
   const [isDropdownOpen5, setIsDropdownOpen5] = useState(false);
+  const [isDropdownOpen6, setIsDropdownOpen6] = useState(false);
 
   // Sidebar close function for mobile view
   const handleSidebarClose = () => {
@@ -27,6 +28,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
   const handleDropdownToggle3 = () => setIsDropdownOpen3((prev) => !prev);
   const handleDropdownToggle4 = () => setIsDropdownOpen4((prev) => !prev);
   const handleDropdownToggle5 = () => setIsDropdownOpen5((prev) => !prev);
+  const handleDropdownToggle6 = () => setIsDropdownOpen6((prev) => !prev);
 
   // Hover functions for each dropdown
   const handleDropdownHover1 = () => setIsDropdownOpen1(true);
@@ -44,11 +46,15 @@ function Sidebar({ isOpen, toggleSidebar }) {
   const handleDropdownHover5 = () => setIsDropdownOpen5(true);
   const handleDropdownLeave5 = () => setIsDropdownOpen5(false);
 
+  const handleDropdownHover6 = () => setIsDropdownOpen6(true);
+  const handleDropdownLeave6 = () => setIsDropdownOpen6(false);
+
   return (
-    <div className="relative">
+    <>
+    <div className="relative h-screen lg:h-screen">
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-44 bg-blue-600 dark:bg-black dark:text-white text-white p-5 transition-all duration-300 ${
+        className={`fixed top-0 left-0 h-full w-48 bg-blue-600 dark:bg-black dark:text-white text-white p-5 transition-all duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 md:relative `}
       >
@@ -89,7 +95,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
            
                  </div>
                  <HiChevronDown 
-                className={`h-5 w-5 ml-3 mt-1 transition-transform duration-300 ${
+                className={`h-5 w-5 ml-2 mt-1 transition-transform duration-300 ${
                    isDropdownOpen1 ? "text-white rotate-180" : "text-white"
                 }`}
               />
@@ -130,13 +136,13 @@ function Sidebar({ isOpen, toggleSidebar }) {
               <div className="flex items-center space-x-2">
                 <MdLibraryBooks className="h-6 w-6" />
                 <span className="text-lg">Services</span>
-          
+                </div>
               <HiChevronDown 
                 className={`h-5 w-5 ml-2 mt-1 transition-transform duration-300 ${
                    isDropdownOpen2 ? "text-white rotate-180" : "text-white"
                 }`}
               />
-              </div>
+
             </div>
             {/* Dropdown menu outside of sidebar */}
             {isDropdownOpen2 && (
@@ -172,18 +178,65 @@ function Sidebar({ isOpen, toggleSidebar }) {
               onClick={handleDropdownToggle3}
             >
               <div className="flex items-center space-x-2">
-                <MdShoppingCart className="h-6 w-6" />
-                <span className="text-lg">Products</span>
-           
+                <MdShoppingCart className="h-5 w-5" />
+                <span className="text-lg">Project</span>
+                </div>
+              
               <HiChevronDown 
                 className={`h-5 w-5 ml-2 mt-1 transition-transform duration-300 ${
                    isDropdownOpen3 ? "text-white rotate-180" : "text-white"
                 }`}
               />
-                 </div>
+
             </div>
             {/* Dropdown menu outside of sidebar */}
             {isDropdownOpen3 && (
+              <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
+                <NavLink
+                  to="/products/list"
+                  className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
+                  onClick={handleSidebarClose}
+                >
+                  Product List
+                </NavLink>
+                <NavLink
+                  to="/products/categories"
+                  className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
+                  onClick={handleSidebarClose}
+                >
+                  Product Categories
+                </NavLink>
+              </div>
+            )}
+          </div>
+
+
+           {/* Dropdown 3 - HeeroSlider */}
+           <div
+            className="relative"
+            onMouseEnter={handleDropdownHover6}
+            onMouseLeave={handleDropdownLeave6}
+          >
+            <div
+              className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
+                location.pathname.includes("/products") ? "bg-blue-800" : ""
+              }`}
+              onClick={handleDropdownToggle6}
+            >
+              <div className="flex items-center space-x-2">
+                <MdShoppingCart className="h-5 w-5 " />
+                <span className="text-lg">HeroSlider</span>
+                </div>
+              
+              <HiChevronDown 
+                className={`h-5 w-5 ml-1 mt-1 transition-transform duration-300 ${
+                   isDropdownOpen3 ? "text-white rotate-180" : "text-white"
+                }`}
+              />
+
+            </div>
+            {/* Dropdown menu outside of sidebar */}
+            {isDropdownOpen6 && (
               <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
                 <NavLink
                   to="/products/list"
@@ -222,7 +275,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
               </div>
 
               <HiChevronDown 
-                className={`h-7 w-7 mt-1 ml-2 transition-transform duration-300 ${
+                className={`h-5 w-5 mt-1 ml-2 transition-transform duration-300 ${
                    isDropdownOpen4 ? "text-white rotate-180" : "text-white"
                 }`}
               />
@@ -264,9 +317,9 @@ function Sidebar({ isOpen, toggleSidebar }) {
               <div className="flex items-center space-x-2">
                 <MdDashboard className="h-6 w-6" />
                 <span className="text-lg">More Options</span>
-              </div>
+                </div>
               <HiChevronDown 
-                className={`h-5 w-5 mt-1 ml-2 transition-transform duration-300 ${
+                className={`h-6 w-6 mt-1 ml-2 transition-transform duration-300 ${
                    isDropdownOpen5 ? "text-white rotate-180" : "text-white"
                 }`}
               />
@@ -294,6 +347,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
         </nav>
       </div>
     </div>
+    </>
   );
 }
 
