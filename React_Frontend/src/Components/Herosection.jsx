@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import hero1 from "../assets/Images/hero.jpg";
 import hero2 from "../assets/Images/hero2.jpg";
 import Sideimage1 from "../assets/Images/hero logo.png";
+import NavbarSection from "./Navbar/NavbarSection";
 
 
 
@@ -48,7 +49,10 @@ const HeroSection = () => {
 
   return (
     <>
+    <div className="h-[450px] w-screen">
+    <NavbarSection />
     <div className="relative mx-auto max-w-7xl h-screen overflow-hidden">
+
       <motion.div
         className="absolute inset-0 bg-cover h-96 bg-center"
         style={{
@@ -94,6 +98,7 @@ const HeroSection = () => {
           ))}
         </Slider>
       </div>
+    </div>
     </div>
     </>
   );

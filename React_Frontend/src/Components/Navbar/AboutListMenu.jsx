@@ -5,7 +5,6 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const navListMenuItems = [
   { title: "About Company", path: "/about" },
-  { title: "Leaderdship", path: "/leaderdship" },
   { title: "History", path: "/history" },
  
 ];
@@ -35,7 +34,7 @@ export default function  AboutListMenu() {
   ));
 
   return (
-    <React.Fragment>
+    <>
       <Menu open={isAboutMenuOpen} handler={setIsAboutMenuOpen} offset={{ mainAxis: 20 }} placement="bottom" allowHover={true}>
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
@@ -60,14 +59,14 @@ export default function  AboutListMenu() {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden  bg-deep-orange-600 w-screen rounded-xl lg:block">
+        <MenuList className="hidden  w-screen rounded-xl lg:block">
           <ul className="grid grid-cols-2 gap-y-2 outline-none outline-0">{renderItems}</ul>
         </MenuList>
       </Menu>
       <div className="block lg:hidden">
         <Collapse open={isAboutMobileMenuOpen}>{renderItems}</Collapse>
       </div>
-    </React.Fragment>
+    </>
   );
 }
 
