@@ -29,7 +29,7 @@ export default function ServicesListMenu() {
     >
       <MenuItem className="flex items-center gap-4  rounded-lg">
         <div>
-          <Typography variant="h6" color="blue-gray" className="flex items-center text-sm font-bold">
+          <Typography variant="h6" color="blue-gray" className="flex items-center text-lg font-medium">
             {title}
           </Typography>
         </div>
@@ -43,7 +43,7 @@ export default function ServicesListMenu() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 text-lg font-semibold text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 text-lg font-medium  text-gray-900"
               selected={isServiceMenuOpen ||isServiceMobileMenuOpen}
               onClick={() => setServiceIsMobileMenuOpen((cur) => !cur)}
             >

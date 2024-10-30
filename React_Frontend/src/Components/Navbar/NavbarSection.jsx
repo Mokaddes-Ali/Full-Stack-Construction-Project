@@ -21,17 +21,17 @@ export default function NavbarSection() {
         <Typography as="a" to="/" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
         <img
           src={logo}
-        className="w-[80px] h-[70px] animate-imgRotate "
+        className="w-[65px] h-[60px] animate-imgRotate "
         />
         </Typography>
         <div className="hidden lg:block">
           <NavbarList />
         </div>
-        <div className="hidden gap-2 lg:flex">
-          <Button variant="text" size="sm" color="blue-gray">
+        <div className="hidden gap-2  lg:flex">
+          <Button variant="text" size="sm" color="blue-gray"  className="font-medium  text-lg">
             Log In
-          </Button>
-          <Button variant="gradient" size="sm">
+            </Button>
+          <Button variant="gradient" size="sm" className="font-medium text-lg">
             Sign In
           </Button>
         </div>

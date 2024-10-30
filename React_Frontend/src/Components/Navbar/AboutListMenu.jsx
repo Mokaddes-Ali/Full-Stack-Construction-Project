@@ -25,7 +25,7 @@ export default function  AboutListMenu() {
     >
       <MenuItem className="flex items-center gap-4  rounded-lg">
         <div>
-          <Typography variant="h6" color="blue-gray" className="flex items-center text-sm font-bold">
+          <Typography variant="h6" color="blue-gray" className="flex items-center text-lg font-medium">
             {title}
           </Typography>
         </div>
@@ -39,7 +39,7 @@ export default function  AboutListMenu() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-semibold text-lg text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-medium  text-lg text-gray-900"
               selected={isAboutMenuOpen || isAboutMobileMenuOpen}
               onClick={() => setIsAboutMobileMenuOpen((cur) => !cur)}
             >
@@ -59,8 +59,8 @@ export default function  AboutListMenu() {
             </ListItem>
           </Typography>
         </MenuHandler>
-        <MenuList className="hidden  w-screen rounded-xl lg:block">
-          <ul className="grid grid-cols-2 gap-y-2 outline-none outline-0">{renderItems}</ul>
+        <MenuList className="hidden  w-60 rounded-xl lg:block">
+          <ul className="grid grid-cols-1 gap-y-2 outline-none outline-0">{renderItems}</ul>
         </MenuList>
       </Menu>
       <div className="block lg:hidden">
