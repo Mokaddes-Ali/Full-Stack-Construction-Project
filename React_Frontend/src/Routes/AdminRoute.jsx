@@ -55,7 +55,7 @@ const AdminRoute = () => (
             />
 
           <Route
-              path="/admin/hero_slider/create"
+              path="/hero/add"
               element={
                 <RequireAuth>
                  <CreateHeroSlide />
