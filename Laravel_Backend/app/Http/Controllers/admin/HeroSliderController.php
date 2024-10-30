@@ -42,7 +42,6 @@ class HeroSliderController extends Controller
             'slug' => 'required|unique:projects,slug',
         ]);
 
-
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
