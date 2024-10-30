@@ -10,14 +10,9 @@ import AdminLayout from '../../../layouts/AdminLayout';
 
 const CreateHeroSlide = ({ placeholder }) => { 
   const editor = useRef(null);
-  const [content, setContent] = useState('');
   const [isDisable, setIsDisable] = useState(false);
   const [imageId, setImageId] = useState(null);
 
-  const config = useMemo(() => ({
-    readonly: false, 
-    placeholder: placeholder || 'Content', 
-  }), [placeholder]);
 
   const {
     register,
@@ -28,7 +23,7 @@ const CreateHeroSlide = ({ placeholder }) => {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    const newData = { ...data, content, imageId: imageId };
+    const newData = { ...data, imageId: imageId };
 
     try {
       const res = await fetch(apiUrl + 'hero_slider/store', {
@@ -74,7 +69,7 @@ const CreateHeroSlide = ({ placeholder }) => {
           toast.error(result.errors.image[0]);
         } else {
           setImageId(result.data.id);
-          toast.success(result.message);
+          // toast.success(result.message);
         }
       })
     }
@@ -86,28 +81,28 @@ const CreateHeroSlide = ({ placeholder }) => {
    <AdminLayout>
         <div className="w-full max-w-6xl p-3 rounded-lg bg-blue-gray-100 ">
           <h2 className="text-3xl font-bold text-center text-indigo-700 mb-4">
-            Add New Service
+            Add Hero Slide
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-12 gap-6">
               {/* Service Name - 50% */}
               <div className="col-span-6">
                 <label className="block text-sm font-medium text-gray-800">
-                  Service Name
+                 Hero Title
                 </label>
                 <input
                   type="text"
-                  {...register("title", {
-                    required: "Service Name is required",
+                  {...register("hero_title", {
+                    required: "Hero Title Name is required",
                   })}
-                  placeholder="Service Name"
+                  placeholder="Hero Title"
                   className={`block w-full rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 ${
-                    errors.title ? "ring-red-500 focus:ring-red-500" : ""
+                    errors.hero_title? "ring-red-500 focus:ring-red-500" : ""
                   }`}
                 />
-                {errors.title && (
+                {errors.hero_title && (
                   <span className="text-sm text-red-600">
-                    {errors.title.message}
+                    {errors.hero_title.message}
                   </span>
                 )}
               </div>
@@ -115,7 +110,7 @@ const CreateHeroSlide = ({ placeholder }) => {
               {/* Service Image - 25% */}
               <div className="col-span-4">
                 <label className="block text-sm font-medium text-gray-800">
-                  Service Image
+                 Hero Image
                 </label>
                 <input onChange={handleFile} type="file" className="mt-2 w-full" />
               </div>
@@ -144,20 +139,20 @@ const CreateHeroSlide = ({ placeholder }) => {
             <div className="grid grid-cols-10">
             <div className="col-span-5">
               <label className="block text-sm font-medium text-gray-800">
-                Description
+              Hero Subtitle
               </label>
               <textarea
-                {...register("short_desc", {
-                  required: "Description is required",
+                {...register("hero_subtitle", {
+                  required: "Hero Subtitle is required",
                 })}
-                placeholder="Description"
+                placeholder="Hero Subtitle"
                 className={`block h-12 w-full rounded-lg p-2 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-1 focus:ring-indigo-600 ${
-                  errors.short_desc ? "ring-red-500 focus:ring-red-500" : ""
+                  errors.hero_subtitle ? "ring-red-500 focus:ring-red-500" : ""
                 }`}
               />
-              {errors.short_desc && (
+              {errors.hero_subtitle && (
                 <span className="text-sm text-red-600">
-                  {errors.short_desc.message}
+                  {errors.hero_subtitle.message}
                 </span>
               )}
             </div>
@@ -184,19 +179,29 @@ const CreateHeroSlide = ({ placeholder }) => {
             </div>
             </div>
 
-            {/* Content */}
-            <div className="">
+            {/* ButtonText */}
+            <div className="col-span-5">
               <label className="block text-sm font-medium text-gray-800">
-                Content
+              Button Text
               </label>
-              <JoditEditor
-                ref={editor}
-                value={content}
-                config={config}
-                tabIndex={1}
-                onBlur={(newContent) => setContent(newContent)}
+              <textarea
+                {...register("button_text", {
+                  required: "Button Text is required",
+                })}
+                placeholder="Button Text"
+                className={`block h-12 w-full rounded-lg p-2 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-1 focus:ring-indigo-600 ${
+                  errors.button_text ? "ring-red-500 focus:ring-red-500" : ""
+                }`}
               />
+              {errors.button_text && (
+                <span className="text-sm text-red-600">
+                  {errors.button_text.message}
+                </span>
+              )}
             </div>
+
+
+
 
             {/* Submit Button */}
             <div className="flex items-center justify-center">
@@ -207,7 +212,6 @@ const CreateHeroSlide = ({ placeholder }) => {
               Submit
             </button>
             </div>
-
           </form>
         </div>
 
