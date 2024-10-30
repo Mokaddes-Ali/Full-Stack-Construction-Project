@@ -11,7 +11,7 @@ export default function ScrollNavbarSection() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 350); // 350px স্ক্রল হলে
+      setScrolled(window.scrollY > 300); 
     };
 
     window.addEventListener("scroll", handleScroll);

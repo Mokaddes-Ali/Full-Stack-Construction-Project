@@ -14,7 +14,7 @@ export default function NavbarSection() {
 
   return (
     <>
-    <div className="w-screen bg-none">
+    <div className="w-screen bg-gray-100">
       <div className="mx-auto max-w-7xl">
     <Navbar className=" px-4 py-2 bg-yellow-100 ">
       <div className="flex items-center justify-between text-blue-gray-900">

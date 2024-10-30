@@ -49,11 +49,10 @@ const HeroSection = () => {
 
   return (
     <>
-    <div className="h-[450px] w-screen">
-    <div className="relative mx-auto max-w-7xl h-screen overflow-hidden">
-
+  <div className="h-[600px] bg-red-300  w-screen">
+    <div className="relative flex mx-auto  max-w-7xl h-[500px]">
       <motion.div
-        className="absolute inset-0 bg-cover h-96 bg-center"
+        className="absolute inset-0 bg-cover h-[450px] bg-center"
         style={{
           backgroundImage: `url(${cards[currentSlide].backgroundImage})`,
           backgroundColor: "rgba(0, 0, 1, 0.5)", // Add black overlay with 50% opacity
@@ -61,10 +60,10 @@ const HeroSection = () => {
         }}
         initial={{ scale: 1 }}
         animate={{ scale: currentSlide === 0 ? 1.1 : 1 }} // Only zoom when current slide is active
-        transition={{ duration: 2 }}
+        transition={{ duration: 1 }}
       />
         
-      <div className="relative z-10 flex flex-col items-start justify-center h-full p-8 lg:p-16">
+      <div className="relative z-10 flex  items-start justify-center h-full p-8 lg:p-16">
         <h1 className="text-4xl font-bold text-white lg:text-6xl">
           {cards[currentSlide].title}
         </h1>
@@ -77,21 +76,14 @@ const HeroSection = () => {
           {cards[currentSlide].buttonText}
         </button>
       </div>
-      <div className="absolute inset-y-0 right-0 flex items-center justify-center w-full lg:w-1/2">
-      <img
-          src={cards[currentSlide].rightSideImage}
-          alt={`Right Side ${currentSlide + 1}`}
-        className="w-60 h-60 object-cover rounded-full animate-imgRotate "
-        />
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 flex justify-center p-4">
+      <div className="absolute  bottom-0 left-0 right-0 flex justify-center items-center ml-60">
         <Slider {...settings} className="w-full max-w-4xl">
           {cards.map((card, index) => (
             <div key={index} className="p-4">
               <img
                 src={card.cardImage}
                 alt={`Card ${index + 1}`}
-                className="w-full h-64 object-cover rounded-lg"
+                className="w-[500px] h-48 -mb-14 bg-cover bg-center rounded-lg"
               />
             </div>
           ))}

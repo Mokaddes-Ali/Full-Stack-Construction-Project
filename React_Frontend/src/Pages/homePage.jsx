@@ -13,10 +13,11 @@ const homePage = () => {
       <NavbarSection />
        <ScrollNavbarSection />
          <HeroSection /> 
+
         <Login />
-        <Testimonial />
-       <ServiceCard /> 
-        <Project /> 
+        {/* <Testimonial />
+       <ServiceCard />  */}
+        {/* <Project />  */}
         
     </div>
     </>
