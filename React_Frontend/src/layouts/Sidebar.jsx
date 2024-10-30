@@ -90,8 +90,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
               <div className="flex items-center space-x-2">
                 <MdPeople className="h-6 w-6 " />
                 <span className="text-lg">Users</span>
-        
-
            
                  </div>
                  <HiChevronDown 
@@ -129,7 +127,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
-                location.pathname.includes("/courses") ? "bg-blue-800" : ""
+                location.pathname.includes("/service") ? "bg-blue-800" : ""
               }`}
               onClick={handleDropdownToggle2}
             >
