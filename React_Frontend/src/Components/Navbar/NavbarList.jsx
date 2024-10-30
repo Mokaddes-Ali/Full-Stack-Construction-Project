@@ -1,7 +1,6 @@
 import React from "react";
 import { List, Typography, ListItem } from "@material-tailwind/react";
 import ProjectListMenu from "./ProjectListMenu";
-import PagesListMenu from "./PagesListMenu";
 import ServicesListMenu from "./ServicesListMenu";
 import AboutListMenu from "./AboutListMenu";
 

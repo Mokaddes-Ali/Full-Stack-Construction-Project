@@ -3,6 +3,7 @@ import { Navbar, Collapse, Typography, Button, IconButton } from "@material-tail
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavbarList from "./NavbarList";
 import { motion } from "framer-motion";
+import logo from '../../assets/Images/hero logo.png'
 
 export default function ScrollNavbarSection() {
   const [openNav, setOpenNav] = useState(false);
@@ -28,24 +29,27 @@ export default function ScrollNavbarSection() {
   <div className={`w-screen bg-red-500`}>
     <motion.nav
       className={`fixed  top-0 left-0  z-50 px-4 py-2 transition-all duration-300 shadow-lg ${
-        scrolled ? "bg-gray-800 text-white mx-auto max-w-7xl w-screen ml-10 mr-10 rounded-2xl" : 
+        scrolled ? "bg-brown-100 text-white mx-auto max-w-6xl w-screen ml-24 mr-24 rounded-2xl" : 
         "bg-gray-800 text-white mx-auto max-w-7xl w-screen ml-10 mr-10 rounded-2xl"
       }`}
       initial={{ y: "-100%" }} // Initially hide the navbar
       animate={{ y: scrolled ? 10 : "-100%" }} // Show on scroll
     >
       <div className={`flex items-center justify-between transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0"}`}>
-        <Typography as="a" href="#" variant="h6" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
-          Material Tailwind
+      <Typography as="a" to="/" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
+        <img
+          src={logo}
+        className="w-[55px] h-[50px] animate-imgRotate "
+        />
         </Typography>
         <div className="hidden lg:block">
           <NavbarList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Button variant="text" size="sm" color="blue-gray">
+        <Button variant="text" size="sm" color="blue-gray"  className="font-medium  text-lg">
             Log In
-          </Button>
-          <Button variant="gradient" size="sm">
+            </Button>
+          <Button variant="gradient" size="sm" className="font-medium text-lg">
             Sign In
           </Button>
         </div>
