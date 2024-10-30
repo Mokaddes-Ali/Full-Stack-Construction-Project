@@ -9,17 +9,14 @@ import AboutListMenu from "./AboutListMenu";
 export default function NavbarList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
-      <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Home</ListItem>
-      </Typography>
       <AboutListMenu />
       <ProjectListMenu />
       <ServicesListMenu />
       <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Blog</ListItem>
+        <ListItem className="flex items-center gap-2 font-semibold text-lg py-2 pr-4">Blog</ListItem>
       </Typography>
       <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Contact Us</ListItem>
+        <ListItem className="flex items-center font-semibold text-lg gap-2 py-2 pr-4">Contact Us</ListItem>
       </Typography>
     </List>
   );

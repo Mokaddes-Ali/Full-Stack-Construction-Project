@@ -43,7 +43,7 @@ export default function ServicesListMenu() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 text-lg font-semibold text-gray-900"
               selected={isServiceMenuOpen ||isServiceMobileMenuOpen}
               onClick={() => setServiceIsMobileMenuOpen((cur) => !cur)}
             >

@@ -79,7 +79,7 @@ const HeroSection = () => {
         </button>
       </div>
       <div className="absolute inset-y-0 right-0 flex items-center justify-center w-full lg:w-1/2">
-        <img
+      <img
           src={cards[currentSlide].rightSideImage}
           alt={`Right Side ${currentSlide + 1}`}
         className="w-60 h-60 object-cover rounded-full animate-imgRotate "

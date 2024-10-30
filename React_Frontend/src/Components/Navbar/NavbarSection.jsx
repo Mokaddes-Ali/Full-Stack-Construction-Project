@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar, Collapse, Typography, Button, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavbarList from "./NavbarList";
+import logo from '../../assets/Images/hero logo.png'
 
 export default function NavbarSection() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -15,10 +16,13 @@ export default function NavbarSection() {
     <>
     <div className="w-screen bg-none">
       <div className="mx-auto max-w-7xl">
-    <Navbar className=" px-4 py-2 ">
+    <Navbar className=" px-4 py-2 bg-yellow-200 ">
       <div className="flex items-center justify-between text-blue-gray-900">
         <Typography as="a" to="/" className="mr-4 cursor-pointer py-1.5 lg:ml-2">
-          Material Tailwind
+        <img
+          src={logo}
+        className="w-[80px] h-[70px] animate-imgRotate "
+        />
         </Typography>
         <div className="hidden lg:block">
           <NavbarList />

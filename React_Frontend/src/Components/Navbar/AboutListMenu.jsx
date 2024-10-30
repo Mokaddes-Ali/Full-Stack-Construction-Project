@@ -39,11 +39,11 @@ export default function  AboutListMenu() {
         <MenuHandler>
           <Typography as="div" variant="small" className="font-medium">
             <ListItem
-              className="flex items-center gap-2 py-2 pr-4 font-medium text-gray-900"
+              className="flex items-center gap-2 py-2 pr-4 font-semibold text-lg text-gray-900"
               selected={isAboutMenuOpen || isAboutMobileMenuOpen}
               onClick={() => setIsAboutMobileMenuOpen((cur) => !cur)}
             >
-              About
+              About Us
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
