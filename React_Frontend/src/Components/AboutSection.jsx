@@ -59,7 +59,6 @@ const AboutSection = () => {
             <p className="ml-2 text-gray-900 dark:text-white font-semibold text-lg sm:text-xl">Wallance Jennie</p>
           </div>
         </motion.div>
-        
       </div>
     </div>
   );

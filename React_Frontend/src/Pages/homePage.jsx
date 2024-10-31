@@ -10,26 +10,26 @@ import Footer from '../Components/Footer/Footer';
 import InnerAbout from '../Components/InnerAbout';
 import AboutSection from '../Components/AboutSection';
 import StatsSection from '../Components/StatsSection';
+import TeamMember from '../Components/TeamMember/TeamMember';
 
 const HomePage = () => {
   return (
     <>
-    <div>
       <NavbarSection />
-       {/* <ScrollNavbarSection /> */}
-         {/* <HeroSection /> 
-         <InnerAbout /> */}
+       <ScrollNavbarSection />
+         <HeroSection /> 
+         <InnerAbout />
          <AboutSection />
-         {/* <StatsSection /> */}
+         <StatsSection />
+         <TeamMember />
 
         <Login />
         
-        {/* <Footer /> */}
-        {/* <Testimonial /> */}
-       {/* <ServiceCard />   */}
-         {/* <Project />  */}
+        <Footer /> 
+        <Testimonial />
+        <ServiceCard />  
+         <Project />  
         
-    </div>
     </>
   )
 }
