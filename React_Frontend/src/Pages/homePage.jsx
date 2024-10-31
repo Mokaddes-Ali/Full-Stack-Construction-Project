@@ -22,7 +22,6 @@ const HomePage = () => {
          <AboutSection />
          <StatsSection />
          <TeamMember />
-
         <Login />
         
         <Footer /> 
