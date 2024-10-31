@@ -7,17 +7,24 @@ import NavbarSection from '../Components/Navbar/NavbarSection';
 import ScrollNavbarSection from '../Components/Navbar/ScrollNavbarSection';
 import HeroSection from '../Components/HeroSection';
 import Footer from '../Components/Footer/Footer';
+import InnerAbout from '../Components/InnerAbout';
+import AboutSection from '../Components/AboutSection';
+import StatsSection from '../Components/StatsSection';
 
-const homePage = () => {
+const HomePage = () => {
   return (
     <>
     <div>
       <NavbarSection />
-       <ScrollNavbarSection />
-         {/* <HeroSection />  */}
+       {/* <ScrollNavbarSection /> */}
+         {/* <HeroSection /> 
+         <InnerAbout /> */}
+         <AboutSection />
+         {/* <StatsSection /> */}
 
         <Login />
-        <Footer />
+        
+        {/* <Footer /> */}
         {/* <Testimonial /> */}
        {/* <ServiceCard />   */}
          {/* <Project />  */}
@@ -27,4 +34,4 @@ const homePage = () => {
   )
 }
 
-export default homePage
+export default HomePage

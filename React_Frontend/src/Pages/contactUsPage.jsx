@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import ContactForm from '../Components/Contact/ContactForm'
 
-const Contact = () => {
+const ContactUsPage = () => {
   return (
-    <div className='bg-black h-[800px] w-screen'>
-         <div className='bg-black h-96'>Contact</div>
-         <div className='bg-black h-96'>Contact</div>
-         <div className='bg-black h-96'>Contact</div>
-    </div>
+
+    <Fragment>
+
+      <div className="">
+        <ContactForm />
+        </div>
+      
+
+    </Fragment>
+   
     
 
   )
 }
 
-export default Contact
+export default ContactUsPage

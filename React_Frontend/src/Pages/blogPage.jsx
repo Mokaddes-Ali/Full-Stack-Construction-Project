@@ -1,6 +1,6 @@
 import NavbarSection from '../Components/Navbar/NavbarSection'
 
-const blogPage = () => {
+const BlogPage = () => {
   return (
     <>
     <NavbarSection />
@@ -8,4 +8,4 @@ const blogPage = () => {
   )
 }
 
-export default blogPage
+export default BlogPage

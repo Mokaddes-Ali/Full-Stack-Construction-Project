@@ -3,8 +3,8 @@ import { BrowserRouter} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ColorProvider } from "./layouts/context/ColorContext";
-import AppRoute from "./Routes/WebRoute";
 import AdminRoute from "./Routes/AdminRoute";
+import WebRoute from "./Routes/WebRoute";
 
 
 const App = () => {
@@ -14,8 +14,8 @@ const App = () => {
     <ColorProvider>
      <BrowserRouter>
 
-     <AppRoute />
-     <AdminRoute />
+     <WebRoute />
+     {/* <AdminRoute /> */}
 
       <ToastContainer
         position="top-right"
