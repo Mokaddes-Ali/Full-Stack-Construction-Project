@@ -5,6 +5,12 @@ import RequireAuth from "../Components/RequireAuth";
 import { default as ShowServices } from "../Components/Backend/services/show";
 import { default as CreateServices } from "../Components/Backend/services/create";
 import { default as EditServices } from "../Components/Backend/services/edit";
+
+import { default as ShowProjects } from "../Components/Backend/projects/show";
+import { default as CreateProjects } from "../Components/Backend/projects/create";
+
+
+
 import SettingsAccount from "../Pages/AdminDashboardPages/SettingsAccount";
 import UsersList from "../Pages/AdminDashboardPages/UsersList";
 import UsersRoles from "../Pages/AdminDashboardPages/UsersRoles";
@@ -22,6 +28,14 @@ const AdminRoute = () => (
             <Route path="/login" element={<Login />} />
             <Route
               path="/admin/dashboard"
+              element={
+                <RequireAuth>
+                  <Dashboard />
+                </RequireAuth>
+              }
+            />
+                <Route
+              path="/logindashboard"
               element={
                 <RequireAuth>
                   <Dashboard />
@@ -73,21 +87,32 @@ const AdminRoute = () => (
               }
             />
 
+
+            {/* project */}
+
+            <Route
+              path="/admin/projects"
+              element={
+                <RequireAuth>
+                <ShowProjects />
+                </RequireAuth>
+              }
+            />
+
+             <Route
+              path="/admin/services/create"
+              element={
+                <RequireAuth>
+                  <CreateProjects />
+                </RequireAuth>
+              }
+            />
+
             <Route
               path="settings/account"
               element={
                 <RequireAuth>
                   <SettingsAccount />
-                </RequireAuth>
-              }
-            />
-         
-
-            <Route
-              path="/logindashboard"
-              element={
-                <RequireAuth>
-                  <Dashboard />
                 </RequireAuth>
               }
             />
