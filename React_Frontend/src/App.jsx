@@ -15,7 +15,7 @@ const App = () => {
      <BrowserRouter>
 
      <WebRoute />
-     {/* <AdminRoute /> */}
+     <AdminRoute />
 
       <ToastContainer
         position="top-right"
@@ -27,7 +27,6 @@ const App = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-      
       />
       </BrowserRouter>
     </ColorProvider>
