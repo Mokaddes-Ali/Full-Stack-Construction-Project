@@ -226,6 +226,8 @@ class ProjectController extends Controller
 
         File::delete(public_path('uploads/projects/small/'. $project->image));
         File::delete(public_path('uploads/projects/large/'. $project->image));
+        File::delete(public_path('uploads/temp/'. $project->image));
+        File::delete(public_path('uploads/temp/thumb/'. $project->image));
 
         $project->delete();
 

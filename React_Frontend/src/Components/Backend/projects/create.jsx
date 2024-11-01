@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
 import AdminLayout from '../../../layouts/AdminLayout';
+import { IoMdArrowDropdown } from 'react-icons/io';
 
 const Create = ({ placeholder }) => { 
   const editor = useRef(null);
@@ -44,7 +45,7 @@ const Create = ({ placeholder }) => {
 
       if (result.status === true) {
         toast.success(result.message);
-        navigate('admin/projects');
+        navigate('/admin/projects/create');
       } else {
         toast.error(result.message);
       }
@@ -58,6 +59,8 @@ const Create = ({ placeholder }) => {
     const formData = new FormData();
     const file = e.target.files[0];
     formData.append('image', file);
+    setIsDisable(true);
+    
 
     await fetch(apiUrl + 'temp-image', {
       method: 'POST',
@@ -68,12 +71,14 @@ const Create = ({ placeholder }) => {
       body: formData
     }).then(response => response.json())
       .then(result => {
+        setIsDisable(false);
         if (result.status == false) {
           toast.error(result.errors.image[0]);
-        } else {
-          setImageId(result.data.id);
-          toast.success(result.message);
         }
+        // } else {
+        //   setImageId(result.data.id);
+        //   toast.success(result.message);
+        // }
       })
   }
 
@@ -133,26 +138,39 @@ const Create = ({ placeholder }) => {
               </div>
 
               {/* sector */}
-              <div>
-                <label className="block text-sm font-medium text-gray-900">Sector</label>
-                <textarea
-                  {...register('sector', { required: 'sector is required' })}
-                  placeholder="Sector"
-                  className={`block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm ${errors.sector ? 'ring-red-500 focus:ring-red-500' : ''}`}
-                />
-                {errors.sector && <span className="text-sm text-red-600">{errors.sector.message}</span>}
-              </div>
+              <div className="relative inline-block text-left">
+    <label className="block text-sm font-medium text-gray-900">Sector</label>
+    <select
+      {...register('sector', { required: 'Sector is required' })}
+      className={`block w-full mt-1 rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm ${errors.sector ? 'ring-red-500 focus:ring-red-500' : ''}`}
+    >
+      <option value="">Select an option</option>
+      <option value="Option 1">Option 1</option>
+      <option value="Option 2">Option 2</option>
+      <option value="Option 3">Option 3</option>
+      <option value="Option 4">Option 4</option>
+      <option value="Option 5">Option 5</option>
+    </select>
+    {errors.sector && <span className="text-sm text-red-600">{errors.sector.message}</span>}
+  </div>
 
               {/* construction_type */}
               <div>
-                <label className="block text-sm font-medium text-gray-900">construction_type</label>
-                <textarea
-                  {...register('construction_type', { required: 'construction_type is required' })}
-                  placeholder="construction_type"
-                  className={`block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm ${errors.construction_type ? 'ring-red-500 focus:ring-red-500' : ''}`}
-                />
-                {errors.construction_type && <span className="text-sm text-red-600">{errors.construction_type.message}</span>}
-              </div>
+  <label className="block text-sm font-medium text-gray-900">Construction Type</label>
+  <select
+    {...register('construction_type', { required: 'Construction type is required' })}
+    className={`block w-full mt-1 rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm ${errors.construction_type ? 'ring-red-500 focus:ring-red-500' : ''}`}
+  >
+    <option value="">Select construction type</option>
+    <option value="Residential">Residential</option>
+    <option value="Commercial">Commercial</option>
+    <option value="Industrial">Industrial</option>
+    <option value="Institutional">Institutional</option>
+    <option value="Mixed-use">Mixed-use</option>
+  </select>
+  {errors.construction_type && <span className="text-sm text-red-600">{errors.construction_type.message}</span>}
+</div>
+
 
               
 
