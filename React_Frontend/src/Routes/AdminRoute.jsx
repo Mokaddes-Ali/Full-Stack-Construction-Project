@@ -100,7 +100,7 @@ const AdminRoute = () => (
             />
 
              <Route
-              path="/admin/services/create"
+              path="/admin/projects/create"
               element={
                 <RequireAuth>
                   <CreateProjects />

@@ -170,7 +170,7 @@ const Create = ({ placeholder }) => {
 
               {/* Service Image */}
               <div>
-                <label className="block text-sm font-medium text-gray-900">Service Image</label>
+                <label className="block text-sm font-medium text-gray-900">Project Image</label>
                 <input onChange={handleFile} type="file" className="mt-2" />
               </div>
 

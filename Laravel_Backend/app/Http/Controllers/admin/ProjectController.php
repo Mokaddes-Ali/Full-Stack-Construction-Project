@@ -63,7 +63,6 @@ class ProjectController extends Controller
          //save temp image
 
          if ($request->imageId > 0) {
-            $oldImage =   $project->image;
 
            $tempImage = TempImage::find($request->imageId);
            if ($tempImage != null) {
@@ -92,11 +91,6 @@ class ProjectController extends Controller
 
                       $project->image = $fileName;
                       $project->save();
-
-                      if ($oldImage != '') {
-                           File::delete(public_path('uploads/projects/small/'.$oldImage));
-                           File::delete(public_path('uploads/projects/large/'.$oldImage));
-                        }
                       }
              }
 
@@ -200,7 +194,7 @@ class ProjectController extends Controller
                         ]);
 
                }
-               
+
 
     public function show($id)
     {

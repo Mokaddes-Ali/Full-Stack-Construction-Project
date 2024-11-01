@@ -198,7 +198,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
                   Project List
                 </NavLink>
                 <NavLink
-                  to="/admin/services/create"
+                  to="/admin/projects/create"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
