@@ -1,16 +1,17 @@
 import { useState, useRef, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
-import { apiUrl, token } from '../../http';
-import { useNavigate, useParams } from 'react-router-dom';
+import { apiUrl, token, fileUrl } from '../../http';
+import { useNavigate,useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
 import AdminLayout from '../../../layouts/AdminLayout';
 
-const edit = ({ placeholder }) => { 
+
+const Create = ({ placeholder }) => { 
   const editor = useRef(null);
   const [content, setContent] = useState('');
-  const [service, setService] = useState('');
+  const [project, setProject] = useState('');
   const [isDisable, setIsDisable] = useState(false);
   const [imageId, setImageId] = useState(null);
   const params = useParams();
@@ -26,7 +27,7 @@ const edit = ({ placeholder }) => {
     formState: { errors },
   } = useForm({
     defaultValues: async () => {
-      const res = await fetch(apiUrl +'services/'+params.id, {
+      const res = await fetch(apiUrl +'projects/'+params.id, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ const edit = ({ placeholder }) => {
       const result = await res.json();
       // console.log(result); 
       setContent(result.data.content);
-      setService(result.data);
+      setProject(result.data);
       return{
         title: result.data.title,
         short_desc: result.data.short_desc,
@@ -57,7 +58,7 @@ const edit = ({ placeholder }) => {
     const newData = { ...data, content, imageId: imageId };
 
     try {
-      const res = await fetch(apiUrl + 'services/'+params.id, {
+      const res = await fetch(apiUrl + 'projects/'+params.id, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ const edit = ({ placeholder }) => {
 
       if (result.status === true) {
         toast.success(result.message);
-        navigate('admin/services');
+        navigate('/');
       } else {
         toast.error(result.message);
       }
@@ -85,6 +86,7 @@ const edit = ({ placeholder }) => {
     const formData = new FormData();
     const file = e.target.files[0];
     formData.append('image', file);
+    setIsDisable('true');
 
     //temporary image upload
     await fetch(apiUrl + 'temp-image', {
@@ -102,14 +104,14 @@ const edit = ({ placeholder }) => {
           setImageId(result.data.id);
           toast.success(result.message);
         }
-      });
+      })
     }
-  
+
 
 
   return (
     <>
-     <AdminLayout>
+    <AdminLayout>
     <div className="">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
@@ -188,14 +190,14 @@ const edit = ({ placeholder }) => {
               )}
             </div>
           </div>
-    {/* // Service Image */}
+    {/* // Products Image */}
           <div>
-            <label className="block text-sm font-medium leading-6 text-gray-900">Service Image</label>
+            <label className="block text-sm font-medium leading-6 text-gray-900">Product Image</label>
             <br />
             <input onChange={handleFile} type="file" />
            
             {
-            service.image && <img src={fileUrl+'uploads/services/small/'+service.image} alt = ""/>
+            project.image && <img src={fileUrl+'uploads/projects/small/'+project.image} alt = ""/>
 
             }
           </div>
@@ -231,7 +233,7 @@ const edit = ({ placeholder }) => {
     </div>
     </AdminLayout>
     </>
-  )
-}
+  );
+};
 
-export default edit
+export default Create;
