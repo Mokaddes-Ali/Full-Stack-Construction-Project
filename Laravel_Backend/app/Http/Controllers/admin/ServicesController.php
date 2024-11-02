@@ -213,26 +213,34 @@ class ServicesController extends Controller
     }
 
     public function destroy($id)
-    {
-        $service = Services::find($id);
+{
+    $service = Services::find($id);
 
-        if ($service == null) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Service not found'
-            ]);
+    if ($service == null) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Service not found'
+        ]);
     }
 
-    File::delete(public_path('uploads/services/small/'. $service->image));
-    File::delete(public_path('uploads/services/large/'. $service->image));
+    // Delete the main service images
+    File::delete(public_path('uploads/services/small/' . $service->image));
+    File::delete(public_path('uploads/services/large/' . $service->image));
 
+    // Find and delete the temporary image if it exists
+    $tempImage = TempImage::where('name', $service->image)->first();
+    if ($tempImage) {
+        File::delete(public_path('uploads/temp/' . $tempImage->name));
+        File::delete(public_path('uploads/temp/thumb/' . $tempImage->name));
+        $tempImage->delete();
+    }
 
+    // Delete the service record from the database
     $service->delete();
 
     return response()->json([
         'status' => true,
-        'message' => 'Service deleted successfully'
+        'message' => 'Service and related temporary images deleted successfully'
     ]);
-
 }
 }
