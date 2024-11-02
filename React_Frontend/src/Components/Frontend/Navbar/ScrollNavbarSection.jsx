@@ -3,7 +3,7 @@ import { Navbar, Collapse, Typography, Button, IconButton } from "@material-tail
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavbarList from "./NavbarList";
 import { motion } from "framer-motion";
-import logo from '../../assets/Images/hero logo.png'
+import logo from '../../../assets/Images/hero logo.png'
 
 export default function ScrollNavbarSection() {
   const [openNav, setOpenNav] = useState(false);

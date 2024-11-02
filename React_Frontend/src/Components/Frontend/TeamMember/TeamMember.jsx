@@ -1,8 +1,8 @@
 import Card from './Card';
-import team1 from '../../assets/Images/service-img-2.jpg'
-import team2 from '../../assets/Images/service-img-2.jpg'
-import team3 from '../../assets/Images/service-img-2.jpg'
-import team4 from '../../assets/Images/service-img-2.jpg'
+import team1 from '../../../assets/Images/heroright2.jpeg'
+import team2 from '../../../assets/Images/service-img-2.jpg'
+import team3 from '../../../assets/Images/service-img-2.jpg'
+import team4 from '../../../assets/Images/service-img-2.jpg'
 
 const chefs = [
   {

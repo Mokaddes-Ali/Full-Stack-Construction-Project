@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar, Collapse, Typography, Button, IconButton } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavbarList from "./NavbarList";
-import logo from '../../assets/Images/hero logo.png'
+import logo from '../../../assets/Images/hero logo.png'
 
 export default function NavbarSection() {
   const [openNav, setOpenNav] = React.useState(false);
