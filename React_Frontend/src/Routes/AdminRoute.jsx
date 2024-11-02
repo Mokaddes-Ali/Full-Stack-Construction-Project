@@ -8,7 +8,7 @@ import { default as EditServices } from "../Components/Backend/services/edit";
 
 import { default as ShowProjects } from "../Components/Backend/projects/show";
 import { default as CreateProjects } from "../Components/Backend/projects/create";
-import { default as EditProjects  } from "../Components/Backend/services/edit";
+import { default as EditProjects  } from "../Components/Backend/projects/edit";
 
 
 

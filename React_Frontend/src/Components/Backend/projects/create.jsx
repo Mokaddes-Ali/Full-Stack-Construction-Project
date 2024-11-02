@@ -91,7 +91,7 @@ const Create = ({ placeholder }) => {
               Add New Project
             </h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              {/* Service Name */}
+              {/* Project Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-900">Service Name</label>
                 <input

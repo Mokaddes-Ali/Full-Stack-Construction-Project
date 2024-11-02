@@ -213,34 +213,38 @@ class ServicesController extends Controller
     }
 
     public function destroy($id)
-{
-    $service = Services::find($id);
+    {
+        $service = Services::find($id);
 
-    if ($service == null) {
+        if ($service == null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Service not found'
+            ]);
+        }
+
+        // Delete main service images from services directories
+        File::delete(public_path('uploads/services/small/' . $service->image));
+        File::delete(public_path('uploads/services/large/' . $service->image));
+
+        // Find and delete the corresponding image from TempImage if it exists
+        $tempImage = TempImage::where('name', $service->image)->first();
+        if ($tempImage) {
+            // Delete image files from temporary folders
+            File::delete(public_path('uploads/temp/' . $tempImage->name));
+            File::delete(public_path('uploads/temp/thumb/' . $tempImage->name));
+
+            // Delete the TempImage record
+            $tempImage->delete();
+        }
+
+        // Delete the service record from the Services table
+        $service->delete();
+
         return response()->json([
-            'status' => false,
-            'message' => 'Service not found'
+            'status' => true,
+            'message' => 'Service and related temporary images deleted successfully'
         ]);
     }
 
-    // Delete the main service images
-    File::delete(public_path('uploads/services/small/' . $service->image));
-    File::delete(public_path('uploads/services/large/' . $service->image));
-
-    // Find and delete the temporary image if it exists
-    $tempImage = TempImage::where('name', $service->image)->first();
-    if ($tempImage) {
-        File::delete(public_path('uploads/temp/' . $tempImage->name));
-        File::delete(public_path('uploads/temp/thumb/' . $tempImage->name));
-        $tempImage->delete();
-    }
-
-    // Delete the service record from the database
-    $service->delete();
-
-    return response()->json([
-        'status' => true,
-        'message' => 'Service and related temporary images deleted successfully'
-    ]);
-}
 }

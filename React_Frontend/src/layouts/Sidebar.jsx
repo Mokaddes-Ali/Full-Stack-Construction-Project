@@ -202,7 +202,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
-                  Project List
+                  Project Add
                 </NavLink>
               </div>
             )}
