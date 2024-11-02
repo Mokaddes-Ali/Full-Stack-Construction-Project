@@ -11,10 +11,12 @@ import InnerAbout from '../Components/InnerAbout';
 import AboutSection from '../Components/AboutSection';
 import StatsSection from '../Components/StatsSection';
 import TeamMember from '../Components/TeamMember/TeamMember';
+import Contact from '../Components/Frontend/ContactForm/Contact';
 
 const HomePage = () => {
   return (
     <>
+      <div className="">
       <NavbarSection />
        <ScrollNavbarSection />
          <HeroSection /> 
@@ -23,11 +25,13 @@ const HomePage = () => {
          <StatsSection />
          <TeamMember />
         <Login />
+        <Contact />
         
         <Footer /> 
         <Testimonial />
         <ServiceCard />  
          <Project />  
+         </div>
         
     </>
   )
