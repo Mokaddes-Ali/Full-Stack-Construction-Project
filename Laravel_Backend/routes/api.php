@@ -12,11 +12,21 @@ use App\Http\Controllers\admin\HeroSliderController;
 use App\Http\Controllers\admin\TempImageController;
 use App\Http\Controllers\front\ServiceController as FrontServiceController;
 use App\Models\HeroSlider;
+use App\Http\Controllers\ClientController;
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
 Route::get('get-latest-service', [FrontServiceController::class, 'latestService']);
 
+
+
+
+//client
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/clients/store', [ClientController::class, 'store']);
+    Route::get('/clients', [ClientController::class, 'index']);
+});
 
 
 

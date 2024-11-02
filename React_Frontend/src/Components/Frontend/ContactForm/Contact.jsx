@@ -1,6 +1,31 @@
-import React from "react";
+import { useState, useRef, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+import 'react-toastify/dist/ReactToastify.css';
+import { apiUrl, token } from '../../http';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const Contact = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = async (data) => {
+        const response =  await fetch(apiUrl + 'clients/store', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            console.log('Success:', result);
+        } else {
+            const errorData = await response.json();
+            console.error('Error:', errorData);
+        }
+    };
   return (
     <>
       <section className="relative z-10 overflow-hidden bg-deep-orange-50 py-20 dark:bg-dark  lg:p-[120px]">
@@ -112,37 +137,44 @@ const Contact = () => {
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
               <div className="relative rounded-lg bg-red-100 p-8 shadow-lg dark:bg-dark-2 sm:p-12">
-                <form>
-                  <ContactInputBox
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                  />
-                  <ContactInputBox
-                    type="text"
-                    name="email"
-                    placeholder="Your Email"
-                  />
-                  <ContactInputBox
-                    type="text"
-                    name="phone"
-                    placeholder="Your Phone"
-                  />
-                  <ContactTextArea
-                    row="6"
-                    placeholder="Your Message"
-                    name="details"
-                    defaultValue=""
-                  />
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
-                    >
-                      Send Message
-                    </button>
-                  </div>
-                </form>
+              <form onSubmit={handleSubmit(onSubmit)}>
+            <ContactInputBox
+                type="text"
+                {...register('name', { required: true })}
+                placeholder="Your Name"
+            />
+            {errors.name && <span>This field is required</span>}
+
+            <ContactInputBox
+                type="text"
+                {...register('email', { required: true })}
+                placeholder="Your Email"
+            />
+            {errors.email && <span>This field is required</span>}
+
+            <ContactInputBox
+                type="text"
+                {...register('phone', { required: true })}
+                placeholder="Your Phone"
+            />
+            {errors.phone && <span>This field is required</span>}
+
+            <ContactTextArea
+                rows="6"
+                {...register('details', { required: true })}
+                placeholder="Your Message"
+            />
+            {errors.details && <span>This field is required</span>}
+
+            <div>
+                <button
+                    type="submit"
+                    className="w-full rounded border border-primary bg-primary p-3 text-white transition hover:bg-opacity-90"
+                >
+                    Send Message
+                </button>
+            </div>
+        </form>
                 <div>
                   <span className="absolute -right-9 -top-10 z-[-1]">
                     <svg

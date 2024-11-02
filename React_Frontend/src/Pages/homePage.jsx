@@ -13,6 +13,7 @@ import StatsSection from '../Components/StatsSection';
 import TeamMember from '../Components/Frontend/TeamMember/TeamMember';
 import Contact from '../Components/Frontend/ContactForm/Contact';
 
+
 const HomePage = () => {
   return (
     <>
