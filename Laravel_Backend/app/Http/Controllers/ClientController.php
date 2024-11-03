@@ -17,13 +17,21 @@ class ClientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
         }
 
         $client = Client::create($request->all());
 
-        return response()->json($client, 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'Project updated successfully'
+        ]);
+
     }
+
 
     public function index()
     {
