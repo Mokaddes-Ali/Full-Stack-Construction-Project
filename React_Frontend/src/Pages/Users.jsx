@@ -1,12 +1,19 @@
+// src/pages/Users.js
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../Components/Backend/context/AuthContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Users() {
     const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const { setIsAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         try {
@@ -16,16 +23,19 @@ function Users() {
                 password: data.password,
                 password_confirmation: data.password_confirmation,
             });
-            alert(response.data.message);
             reset();
+            setIsAuthenticated(true); // Set authentication state if necessary
+            navigate('/protected'); // Redirect to protected page after successful registration
         } catch (error) {
             if (error.response && error.response.data.errors) {
-                alert("Registration failed: " + JSON.stringify(error.response.data.errors));
+                const errorMessages = Object.values(error.response.data.errors).flat();
+                errorMessages.forEach(msg => toast.error(msg));
+            } else {
+                toast.error("Registration failed. Please try again.");
             }
         }
     };
 
-    // Watch password and confirm password fields
     const password = watch("password", "");
     const confirmPassword = watch("password_confirmation", "");
 

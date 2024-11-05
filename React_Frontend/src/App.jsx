@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ColorProvider } from "./layouts/context/ColorContext";
 import AdminRoute from "./Routes/AdminRoute";
 import WebRoute from "./Routes/WebRoute";
+import { AuthProvider } from "./Components/Backend/context/AuthContext";
 
 
 
@@ -12,6 +13,7 @@ const App = () => {
 
   return (
     <>
+     <AuthProvider>
     <ColorProvider>
      <BrowserRouter>
 
@@ -31,6 +33,7 @@ const App = () => {
       />
       </BrowserRouter>
     </ColorProvider>
+    </AuthProvider>
     </>
   );
 };
