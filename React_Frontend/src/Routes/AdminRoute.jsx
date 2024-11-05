@@ -62,10 +62,6 @@ const AdminRoute = () => (
                         </ProtectedRoute>
                     }
                 />
-
-        
-
-
                 <Route
               path="/logindashboard"
               element={

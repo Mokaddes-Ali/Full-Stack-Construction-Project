@@ -3,6 +3,7 @@ import { Navbar, Collapse, Typography, Button, IconButton } from "@material-tail
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavbarList from "./NavbarList";
 import logo from '../../../assets/Images/hero logo.png'
+import { NavLink } from "react-router-dom";
 
 export default function NavbarSection() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -29,10 +30,10 @@ export default function NavbarSection() {
         </div>
         <div className="hidden gap-2  lg:flex">
           <Button variant="text" size="sm" color="blue-gray"  className="font-medium  text-lg">
-            Log In
+            <NavLink to="/login" className="text-blue-gray-900">Log In</NavLink>
             </Button>
           <Button variant="gradient" size="sm" className="font-medium text-lg">
-            Sign In
+            <NavLink to="/register" className="text-white">Sign Up</NavLink>
           </Button>
         </div>
         <IconButton variant="text" color="blue-gray" className="lg:hidden" onClick={() => setOpenNav(!openNav)}>
