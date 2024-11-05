@@ -52,14 +52,13 @@ const AdminRoute = () => (
                         }
                     />
 
-<Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login />} />
 
                   <Route
-                    path="/protected"
+                    path="/log"
                     element={
                         <ProtectedRoute>
-                            {/* Replace with your protected component */}
-                            <h2>Protected Content</h2>
+                          <ProtectedPage />
                         </ProtectedRoute>
                     }
                 />

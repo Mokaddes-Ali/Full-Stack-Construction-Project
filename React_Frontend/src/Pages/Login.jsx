@@ -20,7 +20,7 @@ function Login() {
             localStorage.setItem('authToken', response.data.token);
 
             // Redirect to a protected route
-            navigate('/protected');
+            navigate('/log');
         } catch (error) {
             if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);
