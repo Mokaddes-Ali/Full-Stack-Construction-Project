@@ -9,6 +9,42 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthenticationController extends Controller
 {
+
+    public function register(Request $request)
+    {
+        // Validate input
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        // Return validation errors if any
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // Create new user
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,  // Will be automatically hashed in the User model
+        ]);
+
+        // Generate token
+        $token = $user->createToken('authToken')->plainTextToken;
+
+        return response()->json([
+            'status' => true,
+            'message' => 'User registered successfully!',
+            'token' => $token,
+            'user' => $user,
+        ], 201);
+    }
+
     public function authenticate(Request $request)
     {
        $validator = Validator::make($request->all(), [

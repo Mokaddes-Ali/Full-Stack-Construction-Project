@@ -15,6 +15,7 @@ use App\Models\HeroSlider;
 use App\Http\Controllers\ClientController;
 
 Route::post('register', [AuthenticationController::class, 'authenticate']);
+Route::post('/user_register', [AuthenticationController::class, 'register']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
 Route::get('get-latest-service', [FrontServiceController::class, 'latestService']);
 

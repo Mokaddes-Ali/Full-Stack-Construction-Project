@@ -12,6 +12,7 @@ import AboutSection from '../Components/AboutSection';
 import StatsSection from '../Components/StatsSection';
 import TeamMember from '../Components/Frontend/TeamMember/TeamMember';
 import Contact from '../Components/Frontend/ContactForm/Contact';
+import Users from '../Components/Backend/Register/Uers'
 
 
 const HomePage = () => {
@@ -21,6 +22,7 @@ const HomePage = () => {
       <NavbarSection />
        <ScrollNavbarSection />
          <HeroSection /> 
+         <Users />
          <InnerAbout />
          <AboutSection />
          <StatsSection />

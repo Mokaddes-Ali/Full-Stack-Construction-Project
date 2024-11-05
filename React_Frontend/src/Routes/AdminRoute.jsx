@@ -35,6 +35,15 @@ const AdminRoute = () => (
                 </RequireAuth>
               }
             />
+
+           <Route
+              path="/dashboard"
+              element={
+                  <Dashboard />
+              }
+            />
+
+
                 <Route
               path="/logindashboard"
               element={
