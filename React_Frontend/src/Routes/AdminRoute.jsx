@@ -21,6 +21,8 @@ import More from "../Pages/AdminDashboardPages/More";
 import MoreSettings from "../Pages/AdminDashboardPages/MoreSettings";
 import {default as CreateHeroSlide } from "../Components/Backend/hero_slider/create";
 import CreateService from "../Pages/AdminDashboardPages/Services/create";
+import UserRequireAuth from "../Components/UserRequireAuth";
+import UserDashboard from "../Pages/UserDashboard";
 
 
       
@@ -35,13 +37,18 @@ const AdminRoute = () => (
                 </RequireAuth>
               }
             />
+       
 
            <Route
               path="/dashboard"
               element={
-                  <Dashboard />
+                <UserRequireAuth>
+                   <UserDashboard />
+                </UserRequireAuth>
               }
             />
+
+        
 
 
                 <Route

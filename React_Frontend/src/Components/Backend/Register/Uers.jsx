@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useState, useContext} from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { UserAuthContext } from '../context/UserAuth';
 
 function Uers() {
     const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
+    const {login} = useContext(UserAuthContext);
 
     const onSubmit = async (data) => {
         try {
@@ -26,14 +28,14 @@ function Uers() {
         toast.error(result.message); 
       } else {
 
-        const userInfo = {
+        const userRegisterInfo = {
           id: result.id,
           token: result.token,
          
         }
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
-        login(userInfo);   
-        navigate('/logindashboard'); 
+        localStorage.setItem('userRegisterInfo', JSON.stringify(userRegisterInfo));
+        login(userRegisterInfo);   
+        navigate('/dashboard'); 
         
       }
         } catch (error) {
