@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "../Components/Backend/login";
+// import Login from "../Components/Backend/login";
 import Dashboard from "../Components/Backend/Dashboard";
 import RequireAuth from "../Components/RequireAuth";
 import { default as ShowServices } from "../Components/Backend/services/show";
@@ -24,6 +24,8 @@ import CreateService from "../Pages/AdminDashboardPages/Services/create";
 import PrivateRoute from "../Components/PrivateRoute";
 import ProtectedPage from "../Pages/ProtectedPage";
 import Users from "../Pages/Users";
+import Login from "../Pages/Login";
+import ProtectedRoute from "../Components/ProtectedRoute";
 
 
       
@@ -49,6 +51,18 @@ const AdminRoute = () => (
                             </PrivateRoute>
                         }
                     />
+
+<Route path="/login" element={<Login />} />
+
+                  <Route
+                    path="/protected"
+                    element={
+                        <ProtectedRoute>
+                            {/* Replace with your protected component */}
+                            <h2>Protected Content</h2>
+                        </ProtectedRoute>
+                    }
+                />
 
         
 
