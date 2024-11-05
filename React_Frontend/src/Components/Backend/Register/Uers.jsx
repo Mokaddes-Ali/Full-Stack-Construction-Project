@@ -11,7 +11,7 @@ function Uers() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
-    const {login} = useContext(UserAuthContext);
+   
 
     const onSubmit = async (data) => {
         try {
