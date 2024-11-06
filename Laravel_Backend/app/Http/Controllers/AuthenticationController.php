@@ -21,63 +21,51 @@ class AuthenticationController extends Controller
 
     public function register(Request $request)
     {
-        // Validate input
+        // Validate the incoming request
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'role_id' => 'required|exists:roles,id', // Ensure the role exists
         ]);
 
-        // Return validation errors if any
         if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'errors' => $validator->errors(),
-            ], 422);
+            return response()->json(['errors' => $validator->errors()]);
         }
 
-        // Create new user
+        // Create the user with the assigned role
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password,  // Will be automatically hashed in the User model
+            'password' => Hash::make($request->password),
+            'role_id' => $request->role_id,  // Assign the role from the request
         ]);
-
-        // Generate token
-        $token = $user->createToken('authToken')->plainTextToken;
-
-        return response()->json([
-            'status' => true,
-            'message' => 'User registered successfully!',
-            'token' => $token,
-            'user' => $user,
-        ], 201);
     }
+
 
     // login user
 
 
     public function login(Request $request)
     {
-        $user = User::where('email', $request->email)->first();
+        $credentials = $request->only('email', 'password');
 
-        if ($user && Hash::check($request->password, $user->password)) {
-            $token = $user->createToken('auth_token')->plainTextToken;
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('MyApp')->accessToken;
 
+            // Redirect based on the user's role
+            $role = $user->role->name;
             return response()->json([
-                'status' => true,
-                'message' => 'Login successful',
-                'id' => $user->id,
                 'token' => $token,
-                'role' => $user->role, // সঠিক রোল ডেটা
+                'role' => $role,
+                'redirect_url' => $role === 'admin' ? '/admin-dashboard' : '/user-dashboard'
             ]);
         } else {
-            return response()->json([
-                'status' => false,
-                'message' => 'Invalid credentials',
-            ]);
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
     }
+
 
     public function authenticate(Request $request)
     {
