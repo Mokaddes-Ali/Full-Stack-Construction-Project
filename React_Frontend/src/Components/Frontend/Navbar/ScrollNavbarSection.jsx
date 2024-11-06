@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavbarList from "./NavbarList";
 import { motion } from "framer-motion";
 import logo from '../../../assets/Images/hero logo.png'
+import { NavLink } from "react-router-dom";
 
 export default function ScrollNavbarSection() {
   const [openNav, setOpenNav] = useState(false);
@@ -47,10 +48,11 @@ export default function ScrollNavbarSection() {
         </div>
         <div className="hidden gap-2 lg:flex">
         <Button variant="text" size="sm" color="blue-gray"  className="font-medium  text-lg">
-            Log In
+        <NavLink to="/login" className="text-blue-gray-900">Log In</NavLink>
+      
             </Button>
           <Button variant="gradient" size="sm" className="font-medium text-lg">
-            Sign In
+          <NavLink to="/register" className="text-white">Sign Up</NavLink>
           </Button>
         </div>
         <IconButton variant="text" color="blue-gray" className="lg:hidden" onClick={() => setOpenNav(!openNav)}>
@@ -61,10 +63,10 @@ export default function ScrollNavbarSection() {
         <NavbarList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Log In
+          <NavLink to="/login" className="text-blue-gray-900">Log In</NavLink>
           </Button>
           <Button variant="gradient" size="sm" fullWidth>
-            Sign In
+          <NavLink to="/register" className="text-white">Sign Up</NavLink>
           </Button>
         </div>
       </Collapse>

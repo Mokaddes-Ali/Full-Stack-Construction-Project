@@ -44,10 +44,10 @@ export default function NavbarSection() {
         <NavbarList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
           <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            Log In
+          <NavLink to="/login" className="text-blue-gray-900">Log In</NavLink>
           </Button>
           <Button variant="gradient" size="sm" fullWidth>
-            Sign In
+          <NavLink to="/register" className="text-white">Sign Up</NavLink>
           </Button>
         </div>
       </Collapse>
