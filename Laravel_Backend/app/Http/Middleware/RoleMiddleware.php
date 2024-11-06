@@ -14,14 +14,22 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle($request, Closure $next, ...$roles)
+     /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next, $role)
     {
-        // Check if the authenticated user has one of the allowed roles
-        if (Auth::check() && in_array(Auth::user()->role, $roles)) {
+        // ব্যবহারকারীর role চেক করুন
+        if (Auth::check() && Auth::user()->role === $role) {
             return $next($request);
         }
 
-        // Unauthorized access
-        return response()->json(['error' => 'Unauthorized'], 403);
+        // Unauthorized হলে 403 error
+        return response()->json(['message' => 'Unauthorized'], 403);
     }
 }
