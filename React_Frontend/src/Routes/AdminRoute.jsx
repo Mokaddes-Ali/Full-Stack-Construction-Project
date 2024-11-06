@@ -26,6 +26,7 @@ import ProtectedPage from "../Pages/ProtectedPage";
 import Users from "../Pages/Users";
 import Login from "../Pages/Login";
 import ProtectedRoute from "../Components/ProtectedRoute";
+import UserDashboard from "../Pages/UserDashboard";
 
 
       
@@ -36,7 +37,7 @@ const AdminRoute = () => (
               path="/admin/dashboard"
               element={
                 <RequireAuth>
-                  <Dashboard />
+                    <UserDashboard />
                 </RequireAuth>
               }
             />
@@ -47,10 +48,12 @@ const AdminRoute = () => (
                         path="/protected"
                         element={
                             <PrivateRoute>
-                                <ProtectedPage />
+                                <UserDashboard />
                             </PrivateRoute>
                         }
                     />
+
+                  
 
                 <Route path="/login" element={<Login />} />
 
@@ -58,7 +61,7 @@ const AdminRoute = () => (
                     path="/log"
                     element={
                         <ProtectedRoute>
-                          <ProtectedPage />
+                           <UserDashboard />
                         </ProtectedRoute>
                     }
                 />
