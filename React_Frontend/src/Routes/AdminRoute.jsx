@@ -45,7 +45,7 @@ const AdminRoute = () => (
 
                  <Route path="/register" element={<Users />} />
                     <Route
-                        path="/protected"
+                        path="/user/dashboard"
                         element={
                             <PrivateRoute>
                                 <UserDashboard />
@@ -58,7 +58,7 @@ const AdminRoute = () => (
                 <Route path="/login" element={<Login />} />
 
                   <Route
-                    path="/log"
+                    path="/user_login/dashboard"
                     element={
                         <ProtectedRoute>
                            <UserDashboard />

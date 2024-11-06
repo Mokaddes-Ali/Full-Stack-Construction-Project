@@ -20,6 +20,17 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
 Route::get('get-latest-service', [FrontServiceController::class, 'latestService']);
 
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+});
+
+
+
+
+Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
+    Route::get('/user/dashboard', [UserController::class, 'dashboard']);
+});
+
 
 
 

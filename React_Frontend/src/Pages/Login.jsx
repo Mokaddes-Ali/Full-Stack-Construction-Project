@@ -18,9 +18,8 @@ function Login() {
             
             // Save the token if login is successful
             localStorage.setItem('authToken', response.data.token);
-
             // Redirect to a protected route
-            navigate('/log');
+            navigate('/user_login/dashboard');
         } catch (error) {
             if (error.response && error.response.data.message) {
                 toast.error(error.response.data.message);

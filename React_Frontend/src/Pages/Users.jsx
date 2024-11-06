@@ -25,7 +25,7 @@ function Users() {
             });
             reset();
             setIsAuthenticated(true); // Set authentication state if necessary
-            navigate('/protected'); // Redirect to protected page after successful registration
+            navigate('/user/dashboard'); // Redirect to protected page after successful registration
         } catch (error) {
             if (error.response && error.response.data.errors) {
                 const errorMessages = Object.values(error.response.data.errors).flat();
