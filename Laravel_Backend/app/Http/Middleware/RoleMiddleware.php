@@ -24,12 +24,12 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role)
     {
-        // ব্যবহারকারীর role চেক করুন
+
         if (Auth::check() && Auth::user()->role === $role) {
             return $next($request);
         }
 
-        // Unauthorized হলে 403 error
+        // Unauthorized 403 error
         return response()->json(['message' => 'Unauthorized'], 403);
     }
 }

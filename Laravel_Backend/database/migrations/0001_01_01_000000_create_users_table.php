@@ -11,16 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->bigIncrements('role_id'); // Primary key with auto-increment
+            $table->string('role_name', 30)->unique(); // Role name must be unique
+            $table->string('role_slug', 30)->nullable(); // Slug, can be null
+            $table->integer('role_status')->default(1); // Status with a default value of 1
+            $table->timestamps(); // Created at and updated at columns
+        });
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('role_id');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignId('role_id')->constrained()->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('role_id')
+                  ->references('role_id')
+                  ->on('roles')
+                  ->cascadeOnUpdate()
+                  ->restrictOnDelete();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
