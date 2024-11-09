@@ -13,7 +13,7 @@ class AuthenticationController extends Controller
 
     public function index()
     {
-        // এখানে admin dashboard এর ডাটা বা ভিউ পাঠানো যাবে
+        //admin dashboard
         return response()->json([
             'message' => 'Welcome to the Dashboard',
         ]);
