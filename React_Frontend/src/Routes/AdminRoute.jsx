@@ -44,28 +44,8 @@ const AdminRoute = () => (
             />
        
 
-                 <Route path="/register" element={<Users />} />
-                    <Route
-                        path="/user/dashboard"
-                        element={
-                            <ProtectedRoute1>
-                                <UserDashboard />
-                            </ProtectedRoute1>
-                        }
-                    />
+        
 
-                  
-
-                <Route path="/login" element={<Login />} />
-
-                  <Route
-                    path="/user_login/dashboard"
-                    element={
-                        <ProtectedRoute1>
-                           <UserDashboard />
-                        </ProtectedRoute1>
-                    }
-                />
                 <Route
               path="/logindashboard"
               element={
