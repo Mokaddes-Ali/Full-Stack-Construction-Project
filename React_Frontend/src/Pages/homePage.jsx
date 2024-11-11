@@ -13,6 +13,7 @@ import StatsSection from '../Components/StatsSection';
 import TeamMember from '../Components/Frontend/TeamMember/TeamMember';
 import Contact from '../Components/Frontend/ContactForm/Contact';
 import Users from '../Components/Backend/Register/Uers'
+import Register from '../Components/Register';
 
 
 const HomePage = () => {
@@ -29,6 +30,7 @@ const HomePage = () => {
          <TeamMember />
         <Login />
         <Contact />
+        <Register />
         
         <Footer /> 
         <Testimonial />

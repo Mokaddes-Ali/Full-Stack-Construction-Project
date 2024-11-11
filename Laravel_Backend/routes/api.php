@@ -14,11 +14,16 @@ use App\Http\Controllers\front\ServiceController as FrontServiceController;
 use App\Models\HeroSlider;
 use App\Http\Controllers\ClientController;
 
-Route::post('register', [AuthenticationController::class, 'authenticate']);
+// Route::post('register', [AuthenticationController::class, 'authenticate']);
 Route::post('/user_register', [AuthenticationController::class, 'register']);
 Route::post('/login', [AuthenticationController::class, 'login']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
 Route::get('get-latest-service', [FrontServiceController::class, 'latestService']);
+
+Route::post('/register', [AuthenticationController::class, 'register']);
+Route::post('/login', [AuthenticationController::class, 'login']);
+Route::middleware('auth:sanctum')->post('/logout', [AuthenticationController::class, 'logout']);
+Route::middleware('auth:sanctum')->get('/user', [AuthenticationController::class, 'user']);
 
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AuthenticationController::class, 'index']);

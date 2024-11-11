@@ -28,28 +28,12 @@ export default function NavbarSection() {
         <div className="hidden lg:block">
           <NavbarList />
         </div>
-        <div className="hidden gap-2  lg:flex">
-          <Button variant="text" size="sm" color="blue-gray"  className="font-medium  text-lg">
-            <NavLink to="/login" className="text-blue-gray-900">Log In</NavLink>
-            </Button>
-          <Button variant="gradient" size="sm" className="font-medium text-lg">
-            <NavLink to="/register" className="text-white">Sign Up</NavLink>
-          </Button>
-        </div>
         <IconButton variant="text" color="blue-gray" className="lg:hidden" onClick={() => setOpenNav(!openNav)}>
           {openNav ? <XMarkIcon className="h-6 w-6" strokeWidth={2} /> : <Bars3Icon className="h-6 w-6" strokeWidth={2} />}
         </IconButton>
       </div>
       <Collapse open={openNav}>
         <NavbarList />
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-          <NavLink to="/login" className="text-blue-gray-900">Log In</NavLink>
-          </Button>
-          <Button variant="gradient" size="sm" fullWidth>
-          <NavLink to="/register" className="text-white">Sign Up</NavLink>
-          </Button>
-        </div>
       </Collapse>
     </Navbar>
     </div>
