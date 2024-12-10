@@ -1,8 +1,6 @@
-import React, { Fragment } from 'react'
-import ContactForm from '../Components/Frontend/Contact/ContactForm'
+import { Fragment } from 'react'
 import Contact from '../Components/Frontend/ContactForm/Contact'
 import NavbarSection from '../Components/Frontend/Navbar/NavbarSection'
-import Googlemap from '../Components/Frontend/Contact/Googlemap'
 import ServicesPageTitle from '../Components/Frontend/Services/ServicesPageTitle'
 
 
@@ -13,7 +11,6 @@ const ContactUsPage = () => {
       <NavbarSection />
       <ServicesPageTitle />
       <div className=" mx-auto">
-        <Googlemap />
        <Contact />
         </div>
     </Fragment>

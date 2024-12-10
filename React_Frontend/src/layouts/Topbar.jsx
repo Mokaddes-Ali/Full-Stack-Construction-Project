@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaBell, FaSearch, FaUserCircle } from 'react-icons/fa';
-import { MdDarkMode, MdLightMode,MdMenu } from 'react-icons/md'; 
+import { MdMenu } from 'react-icons/md'; 
 import { AiOutlineClose } from 'react-icons/ai';
-import { TfiAlignRight,TfiAlignLeft } from "react-icons/tfi";
 import { FaExpand, FaCompress } from 'react-icons/fa';
 import { useColor } from '../layouts/context/ColorContext';
 import ThemeControl from './ThemeControl';

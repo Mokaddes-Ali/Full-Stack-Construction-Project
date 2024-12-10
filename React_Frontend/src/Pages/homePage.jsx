@@ -26,6 +26,7 @@ const HomePage = () => {
          <Users />
          <InnerAbout />
          <AboutSection />
+         <ServiceCard />
          <StatsSection />
          <TeamMember />
         <Login />

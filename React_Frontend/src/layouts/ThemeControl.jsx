@@ -1,9 +1,9 @@
 import React from 'react';
 import { useColor } from './context/ColorContext';
-import ChangeDirectionButton from './ChangeDirectionButton';
+;
 
 const ThemeControl = () => {
-  const { setTextColor, setBackgroundColor, setDirection } = useColor();
+  const { setTextColor, setBackgroundColor} = useColor();
 
   // Deep Colors
   const textColors = [
@@ -42,8 +42,6 @@ const ThemeControl = () => {
           ></button>
         ))}
       </div>
-      <h2 className="font-bold">Change Direction:</h2>
-      <ChangeDirectionButton />
     </div>
   );
 };
