@@ -30,7 +30,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from './Api';
+import { register } from '../../Api';
 
 export default function Register() {
   const [formData, setFormData] = useState({ name: '', email: '', password: '', password_confirmation: '' });

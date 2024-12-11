@@ -8,34 +8,30 @@ import ScrollNavbarSection from '../Components/Frontend/Navbar/ScrollNavbarSecti
 import Footer from '../Components/Frontend/Footer/Footer';
 import InnerAbout from '../Components/InnerAbout';
 import AboutSection from '../Components/AboutSection';
-import StatsSection from '../Components/StatsSection';
+import StatsSection from '../Components/Frontend/StatsSection';
 import TeamMember from '../Components/Frontend/TeamMember/TeamMember';
 import Contact from '../Components/Frontend/ContactForm/Contact';
-import Users from '../Components/Backend/Register/Uers'
-import Register from '../Components/Register';
+import Register from '../Components/Frontend/LiginRegister/Register';
 
 
 const HomePage = () => {
   return (
     <>
-      <div className="">
-      <NavbarSection />
-       <ScrollNavbarSection />
-         <Users />
-         <InnerAbout />
-         <AboutSection />
-         <ServiceCard />
+      {/* <NavbarSection />
+       <ScrollNavbarSection /> */}
+         {/* <InnerAbout />
+         <AboutSection /> */}
+         {/* <ServiceCard /> */}
          <StatsSection />
-         <TeamMember />
+         {/* <TeamMember />
         <Login />
         <Contact />
         <Register />
-        
         <Footer /> 
         <Testimonial />
         <ServiceCard />  
-         <Project />  
-         </div>
+         <Project />   */}
+
         
     </>
   )

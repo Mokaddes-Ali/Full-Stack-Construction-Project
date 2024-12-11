@@ -5,7 +5,7 @@ class PageTitle extends Component {
     render() {
         return (
             <Fragment>
-                <div className="relative w-full min-h-[300px] bg-fixed bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://themewagon.github.io/restoran/img/bg-hero.jpg')" }}>
+                <div className="relative w-[90%] lg:w-[80%] min-h-[300px] bg-fixed bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://themewagon.github.io/restoran/img/bg-hero.jpg')" }}>
                     <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center">
                         <motion.h1
                             className="text-white text-4xl font-bold tracking-wide mb-4"

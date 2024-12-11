@@ -16,10 +16,8 @@ const App = () => {
      <AuthProvider>
     <ColorProvider>
      <BrowserRouter>
-
      <WebRoute />
      <AdminRoute />
-
       <ToastContainer
         position="top-center"
         autoClose={5000}

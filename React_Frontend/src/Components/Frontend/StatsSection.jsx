@@ -42,14 +42,16 @@ const StatsSection = () => {
   };
 
   return (
+    <>
+    <div className="flex justify-center items-center w-[90%] lg:w-[90%] ">
     <div
       ref={ref}
-      className="w-screen py-16 px-6 bg-cover bg-center bg-no-repeat dark:bg-gray-900"
+      className="bg-cover bg-center bg-no-repeat dark:bg-gray-900"
       style={{
         backgroundImage: "url('/path-to-your-background-image.jpg')", // Replace with actual path
       }}
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-12 px-4">
+      <div className="flex justify-center items-center gap-5 lg:gap-12">
         {cardsData.map((card, index) => (
           <motion.div
             key={card.id}
@@ -57,7 +59,7 @@ const StatsSection = () => {
             variants={cardVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="relative p-8 md:p-6 lg:p-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105"
+            className="relative w-[400px] p-8 md:p-6 lg:p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105"
           >
             <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">
               {isInView && <CountUp start={0} end={card.count} duration={2} />}
@@ -70,6 +72,8 @@ const StatsSection = () => {
         ))}
       </div>
     </div>
+    </div>
+    </>
   );
 };
 
