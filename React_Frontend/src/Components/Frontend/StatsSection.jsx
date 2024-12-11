@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import CountUp from 'react-countup';
+import background from '../../assets/Images/background image.jpg'
 
 const StatsSection = () => {
   const ref = useRef(null);
@@ -29,6 +30,13 @@ const StatsSection = () => {
       label: 'LOCATIONS',
       description: 'Sites in development',
     },
+    {
+      id: 4,
+      count: 21,
+      suffix: '',
+      label: 'LOCATIONS',
+      description: 'Sites in development',
+    },
   ];
 
   // Framer Motion Variants for Animation
@@ -43,17 +51,14 @@ const StatsSection = () => {
 
   return (
     <>
-    <div className="w-full bg-white">
-    <div className="lg:w-[80%] w-[90%] mx-auto px-4 py-12 flex flex-col justify-between items-center gap-8">
+    <div className="w-full bg-cover bg-center bg-no-repeat" style={{
+        backgroundImage: `url(${background})`
+      }}>
+    <div className="lg:w-[95%] w-[90%] mx-auto px-4 py-12 flex flex-col justify-between items-center gap-8">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white">Our Stats</h2>
     <div
-      ref={ref}
-      className="bg-cover bg-center bg-no-repeat dark:bg-gray-900"
-      style={{
-        backgroundImage: "url('/path-to-your-background-image.jpg')", // Replace with actual path
-      }}
-    >
-      <div className=" w-full h-[350px] flex lg:grid-cols-4 grid-cols-2 justify-center items-start gap-[20px] mt-[30px]">
+      ref={ref}>
+      <div className=" w-full h-[350px] grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 justify-center items-start gap-[20px] mt-[30px]">
         {cardsData.map((card, index) => (
           <motion.div
             key={card.id}
@@ -69,7 +74,7 @@ const StatsSection = () => {
             </h2>
             <p className="text-lg md:text-xl font-semibold text-gray-700 dark:text-gray-300 mt-2">{card.label}</p>
             <p className="text-gray-600 dark:text-gray-400">{card.description}</p>
-            <div className="absolute -bottom-5 -right-5 w-16 h-16 bg-yellow-400 transform rotate-45 rounded"></div>
+            <div className="absolute ml-36 w-16 h-16 bg-yellow-400 transform rotate-45 rounded"></div>
           </motion.div>
         ))}
       </div>
