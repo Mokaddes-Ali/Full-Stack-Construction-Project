@@ -43,7 +43,9 @@ const StatsSection = () => {
 
   return (
     <>
-    <div className="flex justify-center items-center w-[90%] lg:w-[90%] ">
+    <div className="w-full bg-white">
+    <div className="lg:w-[80%] w-[90%] mx-auto px-4 py-12 flex flex-col justify-between items-center gap-8">
+      <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 dark:text-white">Our Stats</h2>
     <div
       ref={ref}
       className="bg-cover bg-center bg-no-repeat dark:bg-gray-900"
@@ -51,7 +53,7 @@ const StatsSection = () => {
         backgroundImage: "url('/path-to-your-background-image.jpg')", // Replace with actual path
       }}
     >
-      <div className="flex justify-center items-center gap-5 lg:gap-12">
+      <div className=" w-full h-[350px] flex lg:grid-cols-4 grid-cols-2 justify-center items-start gap-[20px] mt-[30px]">
         {cardsData.map((card, index) => (
           <motion.div
             key={card.id}
@@ -59,7 +61,7 @@ const StatsSection = () => {
             variants={cardVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
-            className="relative w-[400px] p-8 md:p-6 lg:p-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg flex flex-col items-center text-center transform transition-transform duration-300 hover:scale-105"
+            className="flex justify-center items-start gap-5 p-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg text-center transform transition-transform duration-300 hover:scale-105"
           >
             <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white">
               {isInView && <CountUp start={0} end={card.count} duration={2} />}
@@ -71,6 +73,7 @@ const StatsSection = () => {
           </motion.div>
         ))}
       </div>
+    </div>
     </div>
     </div>
     </>
