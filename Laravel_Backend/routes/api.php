@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\TempImageController;
 use App\Http\Controllers\front\ServiceController as FrontServiceController;
 use App\Models\HeroSlider;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\front\ContactController;
 
 Route::post('authenticate', [AuthenticationController::class, 'authenticate']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
@@ -25,7 +26,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AuthenticationController::class, 'index']);
 });
 
-
+Route::post('contact-now', [ContactController::class, 'index']);
 
 
 Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
