@@ -17,22 +17,20 @@ import Register from '../Components/Frontend/LiginRegister/Register';
 const HomePage = () => {
   return (
     <>
-      {/* <NavbarSection />
-       <ScrollNavbarSection /> */}
-         {/* <InnerAbout />
-         <AboutSection /> */}
-         {/* <ServiceCard /> */}
+     <NavbarSection />
+       <ScrollNavbarSection /> 
+        <InnerAbout />
+         <AboutSection /> 
+        <ServiceCard /> 
          <StatsSection />
-         {/* <TeamMember />
+         <TeamMember />
         <Login />
         <Contact />
         <Register />
-        <Footer /> 
         <Testimonial />
         <ServiceCard />  
-         <Project />   */}
-
-        
+         <Project />  
+         <Footer /> 
     </>
   )
 }
