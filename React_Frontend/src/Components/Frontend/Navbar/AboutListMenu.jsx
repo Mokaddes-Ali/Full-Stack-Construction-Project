@@ -4,10 +4,11 @@ import { NavLink } from "react-router-dom";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const navListMenuItems = [
-  { title: "About Company", path: "/about" },
-  { title: "History", path: "/history" },
+  { title: "About Company", path: "/about-company" },
+  { title: "History", path: "/company-history" },
  
 ];
+
 
 export default function  AboutListMenu() {
   const [isAboutMenuOpen, setIsAboutMenuOpen] = React.useState(false);

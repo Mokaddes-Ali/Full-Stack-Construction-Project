@@ -1,5 +1,5 @@
 
-import NavbarSection from '../../Components/Navbar/NavbarSection'
+import NavbarSection from '../../Components/Frontend/Navbar/NavbarSection';
 
 const aboutCompany = () => {
   return (
