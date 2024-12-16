@@ -1,8 +1,12 @@
+import NavbarSection from "../../Components/Frontend/Navbar/NavbarSection"
 
 
 const BuildingRenovation = () => {
   return (
-    <div>BuildingRenovation</div>
+    <>
+    <NavbarSection />
+    <div className="text-red-800">BuildingRenovation</div>\
+    </>
   )
 }
 

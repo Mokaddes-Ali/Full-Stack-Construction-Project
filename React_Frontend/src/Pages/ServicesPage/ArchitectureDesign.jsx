@@ -1,8 +1,13 @@
+import NavbarSection from "../../Components/Frontend/Navbar/NavbarSection"
 
 
 const ArchitectureDesign = () => {
   return (
-    <div>ArchitectureDesign</div>
+    <>
+    <NavbarSection />
+
+    <div className="text-red-800">ArchitectureDesign</div>
+    </>
   )
 }
 

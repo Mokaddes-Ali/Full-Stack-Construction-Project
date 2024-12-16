@@ -1,8 +1,12 @@
+import NavbarSection from "../../Components/Frontend/Navbar/NavbarSection"
 
 
 const AspenHeights = () => {
   return (
-    <div>AspenHeights</div>
+    <>
+    <NavbarSection />
+    <div className="text-red-800">AspenHeights</div>
+    </>
   )
 }
 

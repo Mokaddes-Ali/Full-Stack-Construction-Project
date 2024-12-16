@@ -1,7 +1,11 @@
+import NavbarSection from "../../Components/Frontend/Navbar/NavbarSection"
 
 const FlooringRoofing = () => {
   return (
-    <div>FlooringRoofing</div>
+    <>
+    <NavbarSection />
+    <div className="text-red-800">FlooringRoofing</div>
+    </>
   )
 }
 

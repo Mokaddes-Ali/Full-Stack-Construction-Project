@@ -1,8 +1,12 @@
+import NavbarSection from "../../Components/Frontend/Navbar/NavbarSection"
 
 
 const ForestHillTowers = () => {
   return (
-    <div>ForestHillTowers</div>
+    <>
+    <NavbarSection />
+    <div className="text-red-800">ForestHillTowers</div>
+    </>
   )
 }
 

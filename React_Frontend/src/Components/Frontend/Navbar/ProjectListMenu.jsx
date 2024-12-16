@@ -5,10 +5,10 @@ import { NavLink } from "react-router-dom";
 
 
 const navListMenuItems = [
-  { title: "Aspen Heights", path: " aspen-heights"},
-  { title: "Bayside Residences",path: "bayside-residences"  },
-  { title: "ForestHillTowers",path: "forest-hill-towers" },
-  { title: "Parkview Plaza", path: "parkview-plaza" },
+  { title: "Aspen Heights", path: "/aspen-heights"},
+  { title: "Bayside Residences",path: "/bayside-residences"  },
+  { title: "ForestHillTowers",path: "/forest-hill-towers" },
+  { title: "Parkview Plaza", path: "/parkview-plaza" },
 
 ];
 

@@ -4,12 +4,12 @@ import { NavLink } from "react-router-dom";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const navListMenuItems = [
-  { title: "Architecture Design",   path: "/architecture_design" },
-  { title: "Building Construction", path: "/building_construction" },
-  { title: "Building Maintenance", path: "/building_maintenance" },
-  { title: "BuildingRenovation", path: "/building_renovation" },
-  { title: "Flooring Roofing", path: "/flooring_roofing" },
-  { title: "Project Management", path: "/project_management" },
+  { title: "Architecture Design",   path: "/architecture-design" },
+  { title: "Building Construction", path: "/building-construction" },
+  { title: "Building Maintenance", path: "/building-maintenance" },
+  { title: "BuildingRenovation", path: "/building-renovation" },
+  { title: "Flooring Roofing", path: "/flooring-roofing" },
+  { title: "Project Management", path: "/project-management" },
 
 ];
 
