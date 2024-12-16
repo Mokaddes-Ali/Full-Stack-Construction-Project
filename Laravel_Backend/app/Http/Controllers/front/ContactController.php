@@ -15,6 +15,9 @@ class ContactController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
+            'message' => 'required',
+            'subject' => 'required',
+            'phone' => 'nullable|string'
         ]);
 
         if ($validator->fails()) {
@@ -23,14 +26,14 @@ class ContactController extends Controller
                 'message' => $validator->errors()
             ]);
         }
-        $mailData =[
-            'name' => $request->name,
-            'email' => $request->email,
-            'message' => $request->message,
-            'subject' => $request->subject,
-            'phone' => $request->phone
+        $mailData = [
+    'name' => $request->name,
+    'email' => $request->email,
+    'message' => $request->message ?? '', // Provide default values
+    'subject' => $request->subject ?? '',
+    'phone' => $request->phone ?? ''
+];
 
-        ];
 
         Mail::to('admin@gmail.com')->send(new ContactEmail($mailData));
 

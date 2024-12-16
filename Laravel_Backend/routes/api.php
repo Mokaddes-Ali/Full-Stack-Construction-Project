@@ -26,7 +26,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AuthenticationController::class, 'index']);
 });
 
-Route::post('contact-now', [ContactController::class, 'index']);
+Route::post('contact', [ContactController::class, 'index']);
 
 
 Route::middleware(['auth:sanctum', 'role:user'])->group(function () {
