@@ -8,7 +8,7 @@ const Add = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    axios.post("http://localhost/api/construction-projects", data)
+    axios.post("/api/construction-projects", data)
       .then(() => {
         alert("Project added successfully!");
         navigate("/");
@@ -45,7 +45,9 @@ const Add = () => {
           </select>
         </div>
 
-        {/* Other Fields */}
+        
+
+        
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
           Submit
         </button>
