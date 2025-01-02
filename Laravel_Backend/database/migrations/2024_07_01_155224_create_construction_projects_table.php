@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('construction_projects', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('location');
-            $table->string('description');
-            $table->string('client');
-            $table->string('sector');
-            $table->string('type');
-            $table->string('start_date');
-            $table->string('end_date');
-            $table->string('status');
+            $table->string('location')->nullable();
+            $table->string('description')->nullable();
+            $table->string('client')->nullable();
+            $table->string('sector')->nullable();
+            $table->string('type')->nullable();
+            $table->string('start_date')->nullable();
+            $table->string('end_date')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
