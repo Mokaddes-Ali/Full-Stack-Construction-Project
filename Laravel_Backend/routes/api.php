@@ -14,6 +14,7 @@ use App\Http\Controllers\front\ServiceController as FrontServiceController;
 use App\Models\HeroSlider;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\front\ContactController;
+use App\Http\Controllers\ConstructionProjectController;
 
 Route::post('authenticate', [AuthenticationController::class, 'authenticate']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
@@ -78,6 +79,21 @@ Route::put('hero_slider/{id}',[HeroSliderController::class, 'update']);
 Route::get('hero_slider/{id}',[HeroSliderController::class, 'show']);
 Route::delete('hero_slider/delete/{id}',[HeroSliderController::class, 'destroy']);
 });
+
+
+
+//construction project
+
+
+
+Route::prefix('construction-projects')->group(function () {
+    Route::get('/', [ConstructionProjectController::class, 'index']); // Fetch all projects
+    Route::post('/', [ConstructionProjectController::class, 'store']); // Add a new project
+    Route::get('/{id}', [ConstructionProjectController::class, 'show']); // View a single project
+    Route::put('/{id}', [ConstructionProjectController::class, 'update']); // Update a project
+    Route::delete('/{id}', [ConstructionProjectController::class, 'destroy']); // Delete a project
+});
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
