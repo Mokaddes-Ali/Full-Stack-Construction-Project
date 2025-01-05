@@ -12,6 +12,7 @@ import StatsSection from '../Components/Frontend/StatsSection';
 import TeamMember from '../Components/Frontend/TeamMember/TeamMember';
 import Contact from '../Components/Frontend/ContactForm/Contact';
 import Register from '../Components/Frontend/LiginRegister/Register';
+import New from '../Components/New';
 
 
 const HomePage = () => {
@@ -24,12 +25,14 @@ const HomePage = () => {
         <ServiceCard /> 
          <StatsSection />
          <TeamMember />
+         <New />
         <Login />
         <Contact />
         <Register />
         <Testimonial />
         <ServiceCard />  
          <Project />  
+      
           {/* Google Map Section */}
       <div className="mt-10">
         <iframe

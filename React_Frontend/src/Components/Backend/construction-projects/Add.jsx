@@ -44,10 +44,6 @@ const Add = () => {
             <option value="on-hold">On Hold</option>
           </select>
         </div>
-
-        
-
-        
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
           Submit
         </button>
