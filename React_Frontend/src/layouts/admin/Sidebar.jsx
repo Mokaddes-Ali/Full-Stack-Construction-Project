@@ -75,7 +75,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
           </NavLink>
 
         
-          {/* Dropdown 1 - Users */}
+          {/* Dropdown 1 - Blog */}
           <div
             className="relative"
             onMouseEnter={handleDropdownHover1}
@@ -83,13 +83,13 @@ function Sidebar({ isOpen, toggleSidebar }) {
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
-                location.pathname.includes("/users") ? "bg-blue-800" : ""
+                location.pathname.includes("/blog") ? "bg-blue-800" : ""
               }`}
               onClick={handleDropdownToggle1}
             >
               <div className="flex items-center space-x-2">
                 <MdPeople className="h-6 w-6 " />
-                <span className="text-lg">Users</span>
+                <span className="text-lg">Blog</span>
            
                  </div>
                  <HiChevronDown 
@@ -102,18 +102,18 @@ function Sidebar({ isOpen, toggleSidebar }) {
             {isDropdownOpen1 && (
               <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
                 <NavLink
-                  to="/users/list"
+                  to="/blog/list"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
-                  User List
+                  Blog List
                 </NavLink>
                 <NavLink
-                  to="/users/roles"
+                  to="/blog/add"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
-                  User Roles
+                  Blog Add
                 </NavLink>
               </div>
             )}

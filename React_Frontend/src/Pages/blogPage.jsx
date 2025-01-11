@@ -1,14 +1,14 @@
+import BlogPageTitle from '../Components/Frontend/blog/BlogPageTitle'
 import NavbarSection from '../Components/Frontend/Navbar/NavbarSection'
+import WebLayout from '../layouts/webside/WebLayout'
 
 const BlogPage = () => {
   return (
     <>
-    <NavbarSection />
-    <div className="">
-      <div className="container">
-      <h1 className='text-red-500'>Blog Page</h1>
-      </div>
-    </div>
+    <WebLayout>
+      <BlogPageTitle />
+
+    </WebLayout>
     </>
   )
 }

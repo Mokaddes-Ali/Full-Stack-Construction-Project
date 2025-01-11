@@ -6,7 +6,7 @@ import DarkModeButton from './DarkModeButton';
 
 const AdminLayout = ({ children }) => (
   <>
-  <div className="w-screen h-screen lg:w-screen md:w-screen sm:w-screen">
+  <div className="w-screen  lg:w-screen md:w-screen sm:w-screen">
  <NavbarSection />
   <div className="flex mx-auto bg-slate-300 dark:bg-gray-800 dark:text-white">
   <Sidebar />
