@@ -102,14 +102,14 @@ function Sidebar({ isOpen, toggleSidebar }) {
             {isDropdownOpen1 && (
               <div className="absolute left-full top-0 bg-white text-blue-600 w-48 shadow-lg rounded-md mt-2">
                 <NavLink
-                  to="/blog/list"
+                  to="/admin/article/index"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
                   Blog List
                 </NavLink>
                 <NavLink
-                  to="/blog/add"
+                  to="/admin/article/add"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
