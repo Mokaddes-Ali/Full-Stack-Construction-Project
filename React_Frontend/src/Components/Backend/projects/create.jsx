@@ -5,7 +5,7 @@ import { apiUrl, token } from '../../http';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
-import AdminLayout from '../../../layouts/AdminLayout';
+import AdminLayout from '../../../layouts/admin/AdminLayout';
 import { IoMdArrowDropdown } from 'react-icons/io';
 
 const Create = ({ placeholder }) => { 

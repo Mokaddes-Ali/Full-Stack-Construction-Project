@@ -3,7 +3,7 @@ import { FaBell, FaSearch, FaUserCircle } from 'react-icons/fa';
 import { MdMenu } from 'react-icons/md'; 
 import { AiOutlineClose } from 'react-icons/ai';
 import { FaExpand, FaCompress } from 'react-icons/fa';
-import { useColor } from '../layouts/context/ColorContext';
+import { useColor } from './context/ColorContext';
 import ThemeControl from './ThemeControl';
 import { CiMenuBurger } from "react-icons/ci";
 import { IoClose } from "react-icons/io5";

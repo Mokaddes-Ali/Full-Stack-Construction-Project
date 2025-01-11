@@ -1,6 +1,6 @@
 import {useContext} from 'react'
 import { AuthContext } from '../Backend/context/Auth';
-import AdminLayout from '../../layouts/AdminLayout';
+import AdminLayout from '../../layouts/admin/AdminLayout';
 
 
 const Dashboard = () => {

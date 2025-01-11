@@ -2,7 +2,7 @@
 import { BrowserRouter} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ColorProvider } from "./layouts/context/ColorContext";
+import { ColorProvider } from "./layouts/admin/context/ColorContext";
 import AdminRoute from "./Routes/AdminRoute";
 import WebRoute from "./Routes/WebRoute";
 import { AuthProvider } from "./Components/Backend/context/AuthContext";

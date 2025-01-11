@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { apiUrl, token } from '../../http';
 import { Link } from 'react-router-dom';
-import AdminLayout from '../../../layouts/AdminLayout';
+import AdminLayout from '../../../layouts/admin/AdminLayout';
 import { toast } from 'react-toastify';
 
 

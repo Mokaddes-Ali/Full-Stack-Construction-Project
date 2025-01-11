@@ -1,5 +1,4 @@
 import { Routes, Route } from "react-router-dom";
-// import Login from "../Components/Backend/login";
 import Dashboard from "../Components/Backend/Dashboard";
 import RequireAuth from "../Components/RequireAuth";
 import { default as ShowServices } from "../Components/Backend/services/show";
@@ -29,28 +28,28 @@ import Login from "../Components/Backend/login";
 const AdminRoute = () => (
     <Routes>
       <Route path="/admin/login" element={<Login />} />
-            <Route
+             <Route
               path="/admin/dashboard"
               element={
                 <ProtectedRoute>
                        <Dashboard />
                 </ProtectedRoute>
               }
-            />
+            /> 
        
 
         
 
-                <Route
+               <Route
               path="/logindashboard"
               element={
                 <RequireAuth>
                   <Dashboard />
                 </RequireAuth>
               }
-            />
+            /> 
 
-            <Route
+             <Route
               path="/admin/services"
               element={
                 <RequireAuth>
@@ -73,7 +72,7 @@ const AdminRoute = () => (
                  <EditServices />
                 </RequireAuth>
               }
-            />
+            /> 
 
           <Route
               path="/hero/add"
@@ -82,7 +81,7 @@ const AdminRoute = () => (
                  <CreateHeroSlide />
                 </RequireAuth>
               }
-            />
+            /> 
 
            
             <Route
@@ -92,37 +91,37 @@ const AdminRoute = () => (
                   <CreateServices />
                 </RequireAuth>
               }
-            />
+            /> 
 
 
             {/* project */}
 
-            <Route
+           <Route
               path="/admin/projects"
               element={
                 <RequireAuth>
                 <ShowProjects />
                 </RequireAuth>
               }
-            />
+            /> 
 
-             <Route
+              <Route
               path="/admin/projects/create"
               element={
                 <RequireAuth>
                   <CreateProjects />
                 </RequireAuth>
               }
-            />
+            /> 
 
-              <Route
+               <Route
               path="/admin/projects/edit/:id"
               element={
                 <RequireAuth>
                   <EditProjects />
                 </RequireAuth>
               }
-            />
+            /> 
             
 
 
@@ -133,7 +132,7 @@ const AdminRoute = () => (
                   <SettingsAccount />
                 </RequireAuth>
               }
-            />
+            /> 
 
             <Route
               path="/users/list"
@@ -142,47 +141,44 @@ const AdminRoute = () => (
                   <UsersList />
                 </RequireAuth>
               }
-            />  
+            />   
 
-           <Route path="/users/roles" element={<UsersRoles />} />
+            <Route path="/users/roles" element={<UsersRoles />} />
             <Route path="/service/list" element={
                  <RequireAuth>
               
                  <ShowServices />
                  </RequireAuth>
-              //  <CoursesList />
-               } />
+               } /> 
             <Route path="/service/add" element={
                <RequireAuth>
                 <CreateService />
                </RequireAuth>
-              // <CoursesCategories />
-              } />
+              } /> 
        <Route path="/products/list" element={
                <RequireAuth>
               <ProductsList />
               </RequireAuth>
               } /> 
-        <Route
+         <Route
               path="/products/categories"
               element={
                <RequireAuth> 
                <ProductsCategories />
                </RequireAuth>
               }
-            /> 
+            />  
           <Route path="/more" element={
                <RequireAuth>
                <More />
                </RequireAuth>
-               } />
-            <Route path="/more/settings" element={
+               } /> 
+             <Route path="/more/settings" element={
                <RequireAuth>
               <MoreSettings />
                </RequireAuth>
-               } /> 
+               } />  
     </Routes>
 );
 
 export default AdminRoute;
-

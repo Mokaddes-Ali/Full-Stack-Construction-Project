@@ -5,7 +5,7 @@ import { apiUrl, token } from "../../../Components/http";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
-import AdminLayout from "../../../layouts/AdminLayout";
+import AdminLayout from "../../../layouts/admin/AdminLayout";
 
 const CreateService = ({ placeholder }) => {
   const editor = useRef(null);
