@@ -1,4 +1,4 @@
-import NavbarSection from '../Components/Frontend/Navbar/NavbarSection';
+import NavbarSection from '../../Components/Frontend/Navbar/NavbarSection';
 import Sidebar from '../layouts/Sidebar';
 import Topbar from '../layouts/Topbar';
 
