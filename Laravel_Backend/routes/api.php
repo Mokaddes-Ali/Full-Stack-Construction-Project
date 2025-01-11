@@ -1,20 +1,21 @@
 <?php
 
+use App\Models\HeroSlider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\ProjectController;
+use App\Http\Controllers\front\ContactController;
 use App\Http\Controllers\admin\ServicesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\HeroSliderController;
 use App\Http\Controllers\admin\TempImageController;
-use App\Http\Controllers\front\ServiceController as FrontServiceController;
-use App\Models\HeroSlider;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\front\ContactController;
+use App\Http\Controllers\admin\HeroSliderController;
 use App\Http\Controllers\ConstructionProjectController;
+use App\Http\Controllers\front\ServiceController as FrontServiceController;
 
 Route::post('authenticate', [AuthenticationController::class, 'authenticate']);
 Route::get('get-services', [FrontServiceController::class, 'index']);
@@ -93,6 +94,15 @@ Route::prefix('construction-projects')->group(function () {
     Route::put('/{id}', [ConstructionProjectController::class, 'update']); // Update a project
     Route::delete('/{id}', [ConstructionProjectController::class, 'destroy']); // Delete a project
 });
+
+
+//Article Routes
+
+    Route::get('articles',[ArticleController::class, 'index']);
+    Route::post('articles/store',[ArticleController::class, 'store']);
+    Route::put('articles/{id}',[ArticleController::class, 'update']);
+    Route::get('articles/{id}',[ArticleController::class, 'show']);
+    Route::delete('articles/delete/{id}',[ArticleController::class, 'destroy']);
 
 
 Route::get('/user', function (Request $request) {
