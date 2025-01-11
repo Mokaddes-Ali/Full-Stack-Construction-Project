@@ -63,8 +63,9 @@ const Testimonial = () => {
 
   return (
     <>
-    <div className="mx-auto max-w-7xl bg-blue-gray-300">
-          <div className="mx-auto w-max-7xl relative overflow-hidden py-16">
+    <div className=" bg-blue-gray-300">
+      <div className="">
+          <div className="relative overflow-hidden py-16">
       {/* Background Scrolling Text */}
       <motion.div
         className="absolute top-0 left-0 w-screen h-full flex flex-col items-center justify-center overflow-hidden space-y-10"
@@ -88,7 +89,7 @@ const Testimonial = () => {
       </div>
 
       {/* Testimonial Carousel */}
-      <div className="glide-08 relative w-screen z-10">
+      <div className="glide-08 relative z-10">
         <div data-glide-el="track">
           <ul className="whitespace-no-wrap flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform] relative flex w-full overflow-hidden p-0 pb-12">
             {testimonialsData.map((data, index) => (
@@ -104,34 +105,8 @@ const Testimonial = () => {
             ))}
           </ul>
         </div>
-        {/* Indicators */}
-        <div
-          className="-mt-6 flex w-full items-center justify-center gap-2"
-          data-glide-el="controls[nav]"
-        >
-          <button
-            className="group p-4"
-            data-glide-dir="=0"
-            aria-label="goto slide 1"
-          >
-            <span className="block h-2 w-2 rounded-full bg-white/20 opacity-70 ring-1 ring-slate-700 transition-colors duration-300 focus:outline-none"></span>
-          </button>
-          <button
-            className="group p-4"
-            data-glide-dir="=1"
-            aria-label="goto slide 2"
-          >
-            <span className="block h-2 w-2 rounded-full bg-white/20 opacity-70 ring-1 ring-slate-700 transition-colors duration-300 focus:outline-none"></span>
-          </button>
-          <button
-            className="group p-4"
-            data-glide-dir="=2"
-            aria-label="goto slide 3"
-          >
-            <span className="block h-2 w-2 rounded-full bg-white/20 opacity-70 ring-1 ring-slate-700 transition-colors duration-300 focus:outline-none"></span>
-          </button>
-        </div>
       </div>
+    </div>
     </div>
     </div>
     </>

@@ -1,7 +1,6 @@
-
 import NavbarSection from '../../Components/Frontend/Navbar/NavbarSection';
 import Sidebar from '../../layouts/admin/Sidebar';
-import Topbar from '../../layouts/admin/Topbar';
+import DarkModeButton from './DarkModeButton';
 
 
 
@@ -13,8 +12,12 @@ const AdminLayout = ({ children }) => (
   <Sidebar />
     
     <div className="flex flex-col flex-1 w-screen">
-      <Topbar  />
-      <main className="flex-1 p-2">{children}</main>
+      <main className="flex-1 p-2">
+        <div className="fixed top-32 z-50 right-0 p-4">
+        <DarkModeButton />
+        </div>
+        {children}
+        </main>
     </div>
   </div>
   </div>
