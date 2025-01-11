@@ -97,12 +97,11 @@ Route::prefix('construction-projects')->group(function () {
 
 
 //Article Routes
-
-    Route::get('articles',[ArticleController::class, 'index']);
-    Route::post('articles/store',[ArticleController::class, 'store']);
-    Route::put('articles/{id}',[ArticleController::class, 'update']);
-    Route::get('articles/{id}',[ArticleController::class, 'show']);
-    Route::delete('articles/delete/{id}',[ArticleController::class, 'destroy']);
+Route::get('articles', [ArticleController::class, 'index']);
+Route::post('articles/store', [ArticleController::class, 'store']);
+Route::get('articles/{id}', [ArticleController::class, 'show']);
+Route::put('articles/{id}', [ArticleController::class, 'update']);
+Route::delete('articles/{id}', [ArticleController::class, 'destroy']);
 
 
 Route::get('/user', function (Request $request) {
