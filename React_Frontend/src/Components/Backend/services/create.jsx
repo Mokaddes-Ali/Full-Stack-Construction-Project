@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
-import { apiUrl, token } from '../../http';
+import { apiUrl, token } from '../http';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
@@ -72,7 +72,7 @@ const CreateService = ({ placeholder }) => {
           toast.error(result.errors.image[0]);
         } else {
           setImageId(result.data.id);
-          toast.success(result.message);
+          // toast.success(result.message);
         }
       })
   }

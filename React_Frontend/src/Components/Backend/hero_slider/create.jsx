@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
-import { apiUrl, token } from '../../http';
+import { apiUrl, token } from '../http';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
@@ -73,8 +73,6 @@ const CreateHeroSlide = ({ placeholder }) => {
         }
       })
     }
-
-
 
   return (
     <>

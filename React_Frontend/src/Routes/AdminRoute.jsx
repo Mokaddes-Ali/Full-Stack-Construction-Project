@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "../Components/Backend/Dashboard";
-import RequireAuth from "../Components/RequireAuth";
+import RequireAuth from "../Components/Backend/RequireAuth";
 import { default as ShowServices } from "../Components/Backend/services/show";
 import { default as CreateServices } from "../Components/Backend/services/create";
 import { default as EditServices } from "../Components/Backend/services/edit";
@@ -20,7 +20,7 @@ import More from "../Pages/AdminDashboardPages/More";
 import MoreSettings from "../Pages/AdminDashboardPages/MoreSettings";
 import {default as CreateHeroSlide } from "../Components/Backend/hero_slider/create";
 import CreateService from "../Pages/AdminDashboardPages/Services/create";
-import ProtectedRoute from "../Components/ProtectedRoute";
+import ProtectedRoute from "../Components/Backend/ProtectedRoute";
 import Login from "../Components/Backend/login";
 
 

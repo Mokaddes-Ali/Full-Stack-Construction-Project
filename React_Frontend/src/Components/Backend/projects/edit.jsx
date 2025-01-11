@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import 'react-toastify/dist/ReactToastify.css';
-import { apiUrl, token, fileUrl } from '../../http';
+import { apiUrl, token, fileUrl } from '../http';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JoditEditor from 'jodit-react';
