@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { apiUrl, fileUrl } from './http';
+import { apiUrl, fileUrl } from '../http';
 
 export default function ServiceCard() {
   const [services, setServices] = useState([]);
