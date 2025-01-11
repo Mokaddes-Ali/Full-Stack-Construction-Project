@@ -3,8 +3,8 @@ import React from 'react'
 const ContactForm = () => {
   return (
     <>
-      <div className="w-screen  bg-black">
-      <div className="mx-auto max-w-7xl bg-brown-600">
+      <div className=" bg-black">
+      <div className="container bg-brown-600">
         <div className="lg:flex lg:items-center lg:-mx-10">
             <div className="lg:w-1/2 lg:mx-10">
                 <h1 className="text-2xl font-semibold text-gray-800 capitalize dark:text-white lg:text-3xl">Let’s talk</h1>

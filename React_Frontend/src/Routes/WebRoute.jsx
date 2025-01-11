@@ -13,6 +13,7 @@ import BuildingMaintenance from "../Pages/ServicesPage/BuildingMaintenance";
 import BuildingRenovation from "../Pages/ServicesPage/BuildingRenovation";
 import FlooringRoofing from "../Pages/ServicesPage/FlooringRoofing";
 import ProjectManagement from "../Pages/ServicesPage/ProjectManagement";
+import BlogPage from "../Pages/blogPage";
 
 
 const AppRoute = () => {
@@ -37,6 +38,8 @@ const AppRoute = () => {
         <Route path="/building-renovation" element={<BuildingRenovation />} />
         <Route path="/flooring-roofing" element={<FlooringRoofing />} />
         <Route path="/project-management" element={<ProjectManagement />} />
+
+        <Route path="/blog" element={<BlogPage />} />
       </Routes>
     </>
   );
