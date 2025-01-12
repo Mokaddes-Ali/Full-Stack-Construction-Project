@@ -190,26 +190,20 @@ class ArticleController extends Controller
                 'errors' => $validator->errors()
             ], 400);
         }
-
-        // ✅ Article-এর অন্যান্য তথ্য আপডেট করা
         $article->title = $request->title;
         $article->slug = Str::slug($request->slug);
         $article->author = $request->author;
         $article->content = $request->content;
         $article->status = $request->status;
 
-        $oldImage = $article->image; // আগের ছবি সংরক্ষণ
-
-        // ✅ নতুন ছবি থাকলে আপডেট করা হবে
+        $oldImage = $article->image;
         if ($request->imageId > 0) {
-            // টেম্প ইমেজ খোঁজা
             $tempImage = TempImage::find($request->imageId);
             if ($tempImage) {
                 $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
                 $fileName = time() . $article->id . '.' . $ext;
 
-                // ইমেজ প্রসেস করা
                 $sourcePath = public_path('uploads/temp/' . $tempImage->name);
 
                 // Small Image (300x400)
@@ -224,30 +218,24 @@ class ArticleController extends Controller
                 $image->scaleDown(1200);
                 $image->save($destPathLarge);
 
-                // নতুন ছবি আপডেট করা
                 $article->image = $fileName;
                 $article->save();
 
-                // টেম্প ইমেজ মুছে ফেলা
                 File::delete(public_path('uploads/temp/'.$tempImage->name));
                 File::delete(public_path('uploads/temp/thumb/'.$tempImage->name));
                 $tempImage->delete();
             }
-
-            // পুরোনো ইমেজ মুছে ফেলা
             if (!empty($oldImage)) {
                 File::delete(public_path('uploads/Article/small/' . $oldImage));
                 File::delete(public_path('uploads/Article/large/' . $oldImage));
             }
         }
-        // ✅ নতুন ছবি না থাকলে, আগের টেম্পোরারি ইমেজ যদি থেকে থাকে তবে সেটাই রাখবে
         else {
             $tempImage = TempImage::where('name', $article->image)->first();
             if ($tempImage) {
-                // টেম্প ইমেজ থাকলে সেটাকে চূড়ান্ত সংরক্ষণ করা হবে
                 $article->image = $tempImage->name;
                 $article->save();
-                $tempImage->delete(); // টেম্প ইমেজ রেকর্ড মুছে ফেলা
+                $tempImage->delete();
             }
         }
 
