@@ -240,22 +240,29 @@ class ArticleController extends Controller
                 File::delete(public_path('uploads/Article/large/' . $oldImage));
             }
         }
-        // ✅ নতুন ছবি না থাকলে, আগের টেম্পোরারি ইমেজ যদি থেকে থাকে তবে সেটাই রাখবে
-        else {
-            $tempImage = TempImage::where('name', $article->image)->first();
-            if ($tempImage) {
-                // টেম্প ইমেজ থাকলে সেটাকে চূড়ান্ত সংরক্ষণ করা হবে
-                $article->image = $tempImage->name;
-                $article->save();
-                $tempImage->delete(); // টেম্প ইমেজ রেকর্ড মুছে ফেলা
-            }
-        }
+       // ✅ নতুন ছবি না থাকলে, টেম্প ইমেজ ধরে রাখা হবে
+else {
+    // যদি আগের ইমেজ কোনো টেম্পোরারি ইমেজে থাকে
+    $tempImage = TempImage::where('name', $article->image)->first();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Article updated successfully'
-        ]);
+    if ($tempImage) {
+        // ✅ টেম্প ইমেজকে সংরক্ষণ করা হবে
+        $article->image = $tempImage->name;
+        $article->save();
+
+        // ✅ টেম্প ইমেজ মুছে ফেলা হবে
+        File::delete(public_path('uploads/temp/'.$tempImage->name));
+        File::delete(public_path('uploads/temp/thumb/'.$tempImage->name));
+
+        // ✅ ডাটাবেজ থেকে টেম্প ইমেজ রেকর্ড ডিলিট করা হবে
+        $tempImage->delete();
+    } else {
+        // যদি নতুন ইমেজ না দেওয়া হয়, আগের ইমেজই রেখে দেওয়া হবে
+        $article->image = $oldImage;
+        $article->save();
     }
+}
+}
 
 public function destroy($id)
 {
