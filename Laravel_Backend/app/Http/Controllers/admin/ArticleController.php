@@ -98,9 +98,80 @@ class ArticleController extends Controller
             'message' => 'Article created successfully'
         ]);
     }
+    // public function update(Request $request, $id)
+    // {
+    //     $article = Article::find($id);
+    //     if ($article === null) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Article not found'
+    //         ], 404);
+    //     }
+
+    //     $validator = Validator::make($request->all(), [
+    //         'title' => 'required',
+    //         'slug' => 'required',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'errors' => $validator->errors()
+    //         ], 400);
+    //     }
+
+    //     $article->title = $request->title;
+    //     $article->slug = Str::slug($request->slug);
+    //     $article->author = $request->author;
+    //     $article->content = $request->content;
+    //     $article->status = $request->status;
+    //     $article->save();
+
+    //     // Handle image update if imageId exists
+    //     if ($request->imageId > 0) {
+    //         $oldImage = $article->image;  // Save the old image for deletion
+
+    //         $tempImage = TempImage::find($request->imageId);
+    //         if ($tempImage != null) {
+    //             $extArray = explode('.', $tempImage->name);
+    //             $ext = last($extArray);
+    //             $fileName = strtotime('now') . $article->id . '.' . $ext;
+
+    //             // Create new image instance (300 x 400)
+    //             $sourcePath = public_path('uploads/temp/' . $tempImage->name);
+
+    //             // Small image size
+    //             $destPath = public_path('uploads/Article/small/' . $fileName);
+    //             $manager = new ImageManager(Driver::class);
+    //             $image = $manager->read($sourcePath);
+    //             $image->coverDown(300, 400);
+    //             $image->save($destPath);
+
+    //             // Large image size
+    //             $destPath = public_path('uploads/Article/large/' . $fileName);
+    //             $image->scaleDown(1200);
+    //             $image->save($destPath);
+    //             $article->image = $fileName;
+    //             $article->save();
+    //         }
+
+    //         if (!empty($oldImage)) {
+    //             File::delete(public_path('uploads/Article/small/' . $oldImage));
+    //             File::delete(public_path('uploads/Article/large/' . $oldImage));
+    //         }
+    //     }
+
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Article updated successfully'
+    //     ]);
+    // }
+
+
     public function update(Request $request, $id)
     {
         $article = Article::find($id);
+
         if ($article === null) {
             return response()->json([
                 'status' => false,
@@ -120,6 +191,7 @@ class ArticleController extends Controller
             ], 400);
         }
 
+        // Update article details
         $article->title = $request->title;
         $article->slug = Str::slug($request->slug);
         $article->author = $request->author;
@@ -127,40 +199,53 @@ class ArticleController extends Controller
         $article->status = $request->status;
         $article->save();
 
-        // Handle image update if imageId exists
+        // Check if a new image has been uploaded
         if ($request->imageId > 0) {
             $oldImage = $article->image;  // Save the old image for deletion
 
+            // Find the temp image by ID
             $tempImage = TempImage::find($request->imageId);
             if ($tempImage != null) {
                 $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
                 $fileName = strtotime('now') . $article->id . '.' . $ext;
 
-                // Create new image instance (300 x 400)
+                // Create new image instance (small and large sizes)
                 $sourcePath = public_path('uploads/temp/' . $tempImage->name);
 
-                // Small image size
+                // Small image size (300x400)
                 $destPath = public_path('uploads/Article/small/' . $fileName);
                 $manager = new ImageManager(Driver::class);
                 $image = $manager->read($sourcePath);
                 $image->coverDown(300, 400);
                 $image->save($destPath);
 
-                // Large image size
+                // Large image size (1200x?)
                 $destPath = public_path('uploads/Article/large/' . $fileName);
                 $image->scaleDown(1200);
                 $image->save($destPath);
 
-                // Set the new image name to the article
+                // Save the new image name to the article
                 $article->image = $fileName;
                 $article->save();
+
+                // Delete the temp image from storage
+                File::delete(public_path('uploads/temp/'.$tempImage->name));
+                File::delete(public_path('uploads/temp/thumb/'.$tempImage->name));
+                $tempImage->delete(); // Remove the temp image record
             }
 
-            // Delete old image if it exists
+            // Delete the old image if it exists
             if (!empty($oldImage)) {
                 File::delete(public_path('uploads/Article/small/' . $oldImage));
                 File::delete(public_path('uploads/Article/large/' . $oldImage));
+            }
+        } else {
+            // No new image uploaded, keep the temporary image unchanged
+            $tempImage = TempImage::where('name', $article->image)->first();
+            if ($tempImage) {
+                // Temporary image still exists
+                $tempImage->touch(); // Update the "updated_at" timestamp for the temporary image
             }
         }
 
@@ -170,47 +255,8 @@ class ArticleController extends Controller
         ]);
     }
 
-
-//     public function destroy($id)
-//     {
-//         $article = Article::find($id);
-//         if (!$article) {
-//             return response()->json([
-//                 'status' => false,
-//                 'message' => 'Article not found'
-//             ], 404);
-//         }
-
-//         // Delete the image from storage
-//         if ($article->image) {
-//             $smallImagePath = public_path('uploads/Article/small/' . $article->image);
-//             $largeImagePath = public_path('uploads/Article/large/' . $article->image);
-
-//             if (File::exists($smallImagePath)) {
-//                 File::delete($smallImagePath);
-//             }
-
-//             if (File::exists($largeImagePath)) {
-//                 File::delete($largeImagePath);
-//             }
-//         }
-
-//         $article->delete();
-
-//         return response()->json([
-//             'status' => true,
-//             'message' => 'Article deleted successfully'
-//         ]);
-//     }
-// }
-
-
-
-
-
 public function destroy($id)
 {
-    // Find the article by its ID
     $article = Article::find($id);
 
     if (!$article) {
@@ -219,8 +265,6 @@ public function destroy($id)
             'message' => 'Article not found.',
         ], 404);
     }
-
-    // Delete associated images (small and large for articles)
     if ($article->image) {
         $smallImagePath = public_path('uploads/Article/small/' . $article->image);
         $largeImagePath = public_path('uploads/Article/large/' . $article->image);
@@ -234,10 +278,8 @@ public function destroy($id)
         }
     }
 
-    // Delete temp image record (if exists)
     $tempImage = TempImage::find($id);
     if ($tempImage) {
-        // Delete the temp image and its thumbnail
         $imagePath = public_path('uploads/temp/'.$tempImage->name);
         $thumbPath = public_path('uploads/temp/thumb/'.$tempImage->name);
 
@@ -248,12 +290,8 @@ public function destroy($id)
         if (File::exists($thumbPath)) {
             File::delete($thumbPath);
         }
-
-        // Delete the temp image record
         $tempImage->delete();
     }
-
-    // Delete the article record
     $article->delete();
 
     return response()->json([
