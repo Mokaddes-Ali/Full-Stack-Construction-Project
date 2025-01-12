@@ -25,7 +25,6 @@ import Login from "../Components/Backend/login";
 import ArticleAdd from "../Components/Backend/article/ArticleAdd";
 import ArticleEdit from "../Components/Backend/article/ArticleEdit";
 import ArticleIndex from "../Components/Backend/article/ArticleIndex";
-import ArticleShow from "../Components/Backend/article/ArticleShow";
 
 
       
@@ -141,23 +140,12 @@ const AdminRoute = () => (
               <ArticleEdit />
               </RequireAuth>
               } />
-              
+
             <Route path="/admin/article/index" element={
                <RequireAuth>
                     <ArticleIndex />
                </RequireAuth>
               } />
-            <Route path="/admin/article/show/:id" element={
-              <RequireAuth>
-              <ArticleShow />
-              </RequireAuth>
-              } />
-
-
-
-            
-
-
             <Route
               path="settings/account"
               element={

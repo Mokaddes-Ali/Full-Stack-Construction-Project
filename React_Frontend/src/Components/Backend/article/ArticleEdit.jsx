@@ -69,29 +69,58 @@ const ArticleEdit = ({ placeholder }) => {
     }
   };
 
+  // const handleFile = async (e) => {
+  //   const formData = new FormData();
+  //   const file = e.target.files[0];
+  //   formData.append("image", file);
+
+  //   await fetch(apiUrl + "temp-image", {
+  //     method: "PUT",
+  //     headers: {
+  //       Accept: "application/json",
+  //       Authorization: `Bearer ${token()}`,
+  //     },
+  //     body: formData,
+  //   })
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       if (result.status === false) {
+  //         toast.error(result.errors.image[0]);
+  //       } else {
+  //         setImageId(result.data.id);
+  //         toast.success(result.message);
+  //       }
+  //     });
+  // };
+
+
   const handleFile = async (e) => {
     const formData = new FormData();
     const file = e.target.files[0];
     formData.append("image", file);
 
-    await fetch(apiUrl + "temp-image", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token()}`,
-      },
-      body: formData,
+    const method = imageId ? "PUT" : "POST"; // নতুন হলে POST, আপডেট হলে PUT
+    const url = imageId ? `${apiUrl}temp-image/${imageId}` : `${apiUrl}temp-image`;
+
+    await fetch(url, {
+        method: method,
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token()}`,
+        },
+        body: formData,
     })
-      .then(response => response.json())
-      .then(result => {
+    .then(response => response.json())
+    .then(result => {
         if (result.status === false) {
-          toast.error(result.errors.image[0]);
+            toast.error(result.errors.image[0]);
         } else {
-          setImageId(result.data.id);
-          toast.success(result.message);
+            setImageId(result.data.id);
+            toast.success(result.message);
         }
-      });
-  };
+    })
+    .catch(error => console.error("Error:", error));
+};
 
 return (
   <AdminLayout>
