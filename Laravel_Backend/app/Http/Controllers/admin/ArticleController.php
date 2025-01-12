@@ -229,19 +229,22 @@ class ArticleController extends Controller
                 $article->image = $fileName;
                 $article->save();
 
-                // Delete the temp image from storage
+                // Delete the old temporary image from storage
                 File::delete(public_path('uploads/temp/'.$tempImage->name));
                 File::delete(public_path('uploads/temp/thumb/'.$tempImage->name));
-                $tempImage->delete(); // Remove the temp image record
-            }
 
-            // Delete the old image if it exists
-            if (!empty($oldImage)) {
-                File::delete(public_path('uploads/Article/small/' . $oldImage));
-                File::delete(public_path('uploads/Article/large/' . $oldImage));
+                // Delete the old article image files if any
+                if (!empty($oldImage)) {
+                    File::delete(public_path('uploads/Article/small/' . $oldImage));
+                    File::delete(public_path('uploads/Article/large/' . $oldImage));
+                }
+
+                // Remove the temp image record
+                $tempImage->delete();
             }
         } else {
-            // No new image uploaded, keep the temporary image unchanged
+            // If no new image is uploaded, do not delete or change the temporary image
+            // Simply ensure that the temporary image remains unchanged
             $tempImage = TempImage::where('name', $article->image)->first();
             if ($tempImage) {
                 // Temporary image still exists
