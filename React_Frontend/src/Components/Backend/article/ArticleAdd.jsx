@@ -1,104 +1,175 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import AdminLayout from "../../../layouts/admin/AdminLayout";
+import { apiUrl, token } from "../http";
 
 const ArticleAdd = () => {
-  const [title, setTitle] = useState('');
-  const [slug, setSlug] = useState('');
-  const [author, setAuthor] = useState('');
-  const [content, setContent] = useState('');
-  const [image, setImage] = useState(null);
-  const [status, setStatus] = useState(1);
-  const [error, setError] = useState('');
+    const editor = useRef(null);
+    const [imageId, setImageId] = useState(null);
+    const [isDisable, setIsDisable] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('slug', slug);
-      formData.append('author', author);
-      formData.append('content', content);
-      formData.append('image', image);
-      formData.append('status', status);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
 
-      const response = await axios.post('/api/articles/store', formData);
-      if (response.data.status) {
-        alert('Article added successfully!');
-      }
-    } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong!');
-    }
-  };
+    const onSubmit = async (data) => {
+        const newData = { ...data, imageId };
 
-  return (
-    <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4">Add Article</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Title</label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Slug</label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={slug}
-            onChange={(e) => setSlug(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Author</label>
-          <input
-            type="text"
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Content</label>
-          <textarea
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Image</label>
-          <input
-            type="file"
-            className="mt-1 block w-full text-sm text-gray-500"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Status</label>
-          <select
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            value={status}
-            onChange={(e) => setStatus(Number(e.target.value))}
-          >
-            <option value={1}>Published</option>
-            <option value={0}>Draft</option>
-          </select>
-        </div>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <button type="submit" className="w-full py-2 bg-indigo-600 text-white font-semibold rounded-lg mt-4">
-          Add Article
-        </button>
-      </form>
-    </div>
-  );
+        try {
+            const res = await fetch(apiUrl + "articles/store", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token()}`,
+                },
+                body: JSON.stringify(newData),
+            });
+
+            const result = await res.json();
+
+            if (result.status) {
+                toast.success(result.message);
+                navigate("/admin/articles");
+            } else {
+                toast.error(result.message);
+            }
+        } catch (error) {
+            toast.error("Something went wrong!");
+        }
+    };
+
+    const handleFile = async (e) => {
+        const formData = new FormData();
+        const file = e.target.files[0];
+        formData.append("image", file);
+
+        try {
+            const res = await fetch(apiUrl + "temp-image", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token()}`,
+                },
+                body: formData,
+            });
+
+            const result = await res.json();
+
+            if (!result.status) {
+                toast.error(result.errors.image[0]);
+            } else {
+                setImageId(result.data.id);
+                toast.success("Image uploaded successfully!");
+            }
+        } catch (error) {
+            toast.error("Image upload failed!");
+        }
+    };
+
+    return (
+        <AdminLayout>
+            <div className="w-full max-w-6xl p-3 rounded-lg bg-blue-gray-100">
+                <h2 className="text-3xl font-bold text-center text-indigo-700 mb-4">
+                    Add New Article
+                </h2>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <div className="grid grid-cols-12 gap-6">
+                        {/* Title */}
+                        <div className="col-span-6">
+                            <label className="block text-sm font-medium text-gray-800">
+                                Article Title
+                            </label>
+                            <input
+                                type="text"
+                                {...register("title", { required: "Title is required" })}
+                                placeholder="Article Title"
+                                className={`block w-full rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600 ${errors.title ? "ring-red-500 focus:ring-red-500" : ""}`}
+                            />
+                            {errors.title && <span className="text-sm text-red-600">{errors.title.message}</span>}
+                        </div>
+
+                        {/* Slug */}
+                        <div className="col-span-6">
+                            <label className="block text-sm font-medium text-gray-800">
+                                Slug
+                            </label>
+                            <input
+                                type="text"
+                                {...register("slug", { required: "Slug is required" })}
+                                placeholder="Slug"
+                                className="block w-full rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600"
+                            />
+                            {errors.slug && <span className="text-sm text-red-600">{errors.slug.message}</span>}
+                        </div>
+
+                        {/* Author */}
+                        <div className="col-span-6">
+                            <label className="block text-sm font-medium text-gray-800">
+                                Author
+                            </label>
+                            <input
+                                type="text"
+                                {...register("author", { required: "Author is required" })}
+                                placeholder="Author Name"
+                                className="block w-full rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600"
+                            />
+                            {errors.author && <span className="text-sm text-red-600">{errors.author.message}</span>}
+                        </div>
+
+                        {/* Status */}
+                        <div className="col-span-6">
+                            <label className="block text-sm font-medium text-gray-800">
+                                Status
+                            </label>
+                            <select
+                                {...register("status", { required: "Status is required" })}
+                                className="block w-full rounded-lg p-2 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600"
+                            >
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                            {errors.status && <span className="text-sm text-red-600">{errors.status.message}</span>}
+                        </div>
+
+                        {/* Image Upload */}
+                        <div className="col-span-12">
+                            <label className="block text-sm font-medium text-gray-800">
+                                Article Image
+                            </label>
+                            <input type="file" onChange={handleFile} className="mt-2 w-full" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="col-span-12">
+                            <label className="block text-sm font-medium text-gray-800">
+                                Content
+                            </label>
+                            <textarea
+                                {...register("content", { required: "Content is required" })}
+                                placeholder="Article Content"
+                                className="block w-full h-32 rounded-lg p-2 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600"
+                            />
+                            {errors.content && <span className="text-sm text-red-600">{errors.content.message}</span>}
+                        </div>
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="flex items-center justify-center">
+                        <button
+                            disabled={isDisable}
+                            className="w-20 text-center bg-indigo-600 text-white font-semibold p-3 rounded-lg shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                        >
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </AdminLayout>
+    );
 };
 
-export default ArticleAdd;
+
+
+export default ArticleAdd

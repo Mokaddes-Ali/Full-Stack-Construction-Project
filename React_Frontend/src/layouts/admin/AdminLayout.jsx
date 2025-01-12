@@ -6,7 +6,8 @@ import DarkModeButton from './DarkModeButton';
 
 const AdminLayout = ({ children }) => (
   <>
-  <div className="w-screen  lg:w-screen md:w-screen sm:w-screen">
+  <div className="">
+    <div className="w-[95%] mx-auto">
  <NavbarSection />
   <div className="flex mx-auto bg-slate-300 dark:bg-gray-800 dark:text-white">
   <Sidebar />
@@ -19,6 +20,7 @@ const AdminLayout = ({ children }) => (
         {children}
         </main>
     </div>
+  </div>
   </div>
   </div>
   </>
