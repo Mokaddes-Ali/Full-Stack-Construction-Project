@@ -171,36 +171,94 @@ class ArticleController extends Controller
     }
 
 
-    public function destroy($id)
-    {
-        $article = Article::find($id);
-        if (!$article) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Article not found'
-            ], 404);
-        }
+//     public function destroy($id)
+//     {
+//         $article = Article::find($id);
+//         if (!$article) {
+//             return response()->json([
+//                 'status' => false,
+//                 'message' => 'Article not found'
+//             ], 404);
+//         }
 
-        // Delete the image from storage
-        if ($article->image) {
-            $smallImagePath = public_path('uploads/Article/small/' . $article->image);
-            $largeImagePath = public_path('uploads/Article/large/' . $article->image);
+//         // Delete the image from storage
+//         if ($article->image) {
+//             $smallImagePath = public_path('uploads/Article/small/' . $article->image);
+//             $largeImagePath = public_path('uploads/Article/large/' . $article->image);
 
-            if (File::exists($smallImagePath)) {
-                File::delete($smallImagePath);
-            }
+//             if (File::exists($smallImagePath)) {
+//                 File::delete($smallImagePath);
+//             }
 
-            if (File::exists($largeImagePath)) {
-                File::delete($largeImagePath);
-            }
-        }
+//             if (File::exists($largeImagePath)) {
+//                 File::delete($largeImagePath);
+//             }
+//         }
 
-        $article->delete();
+//         $article->delete();
 
+//         return response()->json([
+//             'status' => true,
+//             'message' => 'Article deleted successfully'
+//         ]);
+//     }
+// }
+
+
+
+
+
+public function destroy($id)
+{
+    // Find the article by its ID
+    $article = Article::find($id);
+
+    if (!$article) {
         return response()->json([
-            'status' => true,
-            'message' => 'Article deleted successfully'
-        ]);
+            'status' => false,
+            'message' => 'Article not found.',
+        ], 404);
     }
-}
 
+    // Delete associated images (small and large for articles)
+    if ($article->image) {
+        $smallImagePath = public_path('uploads/Article/small/' . $article->image);
+        $largeImagePath = public_path('uploads/Article/large/' . $article->image);
+
+        if (File::exists($smallImagePath)) {
+            File::delete($smallImagePath);
+        }
+
+        if (File::exists($largeImagePath)) {
+            File::delete($largeImagePath);
+        }
+    }
+
+    // Delete temp image record (if exists)
+    $tempImage = TempImage::find($id);
+    if ($tempImage) {
+        // Delete the temp image and its thumbnail
+        $imagePath = public_path('uploads/temp/'.$tempImage->name);
+        $thumbPath = public_path('uploads/temp/thumb/'.$tempImage->name);
+
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
+        if (File::exists($thumbPath)) {
+            File::delete($thumbPath);
+        }
+
+        // Delete the temp image record
+        $tempImage->delete();
+    }
+
+    // Delete the article record
+    $article->delete();
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Article and related images deleted successfully.',
+    ]);
+}
+}

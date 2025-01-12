@@ -54,38 +54,11 @@ const ArticleIndex = () => {
     return () => clearTimeout(loadingTimeout);
   }, []);
 
-  // const handleDelete = async (id) => {
-  //   if (!window.confirm("Are you sure you want to delete this article?")) {
-  //     return;
-  //   }
-  //     const res = await fetch(apiUrl + "articles/delete/" + id, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-type": "application/json",
-  //         Accept: "application/json",
-  //         Authorization: `Bearer ${token()}`,
-  //       },
-  //     });
-
-  //     const result = await res.json();
-
-  //     if (result.status === true) {
-  //       const newArticles = articles.filter((article) => article.id !== id);
-  //       setArticles(newArticles);
-  //       setFilteredArticles(newArticles);
-  //       toast.success(result.message);
-  //     } else {
-  //       toast.error(result.message);
-  //     }
-  // };
-  const handleDelete = async (id, imageId) => {
+  const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this article?")) {
       return;
     }
-  
-    try {
-      // Delete the article
-      const resArticle = await fetch(apiUrl + "articles/delete/" + id, {
+      const res = await fetch(apiUrl + "articles/delete/" + id, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
@@ -93,39 +66,19 @@ const ArticleIndex = () => {
           Authorization: `Bearer ${token()}`,
         },
       });
-  
-      const resultArticle = await resArticle.json();
-  
-      if (resultArticle.status === true) {
-        // Delete the image associated with the article
-        const resImage = await fetch(apiUrl + "temp-image/" + imageId, {
-          method: "DELETE",
-          headers: {
-            "Content-type": "application/json",
-            Accept: "application/json",
-            Authorization: `Bearer ${token()}`,
-          },
-        });
-  
-        const resultImage = await resImage.json();
-  
-        if (resultImage.status === true) {
-          const newArticles = articles.filter((article) => article.id !== id);
-          setArticles(newArticles);
-          setFilteredArticles(newArticles);
-          toast.success(resultArticle.message);
-        } else {
-          toast.error(resultImage.message);
-        }
+
+      const result = await res.json();
+
+      if (result.status === true) {
+        const newArticles = articles.filter((article) => article.id !== id);
+        setArticles(newArticles);
+        setFilteredArticles(newArticles);
+        toast.success(result.message);
       } else {
-        toast.error(resultArticle.message);
+        toast.error(result.message);
       }
-    } catch (error) {
-      toast.error("An error occurred while deleting the article or image.");
-    }
   };
   
-
   useEffect(() => {
     if (searchQuery === "") {
       setFilteredArticles(articles);
@@ -343,20 +296,14 @@ const ArticleIndex = () => {
                           <FaEdit />
                           <span className="hidden md:inline">Edit</span>
                         </Link>
-                        {/* <button
+                        <button
                           onClick={() => handleDelete(article.id)}
                           className="bg-red-600 text-white px-2 py-1 rounded-md hover:bg-red-500 text-xs md:text-sm flex items-center gap-1"
                         >
                           <FaTrash />
                           <span className="hidden md:inline">Delete</span>
-                        </button> */}
-                        <button
-  onClick={() => handleDelete(article.id, article.imageId)} // Assuming `article.imageId` exists
-  className="bg-red-600 text-white px-2 py-1 rounded-md hover:bg-red-500 text-xs md:text-sm flex items-center gap-1"
->
-  <FaTrash />
-  <span className="hidden md:inline">Delete</span>
-</button>
+                        </button>
+                       
 
                       </td>
                     </motion.tr>
