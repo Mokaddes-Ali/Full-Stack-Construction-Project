@@ -97,7 +97,7 @@ const ArticleEdit = () => {
       const result = await res.json();
       if (result.status) {
         toast.success("Article updated successfully!");
-        navigate("/admin/articles");
+        navigate("/admin/article/index");
       } else {
         toast.error(result.message);
       }

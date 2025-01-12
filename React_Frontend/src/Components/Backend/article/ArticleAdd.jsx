@@ -272,7 +272,7 @@ const ArticleAdd = () => {
       const result = await res.json();
       if (result.status) {
         toast.success(result.message);
-        navigate("/admin/articles");
+        navigate("/admin/article/index");
       } else {
         toast.error(result.message);
       }

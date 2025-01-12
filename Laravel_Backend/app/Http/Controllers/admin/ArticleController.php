@@ -174,76 +174,76 @@ class ArticleController extends Controller
 
 
     public function update(Request $request, $id)
-{
-    $article = Article::find($id);
-    if ($article === null) {
-        return response()->json([
-            'status' => false,
-            'message' => 'Article not found'
-        ], 404);
-    }
-
-    $validator = Validator::make($request->all(), [
-        'title' => 'required',
-        'slug' => 'required',
-    ]);
-
-    if ($validator->fails()) {
-        return response()->json([
-            'status' => false,
-            'errors' => $validator->errors()
-        ], 400);
-    }
-
-    $article->title = $request->title;
-    $article->slug = Str::slug($request->slug);
-    $article->author = $request->author;
-    $article->content = $request->content;
-    $article->status = $request->status;
-    $article->save();
-
-    // Handle image update if imageId exists
-    if ($request->imageId > 0) {
-        $oldImage = $article->image;  // Save the old image for deletion
-
-        $tempImage = TempImage::find($request->imageId);
-        if ($tempImage != null) {
-            $extArray = explode('.', $tempImage->name);
-            $ext = last($extArray);
-            $fileName = strtotime('now') . $article->id . '.' . $ext;
-
-            // Create new image instance (300 x 400)
-            $sourcePath = public_path('uploads/temp/' . $tempImage->name);
-
-            // Small image size
-            $destPath = public_path('uploads/Article/small/' . $fileName);
-            $manager = new ImageManager(Driver::class);
-            $image = $manager->read($sourcePath);
-            $image->coverDown(300, 400);
-            $image->save($destPath);
-
-            // Large image size
-            $destPath = public_path('uploads/Article/large/' . $fileName);
-            $image->scaleDown(1200);
-            $image->save($destPath);
-
-            // Set the new image name to the article
-            $article->image = $fileName;
-            $article->save();
+    {
+        $article = Article::find($id);
+        if ($article === null) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Article not found'
+            ], 404);
         }
 
-        // Delete old image if it exists
-        if ($oldImage != '') {
-            File::delete(public_path('uploads/Article/small/' . $oldImage));
-            File::delete(public_path('uploads/Article/large/' . $oldImage));
-        }
-    }
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'slug' => 'required',
+        ]);
 
-    return response()->json([
-        'status' => true,
-        'message' => 'Article updated successfully'
-    ]);
-}
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ], 400);
+        }
+
+        $article->title = $request->title;
+        $article->slug = Str::slug($request->slug);
+        $article->author = $request->author;
+        $article->content = $request->content;
+        $article->status = $request->status;
+        $article->save();
+
+        // Handle image update if imageId exists
+        if ($request->imageId > 0) {
+            $oldImage = $article->image;  // Save the old image for deletion
+
+            $tempImage = TempImage::find($request->imageId);
+            if ($tempImage != null) {
+                $extArray = explode('.', $tempImage->name);
+                $ext = last($extArray);
+                $fileName = strtotime('now') . $article->id . '.' . $ext;
+
+                // Create new image instance (300 x 400)
+                $sourcePath = public_path('uploads/temp/' . $tempImage->name);
+
+                // Small image size
+                $destPath = public_path('uploads/Article/small/' . $fileName);
+                $manager = new ImageManager(Driver::class);
+                $image = $manager->read($sourcePath);
+                $image->coverDown(300, 400);
+                $image->save($destPath);
+
+                // Large image size
+                $destPath = public_path('uploads/Article/large/' . $fileName);
+                $image->scaleDown(1200);
+                $image->save($destPath);
+
+                // Set the new image name to the article
+                $article->image = $fileName;
+                $article->save();
+            }
+
+            // Delete old image if it exists
+            if (!empty($oldImage)) {
+                File::delete(public_path('uploads/Article/small/' . $oldImage));
+                File::delete(public_path('uploads/Article/large/' . $oldImage));
+            }
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Article updated successfully'
+        ]);
+    }
 
 
     public function destroy($id)
