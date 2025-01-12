@@ -139,7 +139,7 @@ const ArticleEdit = () => {
 
     if (!file) return;
 
-    setImagePreview(URL.createObjectURL(file)); // Preview the local image
+    setImagePreview(URL.createObjectURL(file));
 
     formData.append("image", file);
 
