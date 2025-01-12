@@ -99,11 +99,8 @@ const ArticleEdit = ({ placeholder }) => {
     const file = e.target.files[0];
     formData.append("image", file);
 
-    const method = imageId ? "PUT" : "POST"; // নতুন হলে POST, আপডেট হলে PUT
-    const url = imageId ? `${apiUrl}temp-image/${imageId}` : `${apiUrl}temp-image`;
-
-    await fetch(url, {
-        method: method,
+    await fetch(`${apiUrl}temp-image`, { // সবসময় PUT
+        method: "PUT",
         headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token()}`,
