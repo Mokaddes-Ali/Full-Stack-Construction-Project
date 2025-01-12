@@ -75,7 +75,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
           </NavLink>
 
         
-          {/* Dropdown 1 - Blog */}
+          {/* Dropdown 1 - Article */}
           <div
             className="relative"
             onMouseEnter={handleDropdownHover1}
@@ -83,13 +83,13 @@ function Sidebar({ isOpen, toggleSidebar }) {
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
-                location.pathname.includes("/blog") ? "bg-blue-800" : ""
+                location.pathname.includes("/admin/article") ? "bg-blue-800" : ""
               }`}
               onClick={handleDropdownToggle1}
             >
               <div className="flex items-center space-x-2">
                 <MdPeople className="h-6 w-6 " />
-                <span className="text-lg">Blog</span>
+                <span className="text-lg">Article</span>
            
                  </div>
                  <HiChevronDown 
@@ -106,14 +106,14 @@ function Sidebar({ isOpen, toggleSidebar }) {
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
-                  Blog List
+                 Article List
                 </NavLink>
                 <NavLink
                   to="/admin/article/add"
                   className="block p-2 rounded-md hover:bg-blue-800 hover:text-white"
                   onClick={handleSidebarClose}
                 >
-                  Blog Add
+                  Article Add
                 </NavLink>
               </div>
             )}
@@ -171,7 +171,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
           >
             <div
               className={`flex items-center justify-between cursor-pointer p-2 rounded-md ${
-                location.pathname.includes("/admin") ? "bg-blue-800" : ""
+                location.pathname.includes("/admin/projects") ? "bg-blue-800" : ""
               }`}
               onClick={handleDropdownToggle3}
             >
