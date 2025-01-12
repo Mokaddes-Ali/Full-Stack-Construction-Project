@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
+import { FaEdit, FaTrash} from 'react-icons/fa';
 import { motion } from "framer-motion";
-import axios from 'axios';
 import AdminLayout from "../../../layouts/admin/AdminLayout";
 import { apiUrl, token } from "../http";
-import Modal from 'react-modal'; // Ensure Modal is imported
 
-const ArticleIndex = ({ article }) => {
+const ArticleIndex = () => {
   const [articles, setArticles] = useState([]);
   const [filteredArticles, setFilteredArticles] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,14 +18,11 @@ const ArticleIndex = ({ article }) => {
   });
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [deleting, setDeleting] = useState(false);
   const imgUrl = "http://localhost:8000/uploads/Article/small/";
 
   useEffect(() => {
-    // Set a timeout to show loading if it takes more than 500ms
     const loadingTimeout = setTimeout(() => {
-      if (loading) setLoading(true); // Ensure loading is shown if it takes more than 500ms
+      if (loading) setLoading(true);
     }, 50);
 
     const fetchArticles = async () => {
@@ -50,7 +45,7 @@ const ArticleIndex = ({ article }) => {
         toast.error("Failed to fetch articles.");
       } finally {
         setLoading(false);
-        clearTimeout(loadingTimeout); // Clear timeout once data is loaded
+        clearTimeout(loadingTimeout);
       }
     };
 
@@ -77,12 +72,11 @@ const ArticleIndex = ({ article }) => {
       });
   
       const result = await res.json();
-      console.log("Delete Response:", result);
   
       if (result.status === true) {
         const newArticles = articles.filter((article) => article.id !== id);
         setArticles(newArticles);
-        setFilteredArticles(newArticles); // Ensure UI updates
+        setFilteredArticles(newArticles);
         toast.success(result.message);
       } else {
         toast.error(result.message);
@@ -140,7 +134,7 @@ const ArticleIndex = ({ article }) => {
   return (
     <>
       {/* Loading Spinner */}
-      {loading ? (
+      {/* {loading ? (
         <div className="flex justify-center items-center w-full h-screen bg-gray-100">
           <div className="flex justify-center gap-4 mt-10">
             {[
@@ -164,6 +158,12 @@ const ArticleIndex = ({ article }) => {
               />
             ))}
           </div>
+        </div>
+      ) : ( */}
+
+{loading ? (
+        <div className="flex justify-center items-center w-full h-screen bg-gray-100">
+          <motion.div className="w-10 h-10 rounded-full bg-blue-500 animate-ping" />
         </div>
       ) : (
         <AdminLayout>

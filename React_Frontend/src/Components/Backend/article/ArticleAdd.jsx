@@ -221,29 +221,38 @@ import { useState, useRef, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import JoditEditor from 'jodit-react';
+import JoditEditor from "jodit-react";
 import AdminLayout from "../../../layouts/admin/AdminLayout";
 import { apiUrl, token } from "../http";
 
 const ArticleAdd = () => {
   const editor = useRef(null);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const [imageId, setImageId] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [isDisable, setIsDisable] = useState(false);
-  const [placeholder, setPlaceholder] = useState('Enter article content here...');
+  const [placeholder, setPlaceholder] = useState(
+    "Enter article content here..."
+  );
 
-  const config = useMemo(() => ({
-    readonly: false,
-    placeholder: placeholder || 'Content',
-  }), [placeholder]);
+  const config = useMemo(
+    () => ({
+      readonly: false,
+      placeholder: placeholder || "Content",
+    }),
+    [placeholder]
+  );
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
 
   const cleanContent = (rawContent) => {
     return rawContent.replace(/<p>/g, "").replace(/<\/p>/g, "");
-  }
+  };
 
   const onSubmit = async (data) => {
     const cleanedContent = cleanContent(content);
@@ -311,12 +320,12 @@ const ArticleAdd = () => {
           <div className="grid grid-cols-12 gap-6">
             {/* Title */}
             <div className="col-span-6">
-            <div className="flex items-center space-x-1 space-y-0">
-    <label className="text-lg font-medium text-black mb-3">
-      Article Title
-    </label>
-    <span className="text-red-500 text-3xl"> *</span>
-  </div>
+              <div className="flex items-center space-x-1 space-y-0">
+                <label className="text-lg font-medium text-black mb-3">
+                  Article Title
+                </label>
+                <span className="text-red-500 text-3xl"> *</span>
+              </div>
               <input
                 type="text"
                 {...register("title", { required: "Title is required" })}
@@ -326,7 +335,9 @@ const ArticleAdd = () => {
                 }`}
               />
               {errors.title && (
-                <span className="text-sm text-red-600">{errors.title.message}</span>
+                <span className="text-sm text-red-600">
+                  {errors.title.message}
+                </span>
               )}
             </div>
 
@@ -342,7 +353,9 @@ const ArticleAdd = () => {
                 className="block w-full rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600"
               />
               {errors.slug && (
-                <span className="text-sm text-red-600">{errors.slug.message}</span>
+                <span className="text-sm text-red-600">
+                  {errors.slug.message}
+                </span>
               )}
             </div>
 
@@ -358,7 +371,9 @@ const ArticleAdd = () => {
                 className="block w-full rounded-lg p-3 text-gray-900 shadow-sm ring-1 ring-gray-300 focus:ring-2 focus:ring-indigo-600"
               />
               {errors.author && (
-                <span className="text-sm text-red-600">{errors.author.message}</span>
+                <span className="text-sm text-red-600">
+                  {errors.author.message}
+                </span>
               )}
             </div>
 
@@ -375,7 +390,9 @@ const ArticleAdd = () => {
                 <option value="0">Inactive</option>
               </select>
               {errors.status && (
-                <span className="text-sm text-red-600">{errors.status.message}</span>
+                <span className="text-sm text-red-600">
+                  {errors.status.message}
+                </span>
               )}
             </div>
 
@@ -385,7 +402,11 @@ const ArticleAdd = () => {
                 <label className="block text-sm font-medium text-gray-700">
                   Article Image
                 </label>
-                <input type="file" onChange={handleFile} className="mt-2 w-full" />
+                <input
+                  type="file"
+                  onChange={handleFile}
+                  className="mt-2 w-full"
+                />
               </div>
 
               {imagePreview && (

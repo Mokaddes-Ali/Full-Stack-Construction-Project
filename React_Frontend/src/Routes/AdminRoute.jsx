@@ -136,11 +136,12 @@ const AdminRoute = () => (
               }
             />
 
-            <Route path="/admin/article/edit/:id" element={
+          <Route path="/admin/articles/edit/:id" element={
               <RequireAuth>
               <ArticleEdit />
               </RequireAuth>
               } />
+              
             <Route path="/admin/article/index" element={
                <RequireAuth>
                     <ArticleIndex />
