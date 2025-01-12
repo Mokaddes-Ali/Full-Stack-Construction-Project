@@ -191,64 +191,63 @@ class ArticleController extends Controller
             ], 400);
         }
 
-        // Update article details
+        // ✅ Article-এর অন্যান্য তথ্য আপডেট করা
         $article->title = $request->title;
         $article->slug = Str::slug($request->slug);
         $article->author = $request->author;
         $article->content = $request->content;
         $article->status = $request->status;
-        $article->save();
 
-        // Check if a new image has been uploaded
+        $oldImage = $article->image; // আগের ছবি সংরক্ষণ
+
+        // ✅ নতুন ছবি থাকলে আপডেট করা হবে
         if ($request->imageId > 0) {
-            $oldImage = $article->image;  // Save the old image for deletion
-
-            // Find the temp image by ID
+            // টেম্প ইমেজ খোঁজা
             $tempImage = TempImage::find($request->imageId);
-            if ($tempImage != null) {
+            if ($tempImage) {
                 $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
-                $fileName = strtotime('now') . $article->id . '.' . $ext;
+                $fileName = time() . $article->id . '.' . $ext;
 
-                // Create new image instance (small and large sizes)
+                // ইমেজ প্রসেস করা
                 $sourcePath = public_path('uploads/temp/' . $tempImage->name);
 
-                // Small image size (300x400)
-                $destPath = public_path('uploads/Article/small/' . $fileName);
+                // Small Image (300x400)
+                $destPathSmall = public_path('uploads/Article/small/' . $fileName);
                 $manager = new ImageManager(Driver::class);
                 $image = $manager->read($sourcePath);
                 $image->coverDown(300, 400);
-                $image->save($destPath);
+                $image->save($destPathSmall);
 
-                // Large image size (1200x?)
-                $destPath = public_path('uploads/Article/large/' . $fileName);
+                // Large Image (1200x?)
+                $destPathLarge = public_path('uploads/Article/large/' . $fileName);
                 $image->scaleDown(1200);
-                $image->save($destPath);
+                $image->save($destPathLarge);
 
-                // Save the new image name to the article
+                // নতুন ছবি আপডেট করা
                 $article->image = $fileName;
                 $article->save();
 
-                // Delete the old temporary image from storage
+                // টেম্প ইমেজ মুছে ফেলা
                 File::delete(public_path('uploads/temp/'.$tempImage->name));
                 File::delete(public_path('uploads/temp/thumb/'.$tempImage->name));
-
-                // Delete the old article image files if any
-                if (!empty($oldImage)) {
-                    File::delete(public_path('uploads/Article/small/' . $oldImage));
-                    File::delete(public_path('uploads/Article/large/' . $oldImage));
-                }
-
-                // Remove the temp image record
                 $tempImage->delete();
             }
-        } else {
-            // If no new image is uploaded, do not delete or change the temporary image
-            // Simply ensure that the temporary image remains unchanged
+
+            // পুরোনো ইমেজ মুছে ফেলা
+            if (!empty($oldImage)) {
+                File::delete(public_path('uploads/Article/small/' . $oldImage));
+                File::delete(public_path('uploads/Article/large/' . $oldImage));
+            }
+        }
+        // ✅ নতুন ছবি না থাকলে, আগের টেম্পোরারি ইমেজ যদি থেকে থাকে তবে সেটাই রাখবে
+        else {
             $tempImage = TempImage::where('name', $article->image)->first();
             if ($tempImage) {
-                // Temporary image still exists
-                $tempImage->touch(); // Update the "updated_at" timestamp for the temporary image
+                // টেম্প ইমেজ থাকলে সেটাকে চূড়ান্ত সংরক্ষণ করা হবে
+                $article->image = $tempImage->name;
+                $article->save();
+                $tempImage->delete(); // টেম্প ইমেজ রেকর্ড মুছে ফেলা
             }
         }
 
