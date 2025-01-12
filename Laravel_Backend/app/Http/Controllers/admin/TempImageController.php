@@ -49,10 +49,17 @@ class TempImageController extends Controller
             'message' => 'Image uploaded successfully',
         ]);
     }
-
-    // Update Method
     public function update(Request $request, $id)
     {
+        $model = TempImage::find($id);
+
+        if (!$model) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Image not found'
+            ], 404);
+        }
+
         $validator = Validator::make($request->all(), [
             'image' => 'required|mimes:jpeg,png,jpg,gif',
         ]);
@@ -60,45 +67,32 @@ class TempImageController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
-                'errors' => $validator->errors('image')
+                'errors' => $validator->errors()
             ]);
         }
 
-        $model = TempImage::find($id);
-        if (!$model) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Image not found.',
-            ]);
+        // **পুরানো ইমেজ মুছে ফেলা**
+        $oldImage = $model->name;
+        if (!empty($oldImage)) {
+            File::delete(public_path('uploads/temp/'.$oldImage));
+            File::delete(public_path('uploads/temp/thumb/'.$oldImage));
         }
 
-        // Delete old image and thumbnail if it exists
-        $oldImagePath = public_path('uploads/temp/'.$model->name);
-        $oldThumbPath = public_path('uploads/temp/thumb/'.$model->name);
-
-        if (File::exists($oldImagePath)) {
-            File::delete($oldImagePath);
-        }
-
-        if (File::exists($oldThumbPath)) {
-            File::delete($oldThumbPath);
-        }
-
-        // Upload the new image
-        $image = $request->image;
+        // **নতুন ইমেজ আপলোড**
+        $image = $request->file('image');
         $ext = $image->getClientOriginalExtension();
         $imageName = strtotime('now').'.'.$ext;
 
-        // Update model
+        // **ডাটাবেজ আপডেট**
         $model->name = $imageName;
         $model->save();
 
-        // Save the new image
         $image->move(public_path('uploads/temp'), $imageName);
 
-        // Create new thumbnail
+        // **থাম্বনেইল তৈরি (200x300)**
         $sourcePath = public_path('uploads/temp/'.$imageName);
         $destPath = public_path('uploads/temp/thumb/'.$imageName);
+
         $manager = new ImageManager(Driver::class);
         $image = $manager->read($sourcePath);
         $image->coverDown(200, 300);
@@ -110,6 +104,9 @@ class TempImageController extends Controller
             'message' => 'Image updated successfully',
         ]);
     }
+
+
+
 
     // Delete Method
     public function destroy($id)
