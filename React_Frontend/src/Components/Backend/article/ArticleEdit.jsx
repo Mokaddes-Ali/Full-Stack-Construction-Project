@@ -1,109 +1,97 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
 import AdminLayout from "../../../layouts/admin/AdminLayout";
-import { apiUrl, token } from "../http";
+import { apiUrl, token, fileUrl } from '../http';
 
-const ArticleEdit = () => {
-  const { id } = useParams();
+const ArticleEdit = ({ placeholder }) => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const [article, setArticle] = useState({});
   const [imageId, setImageId] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
   const [isDisable, setIsDisable] = useState(false);
-  const fileUrl = "http://localhost:8000/";
-
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const params = useParams();
 
-  // Fetch existing article data
-  useEffect(() => {
-    const fetchArticle = async () => {
-      try {
-        const res = await fetch(`${apiUrl}articles/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token()}`,
-          },
-        });
-        const result = await res.json();
-        if (result.status) {
-          setValue("title", result.data.title);
-          setValue("slug", result.data.slug);
-          setValue("author", result.data.author);
-          setValue("status", result.data.status);
-          setContent(result.data.content);
-          setImageId(result.data.image_id);
-          setImagePreview(fileUrl + "uploads/Article/small/" + result.data.image);
-        } else {
-          toast.error("Article not found!");
-          navigate("/admin/articles");
-        }
-      } catch (error) {
-        toast.error("Failed to load article!");
-      }
-    };
-    fetchArticle();
-  }, [id, navigate, setValue]);
+  // Jodit Editor configuration
+  const config = useMemo(() => ({
+    readonly: false,
+    placeholder: placeholder || "Content",
+  }), [placeholder]);
 
-  // Handle Image Upload
-  const handleFile = async (e) => {
-    const formData = new FormData();
-    const file = e.target.files[0];
-
-    if (!file) return;
-
-    setImagePreview(URL.createObjectURL(file));
-
-    formData.append("image", file);
-
-    try {
-      const response = await fetch(apiUrl + "temp-image", {
-        method: "POST",
+  const { 
+    register, handleSubmit, setValue, 
+    formState: { errors } 
+  } = useForm({
+    defaultValues: async () => {
+      const res = await fetch(apiUrl + "articles/" + params.id, {
+        method: "GET",
         headers: {
+          "Content-Type": "application/json",
           Accept: "application/json",
           Authorization: `Bearer ${token()}`,
         },
-        body: formData,
       });
 
-      const result = await response.json();
-      if (result.status === false) {
-        toast.error(result.errors.image[0]);
-      } else {
-        setImageId(result.data.id);
-        setImagePreview(fileUrl + result.data.image_url);
-        toast.success(result.message);
-      }
-    } catch (error) {
-      toast.error("Image upload failed!");
+      const result = await res.json();
+      setContent(result.data.content);
+      setArticle(result.data);
+      return {
+        title: result.data.title,
+        author: result.data.author,
+        slug: result.data.slug,
+        status: result.data.status,
+      };
     }
-  };
+  });
 
   // Submit Handler
   const onSubmit = async (data) => {
-    const updatedData = { ...data, imageId, content };
-    try {
-      const res = await fetch(`${apiUrl}articles/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token()}`,
-        },
-        body: JSON.stringify(updatedData),
-      });
-      const result = await res.json();
-      if (result.status) {
-        toast.success("Article updated successfully!");
-        navigate("/admin/article/index");
-      } else {
-        toast.error(result.message);
-      }
-    } catch (error) {
-      toast.error("Update failed!");
+    const updatedData = { ...data, imageId: imageId, content };
+    const res = await fetch(apiUrl + 'articles/' + params.id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token()}`,
+      },
+      body: JSON.stringify(updatedData),
+    });
+    
+    const result = await res.json();
+    if (result.status === true) {
+      toast.success("Article updated successfully!");
+      navigate("/admin/article/index");
+    } else {
+      toast.error(result.message);
     }
+  };
+
+  // Handle image upload
+  const handleFile = async (e) => {
+    const formData = new FormData();
+    const file = e.target.files[0];
+    formData.append("image", file);
+
+    await fetch(apiUrl + "temp-image", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token()}`,
+      },
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result.status === false) {
+          toast.error(result.errors.image[0]);
+        } else {
+          setImageId(result.data.id);
+          toast.success(result.message);
+        }
+      });
   };
 
   return (
@@ -146,16 +134,20 @@ const ArticleEdit = () => {
             <label className="block font-medium">Article Image</label>
             <input type="file" onChange={handleFile} className="w-full" />
 
-            {/* Local Image Preview */}
-            {imagePreview && (
-              <img src={imagePreview} alt="Article Preview" className="mt-2 w-40 h-40 object-cover rounded-lg" />
+            {/* Image Preview */}
+            {article.image && (
+              <img
+                src={`${fileUrl}uploads/Article/small/${article.image}`} // Adjust this URL as necessary
+                alt="Article Preview"
+                className="mt-2 w-40 h-40 object-cover rounded-lg"
+              />
             )}
           </div>
 
           {/* Content Editor */}
           <div>
             <label className="block font-medium">Content</label>
-            <JoditEditor ref={editor} value={content} onBlur={(newContent) => setContent(newContent)} />
+            <JoditEditor ref={editor} value={content} onBlur={(newContent) => setContent(newContent)} config={config} />
             <div
               className="mt-4"
               dangerouslySetInnerHTML={{ __html: content }}
@@ -164,7 +156,9 @@ const ArticleEdit = () => {
 
           {/* Submit Button */}
           <div className="text-center">
-            <button disabled={isDisable} className="px-6 py-3 bg-indigo-600 text-white rounded-lg">Update Article</button>
+            <button disabled={isDisable} className="px-6 py-3 bg-indigo-600 text-white rounded-lg">
+              Update Article
+            </button>
           </div>
         </form>
       </div>
@@ -173,4 +167,3 @@ const ArticleEdit = () => {
 };
 
 export default ArticleEdit;
-
