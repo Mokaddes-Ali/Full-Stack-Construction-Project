@@ -22,26 +22,30 @@ const ArticleIndex = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const res = await fetch(apiUrl + "articles", {
-          headers: {
-            Authorization: `Bearer ${token()}`,
-          },
-        });
-
-        const result = await res.json();
-
-        if (result.status) {
-          setArticles(result.data);
-          setFilteredArticles(result.data);
-        } else {
-          toast.error(result.message);
-        }
+        // Simulate loading time of 500 milliseconds
+        setTimeout(async () => {
+          const res = await fetch(apiUrl + "articles", {
+            headers: {
+              Authorization: `Bearer ${token()}`,
+            },
+          });
+    
+          const result = await res.json();
+    
+          if (result.status) {
+            setArticles(result.data);
+            setFilteredArticles(result.data);
+          } else {
+            toast.error(result.message);
+          }
+        }, 500); // Adjust this value for faster or slower loading
       } catch (error) {
         toast.error("Failed to fetch articles.");
       } finally {
         setLoading(false);
       }
     };
+    
 
     fetchArticles();
   }, []);
@@ -88,32 +92,35 @@ const ArticleIndex = () => {
     : filteredArticles.slice(startIndex, startIndex + itemsPerPage);
 
   return (
+    <>
+       {/* Loading Spinner */}
+       {loading ? (
+        <div
+        className="flex justify-center items-center w-full h-screen bg-gray-100"
+      >
+       <div className="flex justify-center gap-4 mt-10">
+         {["bg-red-500", "bg-green-500", "bg-blue-500", "bg-yellow-500", "bg-purple-500"].map((color, index) => (
+           <motion.div
+             key={index}
+             className={`w-6 h-6 rounded-full ${color}`}
+             initial={{ scale: 0 }}
+             animate={{ scale: 1 }}
+             transition={{
+               type: "spring",
+               stiffness: 200,
+               damping: 20,
+               delay: index * 0.2,
+             }}
+           />
+         ))}
+         </div>
+       </div>
+     ) : (
     <AdminLayout>
       <div className="w-full max-w-6xl p-3 rounded-lg bg-blue-gray-100">
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-4">
           Articles List
         </h2>
-
-        {/* Loading Spinner */}
-        {loading ? (
-          <div className="flex justify-center gap-4 mt-10">
-            {["bg-red-500", "bg-green-500", "bg-blue-500", "bg-yellow-500", "bg-purple-500"].map((color, index) => (
-              <motion.div
-                key={index}
-                className={`w-12 h-12 rounded-full ${color}`}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 20,
-                  delay: index * 0.2,
-                }}
-              />
-            ))}
-          </div>
-        ) : (
-          <>
                   {/* Search and Sorting Controls */}
         <div className="mb-4 flex justify-between gap-4 items-center">
           {/* Search Input and Reset Button */}
@@ -294,10 +301,10 @@ const ArticleIndex = () => {
                 ))}
               </div>
             )}
-          </>
-        )}
-      </div>
+          </div>
     </AdminLayout>
+         )}
+    </>
   );
 };
 

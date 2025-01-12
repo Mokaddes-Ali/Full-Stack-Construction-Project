@@ -13,7 +13,7 @@ const AdminLayout = ({ children }) => (
   <Sidebar />
     
     <div className="flex flex-col flex-1 w-screen">
-      <main className="flex-1 p-2">
+      <main className="flex-1">
         <div className="fixed top-32 z-50 right-0 p-4">
         <DarkModeButton />
         </div>

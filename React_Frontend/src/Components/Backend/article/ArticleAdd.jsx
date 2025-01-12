@@ -45,10 +45,8 @@ const ArticleAdd = () => {
       const formData = new FormData();
       const file = e.target.files[0];
       formData.append("image", file);
-
-      // Create a preview URL for the uploaded image
       const fileUrl = URL.createObjectURL(file);
-      setImagePreview(fileUrl); // Set the image preview
+      setImagePreview(fileUrl);
 
       try {
           const res = await fetch(apiUrl + "temp-image", {
@@ -75,7 +73,7 @@ const ArticleAdd = () => {
 
   return (
       <AdminLayout>
-          <div className="w-full max-w-6xl p-3 rounded-lg bg-blue-gray-100">
+          <div className="w-full max-w-6xl p-4 rounded-lg bg-blue-gray-100">
               <h2 className="text-3xl font-bold text-center text-indigo-700 mb-4">
                   Add New Article
               </h2>
