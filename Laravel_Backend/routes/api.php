@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('services/{id}',[ServicesController::class, 'update']);
     Route::delete('services/delete/{id}',[ServicesController::class, 'destroy']);
 
-    Route::post('temp-image',[TempImageController::class, 'store']);
+
 
 
     //Project
@@ -70,6 +70,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('projects/delete/{id}',[ProjectController::class, 'destroy']);
 
 });
+
+Route::post('temp-image',[TempImageController::class, 'store']);
+Route::put('temp-image/{id}',[TempImageController::class, 'update']);
+Route::delete('temp-image/{id}',[TempImageController::class, 'destroy']);
 
 //Hero Slider Routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
