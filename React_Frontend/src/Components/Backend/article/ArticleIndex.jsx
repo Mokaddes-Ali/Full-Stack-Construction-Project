@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaEdit, FaTrash} from 'react-icons/fa';
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import AdminLayout from "../../../layouts/admin/AdminLayout";
 import { apiUrl, token } from "../http";
@@ -58,9 +58,9 @@ const ArticleIndex = () => {
     if (!window.confirm("Are you sure you want to delete this article?")) {
       return;
     }
-  
+
     console.log("Deleting article with ID:", id);
-  
+
     try {
       const res = await fetch(apiUrl + "articles/delete/" + id, {
         method: "DELETE",
@@ -70,9 +70,9 @@ const ArticleIndex = () => {
           Authorization: `Bearer ${token()}`,
         },
       });
-  
+
       const result = await res.json();
-  
+
       if (result.status === true) {
         const newArticles = articles.filter((article) => article.id !== id);
         setArticles(newArticles);
@@ -86,8 +86,6 @@ const ArticleIndex = () => {
       toast.error("Failed to delete the article.");
     }
   };
-  
-  
 
   useEffect(() => {
     if (searchQuery === "") {
@@ -133,35 +131,7 @@ const ArticleIndex = () => {
 
   return (
     <>
-      {/* Loading Spinner */}
-      {/* {loading ? (
-        <div className="flex justify-center items-center w-full h-screen bg-gray-100">
-          <div className="flex justify-center gap-4 mt-10">
-            {[
-              "bg-red-500",
-              "bg-green-500",
-              "bg-blue-500",
-              "bg-yellow-500",
-              "bg-purple-500",
-            ].map((color, index) => (
-              <motion.div
-                key={index}
-                className={`w-6 h-6 rounded-full ${color}`}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 20,
-                  delay: index * 0.2,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      ) : ( */}
-
-{loading ? (
+      {loading ? (
         <div className="flex justify-center items-center w-full h-screen bg-gray-100">
           <motion.div className="w-10 h-10 rounded-full bg-blue-500 animate-ping" />
         </div>
@@ -260,25 +230,30 @@ const ArticleIndex = () => {
               </div>
             </div>
             {/* Table */}
+            {/* Table Wrapper */}
             <div className="overflow-x-auto">
-              <table className="w-full border border-gray-300 rounded-lg shadow-md">
+              <table className="min-w-full border border-gray-300 rounded-lg shadow-md">
                 <thead className="bg-indigo-600 text-white">
-                  <tr>
-                    <th className="p-3 text-left">ID</th>
-                    <th className="p-3 text-left">Image</th>
-                    <th className="p-3 text-left">Title</th>
-                    <th className="p-3 text-left">Author</th>
-                    <th className="p-3 text-left">Content</th>
-                    <th className="p-3 text-left">Status</th>
-                    <th className="p-3 text-left">Published</th>
-                    <th className="p-3 text-left">Actions</th>
+                  <tr className="text-sm md:text-base">
+                    <th className="p-2 md:p-3 text-left">ID</th>
+                    <th className="p-2 md:p-3 text-left">Image</th>
+                    <th className="p-2 md:p-3 text-left">Title</th>
+                    <th className="p-2 md:p-3 text-left">Author</th>
+                    <th className="p-2 md:p-3 text-left hidden md:table-cell">
+                      Content
+                    </th>
+                    <th className="p-2 md:p-3 text-left">Status</th>
+                    <th className="p-2 md:p-3 text-left hidden sm:table-cell">
+                      Published
+                    </th>
+                    <th className="p-2 md:p-3 text-left">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {paginatedArticles.map((article, index) => (
                     <motion.tr
                       key={article.id}
-                      className="border-b border-gray-200 hover:bg-gray-100"
+                      className="border-b border-gray-200 hover:bg-gray-100 text-sm md:text-base"
                       initial={{ opacity: 0, scale: 1.2 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{
@@ -288,52 +263,53 @@ const ArticleIndex = () => {
                         delay: index * 0.1,
                       }}
                     >
-                      <td className="p-3">{article.id}</td>
-                      <td className="p-3">
+                      <td className="p-2 md:p-3">{article.id}</td>
+                      <td className="p-2 md:p-3">
                         {article.image ? (
                           <img
                             src={`${imgUrl}/${article.image}`}
                             alt={article.title}
-                            className="w-16 h-16 object-cover rounded-md"
+                            className="w-12 h-12 md:w-16 md:h-16 object-cover rounded-md"
                           />
                         ) : (
                           <span className="text-gray-400">No Image</span>
                         )}
                       </td>
-                      <td className="p-3">{article.title}</td>
-                      <td className="p-3">{article.author}</td>
-                      <td className="p-3">
+                      <td className="p-2 md:p-3">{article.title}</td>
+                      <td className="p-2 md:p-3">{article.author}</td>
+                      <td className="p-2 md:p-3 hidden md:table-cell">
                         {article.content &&
                         typeof article.content === "string" &&
                         article.content.length > 50
                           ? article.content.slice(0, 50) + "..."
                           : article.content}
                       </td>
-
-                      <td className="p-3">
+                      <td className="p-2 md:p-3">
                         <span
-                          className={`px-2 py-1 rounded-full text-white text-sm ${
+                          className={`px-2 py-1 rounded-full text-white text-xs md:text-sm ${
                             article.status === 1 ? "bg-green-500" : "bg-red-500"
                           }`}
                         >
                           {article.status === 1 ? "Active" : "Inactive"}
                         </span>
                       </td>
-                      <td className="p-3">
+                      <td className="p-2 md:p-3 hidden sm:table-cell">
                         {new Date(article.created_at).toLocaleDateString()}
                       </td>
-                      <td className="p-3 flex gap-2">
+                      <td className="p-2 md:p-3 flex gap-1 md:gap-2">
                         <Link
                           to={`/admin/articles/edit/${article.id}`}
-                          className="bg-yellow-500 text-white px-3 py-1 rounded-md hover:bg-yellow-400 text-sm"
+                          className="bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-400 text-xs md:text-sm flex items-center gap-1"
                         >
-                          <FaEdit className="mr-1" />
+                          <FaEdit />
+                          <span className="hidden md:inline">Edit</span>
                         </Link>
                         <button
                           onClick={() => handleDelete(article.id)}
-                          className="bg-red-600 text-white px-3 py-1 rounded-md hover:bg-red-500 text-sm"
+                          className="bg-red-600 text-white px-2 py-1 rounded-md hover:bg-red-500 text-xs md:text-sm flex items-center gap-1"
                         >
-                          <FaTrash className="mr-1" />
+                          <FaTrash />
+                          <span className="hidden md:inline">Delete</span>
                         </button>
                       </td>
                     </motion.tr>

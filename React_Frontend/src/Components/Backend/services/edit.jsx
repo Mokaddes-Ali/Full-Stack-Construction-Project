@@ -112,7 +112,7 @@ const CreateService = ({ placeholder }) => {
 
   return (
     <AdminLayout>
-      <div className="max-w-lg mx-auto mt-10 bg-white p-6 shadow rounded-lg">
+      <div className=" bg-white p-6 shadow rounded-lg">
         <h2 className="text-center text-2xl font-bold text-gray-900 mb-6">Edit Service</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>

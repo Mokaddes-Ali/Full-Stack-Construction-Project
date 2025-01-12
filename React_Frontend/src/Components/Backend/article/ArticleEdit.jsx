@@ -15,16 +15,12 @@ const ArticleEdit = ({ placeholder }) => {
   const navigate = useNavigate();
   const params = useParams();
 
-  // Jodit Editor configuration
   const config = useMemo(() => ({
     readonly: false,
     placeholder: placeholder || "Content",
   }), [placeholder]);
 
-  const { 
-    register, handleSubmit, setValue, 
-    formState: { errors } 
-  } = useForm({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     defaultValues: async () => {
       const res = await fetch(apiUrl + "articles/" + params.id, {
         method: "GET",
@@ -47,9 +43,13 @@ const ArticleEdit = ({ placeholder }) => {
     }
   });
 
-  // Submit Handler
+  const cleanContent = (rawContent) => {
+    return rawContent.replace(/<p>/g, "").replace(/<\/p>/g, "");
+  };
+
   const onSubmit = async (data) => {
-    const updatedData = { ...data, imageId: imageId, content };
+    const cleanedContent = cleanContent(content);
+    const updatedData = { ...data, imageId: imageId, content: cleanedContent };
     const res = await fetch(apiUrl + 'articles/' + params.id, {
       method: "PUT",
       headers: {
@@ -59,7 +59,7 @@ const ArticleEdit = ({ placeholder }) => {
       },
       body: JSON.stringify(updatedData),
     });
-    
+
     const result = await res.json();
     if (result.status === true) {
       toast.success("Article updated successfully!");
@@ -69,7 +69,6 @@ const ArticleEdit = ({ placeholder }) => {
     }
   };
 
-  // Handle image upload
   const handleFile = async (e) => {
     const formData = new FormData();
     const file = e.target.files[0];
@@ -94,76 +93,78 @@ const ArticleEdit = ({ placeholder }) => {
       });
   };
 
-  return (
-    <AdminLayout>
-      <div className="max-w-6xl p-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-indigo-800 mb-6">Edit Article</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {/* Title */}
+return (
+  <AdminLayout>
+    <div className="max-w-6xl mx-auto p-6 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg transition-colors">
+      <h2 className="text-2xl sm:text-3xl font-bold text-center text-indigo-800 dark:text-indigo-400 mb-6">
+        Edit Article
+      </h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <div>
-            <label className="block font-medium">Title</label>
-            <input {...register("title", { required: "Title is required" })} className="w-full p-3 border rounded-lg" />
+            <label className="block font-medium text-gray-800 dark:text-white">Title</label>
+            <input {...register("title", { required: "Title is required" })} 
+                   className="w-full p-3 border rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white" />
             {errors.title && <span className="text-red-500">{errors.title.message}</span>}
           </div>
 
-          {/* Slug */}
           <div>
-            <label className="block font-medium">Slug</label>
-            <input {...register("slug", { required: "Slug is required" })} className="w-full p-3 border rounded-lg" />
+            <label className="block font-medium text-gray-800 dark:text-white">Slug</label>
+            <input {...register("slug", { required: "Slug is required" })} 
+                   className="w-full p-3 border rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white" />
             {errors.slug && <span className="text-red-500">{errors.slug.message}</span>}
           </div>
 
-          {/* Author */}
           <div>
-            <label className="block font-medium">Author</label>
-            <input {...register("author", { required: "Author is required" })} className="w-full p-3 border rounded-lg" />
-            {errors.author && <span className="text-red-500">{errors.author.message}</span>}
-          </div>
-
-          {/* Status */}
-          <div>
-            <label className="block font-medium">Status</label>
-            <select {...register("status", { required: "Status is required" })} className="w-full p-3 border rounded-lg">
+            <label className="block font-medium text-gray-800 dark:text-white">Status</label>
+            <select {...register("status", { required: "Status is required" })} 
+                    className="w-full p-3 border rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white">
               <option value="1">Active</option>
               <option value="0">Inactive</option>
             </select>
           </div>
+        </div>
 
-          {/* Image Upload */}
+        <div>
+          <label className="block font-medium text-gray-800 dark:text-white">Author</label>
+          <input {...register("author", { required: "Author is required" })} 
+                 className="w-full p-3 border rounded-lg bg-white dark:bg-gray-800 text-black dark:text-white" />
+          {errors.author && <span className="text-red-500">{errors.author.message}</span>}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
-            <label className="block font-medium">Article Image</label>
-            <input type="file" onChange={handleFile} className="w-full" />
-
-            {/* Image Preview */}
+            <label className="block font-medium text-gray-800 dark:text-white">Article Image</label>
+            <input type="file" onChange={handleFile} className="w-full bg-white dark:bg-gray-800 text-black dark:text-white" />
+          </div>
+          <div>
             {article.image && (
-              <img
-                src={`${fileUrl}uploads/Article/small/${article.image}`} // Adjust this URL as necessary
-                alt="Article Preview"
-                className="mt-2 w-40 h-40 object-cover rounded-lg"
-              />
+              <img src={`${fileUrl}uploads/Article/small/${article.image}`} alt="Article Preview"
+                   className="mt-2 w-32 h-32 object-cover rounded-lg border dark:border-gray-700" />
             )}
           </div>
+        </div>
 
-          {/* Content Editor */}
-          <div>
-            <label className="block font-medium">Content</label>
-            <JoditEditor ref={editor} value={content} onBlur={(newContent) => setContent(newContent)} config={config} />
-            <div
-              className="mt-4"
-              dangerouslySetInnerHTML={{ __html: content }}
-            />
-          </div>
+        <div>
+          <label className="block font-medium text-gray-800 dark:text-white">Content</label>
+          <JoditEditor
+            ref={editor}
+            value={content}
+            config={config}
+            tabIndex={1}
+            onBlur={(newContent) => setContent(newContent)}
+          />
+        </div>
 
-          {/* Submit Button */}
-          <div className="text-center">
-            <button disabled={isDisable} className="px-6 py-3 bg-indigo-600 text-white rounded-lg">
-              Update Article
-            </button>
-          </div>
-        </form>
-      </div>
-    </AdminLayout>
-  );
-};
+        <div className="text-center">
+          <button disabled={isDisable} className="px-6 py-3 bg-indigo-600 dark:bg-indigo-500 text-white rounded-lg">
+            Update Article
+          </button>
+        </div>
+      </form>
+    </div>
+  </AdminLayout>
+);
+}
 
 export default ArticleEdit;
