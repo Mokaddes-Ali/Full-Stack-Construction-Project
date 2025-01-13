@@ -74,8 +74,8 @@ const ArticleEdit = ({ placeholder }) => {
     const file = e.target.files[0];
     formData.append("image", file);
 
-    await fetch(apiUrl + "temp-image", {
-      method: "POST",
+    await fetch(apiUrl + "temp-image/" + params.id, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token()}`,
