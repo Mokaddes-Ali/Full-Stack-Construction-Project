@@ -98,80 +98,9 @@ class ArticleController extends Controller
             'message' => 'Article created successfully'
         ]);
     }
-    // public function update(Request $request, $id)
-    // {
-    //     $article = Article::find($id);
-    //     if ($article === null) {
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => 'Article not found'
-    //         ], 404);
-    //     }
-
-    //     $validator = Validator::make($request->all(), [
-    //         'title' => 'required',
-    //         'slug' => 'required',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json([
-    //             'status' => false,
-    //             'errors' => $validator->errors()
-    //         ], 400);
-    //     }
-
-    //     $article->title = $request->title;
-    //     $article->slug = Str::slug($request->slug);
-    //     $article->author = $request->author;
-    //     $article->content = $request->content;
-    //     $article->status = $request->status;
-    //     $article->save();
-
-    //     // Handle image update if imageId exists
-    //     if ($request->imageId > 0) {
-    //         $oldImage = $article->image;  // Save the old image for deletion
-
-    //         $tempImage = TempImage::find($request->imageId);
-    //         if ($tempImage != null) {
-    //             $extArray = explode('.', $tempImage->name);
-    //             $ext = last($extArray);
-    //             $fileName = strtotime('now') . $article->id . '.' . $ext;
-
-    //             // Create new image instance (300 x 400)
-    //             $sourcePath = public_path('uploads/temp/' . $tempImage->name);
-
-    //             // Small image size
-    //             $destPath = public_path('uploads/Article/small/' . $fileName);
-    //             $manager = new ImageManager(Driver::class);
-    //             $image = $manager->read($sourcePath);
-    //             $image->coverDown(300, 400);
-    //             $image->save($destPath);
-
-    //             // Large image size
-    //             $destPath = public_path('uploads/Article/large/' . $fileName);
-    //             $image->scaleDown(1200);
-    //             $image->save($destPath);
-    //             $article->image = $fileName;
-    //             $article->save();
-    //         }
-
-    //         if (!empty($oldImage)) {
-    //             File::delete(public_path('uploads/Article/small/' . $oldImage));
-    //             File::delete(public_path('uploads/Article/large/' . $oldImage));
-    //         }
-    //     }
-
-    //     return response()->json([
-    //         'status' => true,
-    //         'message' => 'Article updated successfully'
-    //     ]);
-    // }
-
-
     public function update(Request $request, $id)
     {
         $article = Article::find($id);
-
         if ($article === null) {
             return response()->json([
                 'status' => false,
@@ -190,52 +119,45 @@ class ArticleController extends Controller
                 'errors' => $validator->errors()
             ], 400);
         }
+
         $article->title = $request->title;
         $article->slug = Str::slug($request->slug);
         $article->author = $request->author;
         $article->content = $request->content;
         $article->status = $request->status;
+        $article->save();
 
-        $oldImage = $article->image;
+        // Handle image update if imageId exists
         if ($request->imageId > 0) {
+            $oldImage = $article->image;  // Save the old image for deletion
+
             $tempImage = TempImage::find($request->imageId);
-            if ($tempImage) {
+            if ($tempImage != null) {
                 $extArray = explode('.', $tempImage->name);
                 $ext = last($extArray);
-                $fileName = time() . $article->id . '.' . $ext;
+                $fileName = strtotime('now') . $article->id . '.' . $ext;
 
+                // Create new image instance (300 x 400)
                 $sourcePath = public_path('uploads/temp/' . $tempImage->name);
 
-                // Small Image (300x400)
-                $destPathSmall = public_path('uploads/Article/small/' . $fileName);
+                // Small image size
+                $destPath = public_path('uploads/Article/small/' . $fileName);
                 $manager = new ImageManager(Driver::class);
                 $image = $manager->read($sourcePath);
                 $image->coverDown(300, 400);
-                $image->save($destPathSmall);
+                $image->save($destPath);
 
-                // Large Image (1200x?)
-                $destPathLarge = public_path('uploads/Article/large/' . $fileName);
+                // Large image size
+                $destPath = public_path('uploads/Article/large/' . $fileName);
                 $image->scaleDown(1200);
-                $image->save($destPathLarge);
-
+                $image->save($destPath);
                 $article->image = $fileName;
                 $article->save();
-
-                File::delete(public_path('uploads/temp/'.$tempImage->name));
-                File::delete(public_path('uploads/temp/thumb/'.$tempImage->name));
-                $tempImage->delete();
             }
+
             if (!empty($oldImage)) {
                 File::delete(public_path('uploads/Article/small/' . $oldImage));
                 File::delete(public_path('uploads/Article/large/' . $oldImage));
-            }
-        }
-        else {
-            $tempImage = TempImage::where('name', $article->image)->first();
-            if ($tempImage) {
-                $article->image = $tempImage->name;
-                $article->save();
-                $tempImage->delete();
             }
         }
 
@@ -244,6 +166,84 @@ class ArticleController extends Controller
             'message' => 'Article updated successfully'
         ]);
     }
+
+
+    // public function update(Request $request, $id)
+    // {
+    //     $article = Article::find($id);
+
+    //     if ($article === null) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'message' => 'Article not found'
+    //         ], 404);
+    //     }
+
+    //     $validator = Validator::make($request->all(), [
+    //         'title' => 'required',
+    //         'slug' => 'required',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json([
+    //             'status' => false,
+    //             'errors' => $validator->errors()
+    //         ], 400);
+    //     }
+    //     $article->title = $request->title;
+    //     $article->slug = Str::slug($request->slug);
+    //     $article->author = $request->author;
+    //     $article->content = $request->content;
+    //     $article->status = $request->status;
+
+    //     $oldImage = $article->image;
+    //     if ($request->imageId > 0) {
+    //         $tempImage = TempImage::find($request->imageId);
+    //         if ($tempImage) {
+    //             $extArray = explode('.', $tempImage->name);
+    //             $ext = last($extArray);
+    //             $fileName = time() . $article->id . '.' . $ext;
+
+    //             $sourcePath = public_path('uploads/temp/' . $tempImage->name);
+
+    //             // Small Image (300x400)
+    //             $destPathSmall = public_path('uploads/Article/small/' . $fileName);
+    //             $manager = new ImageManager(Driver::class);
+    //             $image = $manager->read($sourcePath);
+    //             $image->coverDown(300, 400);
+    //             $image->save($destPathSmall);
+
+    //             // Large Image (1200x?)
+    //             $destPathLarge = public_path('uploads/Article/large/' . $fileName);
+    //             $image->scaleDown(1200);
+    //             $image->save($destPathLarge);
+
+    //             $article->image = $fileName;
+    //             $article->save();
+
+    //             File::delete(public_path('uploads/temp/'.$tempImage->name));
+    //             File::delete(public_path('uploads/temp/thumb/'.$tempImage->name));
+    //             $tempImage->delete();
+    //         }
+    //         if (!empty($oldImage)) {
+    //             File::delete(public_path('uploads/Article/small/' . $oldImage));
+    //             File::delete(public_path('uploads/Article/large/' . $oldImage));
+    //         }
+    //     }
+    //     else {
+    //         $tempImage = TempImage::where('name', $article->image)->first();
+    //         if ($tempImage) {
+    //             $article->image = $tempImage->name;
+    //             $article->save();
+    //             $tempImage->delete();
+    //         }
+    //     }
+
+    //     return response()->json([
+    //         'status' => true,
+    //         'message' => 'Article updated successfully'
+    //     ]);
+    // }
 
 public function destroy($id)
 {
