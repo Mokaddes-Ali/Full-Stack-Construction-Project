@@ -251,37 +251,68 @@ const ArticleEdit = ({ placeholder }) => {
     setIsDisable(false);
   };
 
+  // const handleFile = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (!file) return;
+
+  //   const formData = new FormData();
+  //   formData.append("image", file);
+
+  //   try {
+  //     const response = await fetch(apiUrl + "temp-image", {
+  //       method: "POST",
+  //       headers: {
+  //         Accept: "application/json",
+  //         Authorization: `Bearer ${token()}`,
+  //       },
+  //       body: formData,
+  //     });
+
+  //     const result = await response.json();
+  //     if (result.status === false) {
+  //       toast.error(result.errors?.image?.[0] || "Image upload failed");
+  //     } else {
+  //       setImageId(result.data.id);
+  //       setArticle((prev) => ({ ...prev, image: result.data.path }));
+  //       toast.success("Image uploaded successfully!");
+  //     }
+  //   } catch (error) {
+  //     console.error("Image upload error:", error);
+  //     toast.error("Something went wrong while uploading the image.");
+  //   }
+  // };
+
   const handleFile = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
+  
     const formData = new FormData();
     formData.append("image", file);
-
+  
     try {
-      const response = await fetch(apiUrl + "temp-image", {
-        method: "POST",
+      const response = await fetch(apiUrl + 'temp-image', {
+        method: "POST", // ✅ "PUT" বদলে "POST" ব্যবহার করুন
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token()}`,
         },
-        body: formData,
+        body: formData, // ✅ "Content-Type" লাগবে না, Browser নিজেই সেট করে
       });
-
+  
       const result = await response.json();
-      if (result.status === false) {
+      if (!result.status) {
         toast.error(result.errors?.image?.[0] || "Image upload failed");
       } else {
         setImageId(result.data.id);
         setArticle((prev) => ({ ...prev, image: result.data.path }));
-        toast.success("Image uploaded successfully!");
+        toast.success("Image updated successfully!");
       }
     } catch (error) {
-      console.error("Image upload error:", error);
-      toast.error("Something went wrong while uploading the image.");
+      console.error("Image update error:", error);
+      toast.error("Something went wrong while updating the image.");
     }
   };
-
+  
   return (
     <AdminLayout>
       <div className="max-w-6xl mx-auto p-6 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg transition-colors">
