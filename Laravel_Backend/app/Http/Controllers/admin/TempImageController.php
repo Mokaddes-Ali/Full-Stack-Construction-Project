@@ -75,19 +75,11 @@ class TempImageController extends Controller
         if ($request->hasFile('image')) {
             $oldImage = $model->name;
 
-            if (!empty($oldImage)) {
-                File::delete(public_path('uploads/temp/'.$oldImage));
-                File::delete(public_path('uploads/temp/thumb/'.$oldImage));
-            }
-
-            // **নতুন ইমেজ আপলোড**
             $image = $request->file('image');
             $ext = $image->getClientOriginalExtension();
             $imageName = strtotime('now').'.'.$ext;
 
             $image->move(public_path('uploads/temp'), $imageName);
-
-            // **ডাটাবেজ আপডেট**
             $model->name = $imageName;
             $model->save();
 
@@ -99,6 +91,10 @@ class TempImageController extends Controller
             $image = $manager->read($sourcePath);
             $image->coverDown(200, 300);
             $image->save($destPath);
+        }
+        if (!empty($oldImage)) {
+            File::delete(public_path('uploads/temp/'.$oldImage));
+            File::delete(public_path('uploads/temp/thumb/'.$oldImage));
         }
 
         return response()->json([
