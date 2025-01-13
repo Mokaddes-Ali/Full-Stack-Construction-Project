@@ -28,8 +28,6 @@ const CreateService = ({ placeholder }) => {
 
   const onSubmit = async (data) => {
     const newData = { ...data, content, imageId: imageId };
-
-    try {
       const res = await fetch(apiUrl + 'services/store', {
         method: 'POST',
         headers: {
@@ -48,11 +46,7 @@ const CreateService = ({ placeholder }) => {
       } else {
         toast.error(result.message);
       }
-    } catch (error) {
-      toast.error('An error occurred while submitting the form.');
-      console.error(error);
     }
-  };
 
   const handleFile = async (e) => {
     const formData = new FormData();
