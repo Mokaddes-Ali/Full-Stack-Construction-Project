@@ -173,7 +173,7 @@ const AdminRoute = () => (
                } /> 
             <Route path="/service/add" element={
                <RequireAuth>
-                <CreateService />
+                  <CreateServices />
                </RequireAuth>
               } /> 
        <Route path="/products/list" element={

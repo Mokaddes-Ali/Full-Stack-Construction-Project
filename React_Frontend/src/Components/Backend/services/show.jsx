@@ -183,6 +183,7 @@ const Show = () => {
                 <th className="py-2 px-4 border-b">Title</th>
                 <th className="py-2 px-4 border-b">Image</th>
                 <th className="py-2 px-4 border-b">Description</th>
+                <th className="py-2 px-4 border-b">Content</th>
                 <th className="py-2 px-4 border-b">Slug</th>
                 <th className="py-2 px-4 border-b">Status</th>
                 <th className="py-2 px-4 border-b">Actions</th>
@@ -205,6 +206,7 @@ const Show = () => {
                     )}
                   </td>
                   <td className="py-2 px-4 border-b">{service.short_desc}</td>
+                  <td className="py-2 px-4 border-b">{service.content}</td>
                   <td className="py-2 px-4 border-b">{service.slug}</td>
                   <td className="py-2 px-4 border-b">
                     <span
