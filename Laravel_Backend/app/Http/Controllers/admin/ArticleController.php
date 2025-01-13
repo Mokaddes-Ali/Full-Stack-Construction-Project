@@ -129,7 +129,7 @@ class ArticleController extends Controller
 
         // Handle image update if imageId exists
         if ($request->imageId > 0) {
-            $oldImage = $article->image;  // Save the old image for deletion
+            $oldImage = $article->image;
 
             $tempImage = TempImage::find($request->imageId);
             if ($tempImage != null) {
@@ -155,7 +155,7 @@ class ArticleController extends Controller
                 $article->save();
             }
 
-            if (!empty($oldImage)) {
+            if ($oldImage != '') {
                 File::delete(public_path('uploads/Article/small/' . $oldImage));
                 File::delete(public_path('uploads/Article/large/' . $oldImage));
             }

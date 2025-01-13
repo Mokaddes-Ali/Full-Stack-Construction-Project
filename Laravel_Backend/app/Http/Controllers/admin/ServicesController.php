@@ -200,8 +200,6 @@ class ServicesController extends Controller
                        if ($oldImage != '') {
                             File::delete(public_path('uploads/services/small/'.$oldImage));
                             File::delete(public_path('uploads/services/large/'.$oldImage));
-                            File::delete(public_path('uploads/temp/'.$oldImage));
-                            File::delete(public_path('uploads/temp/thumb/'.$oldImage));
                          }
                       }
             }
