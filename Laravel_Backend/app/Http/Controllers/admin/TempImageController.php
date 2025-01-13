@@ -53,7 +53,7 @@ class TempImageController extends Controller
     {
         $model = TempImage::find($id);
 
-        if (!$model) {
+        if (!$model == null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Image not found'
