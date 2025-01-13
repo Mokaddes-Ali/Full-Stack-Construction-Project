@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import AdminLayout from "../../../layouts/admin/AdminLayout";
 import { apiUrl, token, fileUrl } from "../http";
 
-
 const Show = () => {
   const [services, setServices] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
@@ -14,7 +13,7 @@ const Show = () => {
   const [perPage, setPerPage] = useState(5);
   const [sortedBy, setSortedBy] = useState("id");
   const [sortOrder, setSortOrder] = useState("asc");
-  const [currentPage, setCurrentPage] = useState(1);  
+  const [currentPage, setCurrentPage] = useState(1);
 
   const imgUrl = fileUrl + "uploads/services/small";
 
@@ -70,12 +69,13 @@ const Show = () => {
   };
 
   const filterData = (query) => {
-    const filtered = services.filter((service) =>
-      service.title.toLowerCase().includes(query.toLowerCase()) ||
-      service.slug.toLowerCase().includes(query.toLowerCase())
+    const filtered = services.filter(
+      (service) =>
+        service.title.toLowerCase().includes(query.toLowerCase()) ||
+        service.slug.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredServices(filtered);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const sortServices = (data) => {
@@ -92,9 +92,13 @@ const Show = () => {
     setPerPage(e.target.value);
   };
 
-  const paginatedServices = perPage === "all" 
-    ? filteredServices
-    : filteredServices.slice((currentPage - 1) * perPage, currentPage * perPage);
+  const paginatedServices =
+    perPage === "all"
+      ? filteredServices
+      : filteredServices.slice(
+          (currentPage - 1) * perPage,
+          currentPage * perPage
+        );
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -124,20 +128,22 @@ const Show = () => {
               value={search}
               onChange={handleSearch}
             />
-           <button
-  onClick={() => {
-    setSearch("");
-    filterData("");  // Clear the filter
-    setCurrentPage(1);  // Reset to page 1
-  }}
-  className="bg-gray-300 px-4 py-2 rounded"
->
-  Reset
-</button>
-
+            <button
+              onClick={() => {
+                setSearch("");
+                filterData(""); // Clear the filter
+                setCurrentPage(1); // Reset to page 1
+              }}
+              className="bg-gray-300 px-4 py-2 rounded"
+            >
+              Reset
+            </button>
           </div>
           <div className="flex space-x-4">
-            <select onChange={handlePerPageChange} className="px-4 py-2 border rounded">
+            <select
+              onChange={handlePerPageChange}
+              className="px-4 py-2 border rounded"
+            >
               <option value="5">5 per page</option>
               <option value="10">10 per page</option>
               <option value="25">25 per page</option>
@@ -174,11 +180,13 @@ const Show = () => {
         {loading ? (
           <div className="text-center">Loading...</div>
         ) : filteredServices.length === 0 ? (
-          <div className="text-center text-xl pt-[250px] text-red-500 h-[480px] bg-gray-50">No matched data found</div>
+          <div className="text-center text-xl pt-[250px] text-red-500 h-[480px] bg-gray-50">
+            No matched data found
+          </div>
         ) : (
           <table className="min-w-full bg-white border border-gray-300">
             <thead>
-              <tr className="bg-gray-200 text-left">
+              <tr className="bg-gray-200 text-center">
                 <th className="py-2 px-4 border-b">ID</th>
                 <th className="py-2 px-4 border-b">Title</th>
                 <th className="py-2 px-4 border-b">Image</th>
@@ -218,21 +226,25 @@ const Show = () => {
                     </span>
                   </td>
                   <td className="py-2 px-4 border-b">
-  <Link 
-    to={`/admin/services/edit/${service.id}`} 
-    className="bg-blue-600 text-white hover:bg-orange-500 text-center py-2 px-4 pl-4 rounded-lg inline-flex items-center"
-  >
-    <FaEdit className="inline mr-2" /> {/* Edit Icon */}
-  </Link>
-  <button
-    onClick={() => deleteService(service.id)}
-    className="bg-red-600 text-white hover:bg-black text-center py-2 px-4 pl-4 rounded-lg inline-flex items-center ml-2"
-  >
-    <FaTrash className="inline mr-2" /> {/* Delete Icon */}
-  </button>
-</td>
-
-
+                    <div className="flex">
+                      <div className="">
+                    <Link
+                      to={`/admin/services/edit/${service.id}`}
+                      className="bg-blue-600 text-white hover:bg-orange-500 text-center py-2 px-4 pl-4 rounded-lg inline-flex items-center"
+                    >
+                      <FaEdit className="inline mr-2" />
+                    </Link>
+                    </div>
+                    <div>
+                    <button
+                      onClick={() => deleteService(service.id)}
+                      className="bg-red-600 text-white hover:bg-black text-center py-2 px-4 pl-4 rounded-lg inline-flex items-center ml-2"
+                    >
+                      <FaTrash className="inline mr-2" />
+                    </button>
+                    </div>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -243,15 +255,21 @@ const Show = () => {
         {perPage !== "all" && (
           <div className="mt-4 flex justify-center">
             {/* Pagination Controls */}
-            {[...Array(Math.ceil(filteredServices.length / perPage))].map((_, index) => (
-              <button
-                key={index}
-                onClick={() => handlePageChange(index + 1)}
-                className={`px-4 py-2 mx-1 ${currentPage === index + 1 ? "bg-blue-500 text-white" : "bg-gray-300"}`}
-              >
-                {index + 1}
-              </button>
-            ))}
+            {[...Array(Math.ceil(filteredServices.length / perPage))].map(
+              (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`px-4 py-2 mx-1 ${
+                    currentPage === index + 1
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-300"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              )
+            )}
           </div>
         )}
       </div>
@@ -260,4 +278,3 @@ const Show = () => {
 };
 
 export default Show;
-

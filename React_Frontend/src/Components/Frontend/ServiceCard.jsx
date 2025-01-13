@@ -31,19 +31,19 @@ export default function ServiceCard() {
                 services.map((service) => {
                   return (
                     <div key={service.id} className="group relative">
-                      <div className="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 sm:h-64">
+                      <div className="relative h-80 w-full overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 sm:h-64">
                         <img
                           alt=""
                           src={`${fileUrl}uploads/services/small/${service.image}`}
                           className="h-full w-full bg-cover bg-center"
                         />
                         {/* Title always visible on image */}
-                        <h3 className="absolute bottom-1 left-0 right-0 text-lg font-bold text-white p-4 bg-opacity-50 transition-transform duration-300
-                        group-hover:z-30 group-hover:bottom-20 group-hover:text-white group-hover:translate-y-[-50%]">
+                        <h3 className="absolute bottom-1 left-0 right-0 text-lg font-bold text-black p-4 bg-opacity-50 transition-transform duration-300
+                        group-hover:z-30 group-hover:bottom-20 group-hover:text-black group-hover:translate-y-[-50%]">
                           {service.title}
                         </h3>
                   
-                        <div className="absolute inset-x-0 bottom-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out text-white">
+                        <div className="absolute inset-x-0 bottom-0 p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out text-black">
                           <p className="text-sm">{service.short_desc}</p>
                           <p className="text-sm">{service.content}</p>
                           <a

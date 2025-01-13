@@ -51,7 +51,7 @@ const CreateService = ({ placeholder }) => {
 
     if (result.status === true) {
       toast.success(result.message);
-      navigate("admin/services");
+      navigate("/admin/services");
     } else {
       toast.error(result.message);
     }
@@ -136,7 +136,6 @@ const CreateService = ({ placeholder }) => {
                 </div>
               </div>
 
-              {/* Image and Slug in the same row */}
               <div className="flex flex-wrap gap-4 md:flex-nowrap">
                 {/* Slug */}
                 <div className="flex-1 min-w-[300px]">
