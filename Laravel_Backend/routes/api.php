@@ -71,7 +71,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Route::post('temp-image',[TempImageController::class, 'store']);
-// Route::put('temp-image/{id}',[TempImageController::class, 'update']);
 Route::put('temp-image/{id}', [TempImageController::class, 'update']);
 Route::delete('temp-image/{id}',[TempImageController::class, 'destroy']);
 

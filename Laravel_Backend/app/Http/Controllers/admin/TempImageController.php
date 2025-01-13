@@ -53,7 +53,7 @@ class TempImageController extends Controller
     {
         $model = TempImage::find($id);
 
-        if (!$model == null) {
+        if ($model === null) {
             return response()->json([
                 'status' => false,
                 'message' => 'Image not found'
@@ -71,14 +71,15 @@ class TempImageController extends Controller
             ]);
         }
 
+        $oldImage = $model->name; // আগের ইমেজ সংরক্ষণ
+
         // **নতুন ইমেজ আপলোড হলে পুরাতন মুছে ফেলা হবে**
         if ($request->hasFile('image')) {
-            $oldImage = $model->name;
-
             $image = $request->file('image');
             $ext = $image->getClientOriginalExtension();
             $imageName = strtotime('now').'.'.$ext;
 
+            // নতুন ইমেজ আপলোড
             $image->move(public_path('uploads/temp'), $imageName);
             $model->name = $imageName;
             $model->save();
@@ -91,51 +92,18 @@ class TempImageController extends Controller
             $image = $manager->read($sourcePath);
             $image->coverDown(200, 300);
             $image->save($destPath);
-        }
-        if (!empty($oldImage)) {
-            File::delete(public_path('uploads/temp/'.$oldImage));
-            File::delete(public_path('uploads/temp/thumb/'.$oldImage));
+
+            // পুরাতন ইমেজ ডিলিট করা
+            if (!empty($oldImage)) {
+                File::delete(public_path('uploads/temp/'.$oldImage));
+                File::delete(public_path('uploads/temp/thumb/'.$oldImage));
+            }
         }
 
         return response()->json([
             'status' => true,
             'data' => $model,
             'message' => 'Image updated successfully',
-        ]);
-    }
-
-
-
-
-    // Delete Method
-    public function destroy($id)
-    {
-        $model = TempImage::find($id);
-        if (!$model) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Image not found.',
-            ]);
-        }
-
-        // Delete the image and its thumbnail
-        $imagePath = public_path('uploads/temp/'.$model->name);
-        $thumbPath = public_path('uploads/temp/thumb/'.$model->name);
-
-        if (File::exists($imagePath)) {
-            File::delete($imagePath);
-        }
-
-        if (File::exists($thumbPath)) {
-            File::delete($thumbPath);
-        }
-
-        // Delete the record from the database
-        $model->delete();
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Image deleted successfully',
         ]);
     }
 }
