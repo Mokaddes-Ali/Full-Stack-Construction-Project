@@ -71,14 +71,14 @@ class ProjectController extends Controller
 
                $fileName = strtotime('now'). $project->id.'.'.$ext;
 
-                // create new image instance (300 x 400)
+                // create new image instance (400 x 460)
 
                      $sourcePath = public_path('uploads/temp/'.$tempImage->name);
 
                       $destPath = public_path('uploads/projects/small/'.$fileName);
                       $manager = new ImageManager(Driver::class);
                       $image = $manager->read($sourcePath);
-                      $image -> coverDown(300, 400);
+                      $image -> coverDown(400, 460);
                       $image -> save($destPath);
 
                       //large image size

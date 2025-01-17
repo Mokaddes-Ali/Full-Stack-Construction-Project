@@ -20,7 +20,6 @@ const Show = () => {
   // Fetch services from the API
   const fetchServices = async () => {
     setLoading(true);
-    try {
       const res = await fetch(apiUrl + "services", {
         method: "GET",
         headers: {
@@ -33,10 +32,6 @@ const Show = () => {
       const result = await res.json();
       setServices(result.data || result);
       setLoading(false);
-    } catch (error) {
-      console.error("Error fetching services:", error);
-      setLoading(false);
-    }
   };
 
   // Delete service
