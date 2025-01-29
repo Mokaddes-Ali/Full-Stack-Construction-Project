@@ -110,7 +110,18 @@ const Show = () => {
   const sortedServices = sortServices(filteredServices);
 
   return (
-    <AdminLayout>
+    <>
+{loading ? (
+  <div className="flex items-center justify-center h-screen bg-gradient-to-r from-blue-300 via-purple-400 to-pink-300">
+    <div className="flex flex-row items-center space-x-6">
+      <span className="loading loading-infinity loading-lg text-yellow-200 scale-150"></span>
+      <span className="loading loading-infinity loading-lg text-teal-200 scale-150"></span>
+      <span className="loading loading-infinity loading-lg text-pink-200 scale-150"></span>
+      <span className="loading loading-infinity loading-lg text-indigo-200 scale-150"></span>
+    </div>
+  </div>
+) : (
+<AdminLayout>
       <div className="p-4 bg-blue-50">
         <h2 className="text-2xl font-bold mb-4 text-center">Service Table</h2>
         {/* Search and Sorting Controls */}
@@ -177,13 +188,12 @@ const Show = () => {
         </div>
 
         {/* Table */}
-        {loading ? (
-          <div className="text-center">Loading...</div>
-        ) : filteredServices.length === 0 ? (
+      
+        {filteredServices.length === 0 ? (
           <div className="text-center text-xl pt-[250px] text-red-500 h-[480px] bg-blue-50">
             No matched data found
           </div>
-        ) : (
+        ):(
           <table className="min-w-full bg-white border border-blue-300">
             <thead>
               <tr className="bg-blue-100 text-center">
@@ -228,7 +238,7 @@ const Show = () => {
                   <td className="py-2 px-4 border-b border-white">
                     <div className="flex space-x-2">
                       <Link
-                        to={`/edit-service/${service.id}`}
+                        to={`/admin/services/edit/${service.id}`}
                         className="text-blue-500 hover:text-blue-700"
                       >
                         <FaEdit />
@@ -248,6 +258,8 @@ const Show = () => {
         )}
       </div>
     </AdminLayout>
+        )}
+      </>
   );
 };
 

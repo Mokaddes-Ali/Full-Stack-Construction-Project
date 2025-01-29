@@ -1,13 +1,14 @@
 import { useState, useRef, useMemo } from "react";
-import { useForm, Controller } from "react-hook-form"; 
+import { useForm, Controller } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 import { apiUrl, token } from "../http";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
 import { Textarea, Input, Select, Option } from "@material-tailwind/react";
-import { PhotoIcon } from '@heroicons/react/24/solid';
-import {motion} from 'framer-motion'
+import { PhotoIcon } from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
+import { NavLink } from "react-router-dom";
 import AdminLayout from "../../../layouts/admin/AdminLayout";
 
 const CreateService = ({ placeholder }) => {
@@ -41,7 +42,7 @@ const CreateService = ({ placeholder }) => {
   const onSubmit = async (data) => {
     const cleanedContent = cleanContent(content);
     const newData = { ...data, content: cleanedContent, imageId: imageId };
-    setIsDisable(true); 
+    setIsDisable(true);
     const res = await fetch(apiUrl + "services/store", {
       method: "POST",
       headers: {
@@ -60,7 +61,7 @@ const CreateService = ({ placeholder }) => {
     } else {
       toast.error(result.message);
     }
-    setIsDisable(false); 
+    setIsDisable(false);
   };
 
   const handleFile = async (e) => {
@@ -92,69 +93,82 @@ const CreateService = ({ placeholder }) => {
     <AdminLayout>
       <div className="flex min-h-screen bg-gray-100">
         <div className="w-full bg-white p-8 rounded-lg shadow-lg">
-          <h2 className="text-center text-3xl font-bold text-gray-900 mb-6">
-            Add New Service
-          </h2>
+          <div className="flex mb-6">
+            <button className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2">
+              <NavLink to="/service/list">See Service</NavLink>
+            </button>
+            <h2 className="text-center text-2xl ml-60 font-bold text-gray-900 mb-0">
+              Add New Service
+            </h2>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             {/* Title and Slug Inputs */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-5">
-  {/* Service Name */}
-  <div className="sm:col-span-2">
-    <Input
-      type="text"
-      {...register("title", { required: "Service Name is required" })}
-      variant="standard"
-      label="Service Name"
-      placeholder="Enter Service Name"
-      className={`block w-full rounded-md py-2.5 text-gray-900 ${
-        errors.title ? "ring-red-500 focus:ring-red-500" : ""
-      }`}
-    />
-    {errors.title && (
-      <span className="text-sm text-red-600">{errors.title.message}</span>
-    )}
-  </div>
+              {/* Service Name */}
+              <div className="sm:col-span-2">
+                <Input
+                  type="text"
+                  {...register("title", {
+                    required: "Service Name is required",
+                  })}
+                  variant="standard"
+                  label="Service Name"
+                  placeholder="Enter Service Name"
+                  className={`block w-full rounded-md py-2.5 text-gray-900 ${
+                    errors.title ? "ring-red-500 focus:ring-red-500" : ""
+                  }`}
+                />
+                {errors.title && (
+                  <span className="text-sm text-red-600">
+                    {errors.title.message}
+                  </span>
+                )}
+              </div>
 
-  {/* Service Slug */}
-  <div className="sm:col-span-2">
-    <Input
-      type="text"
-      {...register("slug", { required: "Slug is required" })}
-      variant="standard"
-      label="Service Slug"
-      placeholder="Enter Slug"
-      className={`block w-full rounded-md py-2.5 text-gray-900 ${
-        errors.slug ? "ring-red-500 focus:ring-red-500" : ""
-      }`}
-    />
-    {errors.slug && (
-      <span className="text-sm text-red-600">{errors.slug.message}</span>
-    )}
-  </div>
+              {/* Service Slug */}
+              <div className="sm:col-span-2">
+                <Input
+                  type="text"
+                  {...register("slug", { required: "Slug is required" })}
+                  variant="standard"
+                  label="Service Slug"
+                  placeholder="Enter Slug"
+                  className={`block w-full rounded-md py-2.5 text-gray-900 ${
+                    errors.slug ? "ring-red-500 focus:ring-red-500" : ""
+                  }`}
+                />
+                {errors.slug && (
+                  <span className="text-sm text-red-600">
+                    {errors.slug.message}
+                  </span>
+                )}
+              </div>
 
-  {/* Status Select */}
-  <div className="sm:col-span-1">
-    <Controller
-      name="status"
-      control={control}
-      rules={{ required: "Status is required" }}
-      render={({ field }) => (
-        <Select
-          {...field}
-          label="Select Status"
-          className="block w-full py-2.5"
-        >
-          <Option value="1">Active</Option>
-          <Option value="0">Inactive</Option>
-        </Select>
-      )}
-    />
-    {errors.status && (
-      <span className="text-sm text-red-600">{errors.status.message}</span>
-    )}
-  </div>
-</div>
-
+              {/* Status Select */}
+              <div className="sm:col-span-1">
+                <Controller
+                  name="status"
+                  control={control}
+                  rules={{ required: "Status is required" }}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      label="Select Status"
+                      className="block w-full py-2.5"
+                    >
+                      <Option value="1">Active</Option>
+                      <Option value="0">Inactive</Option>
+                    </Select>
+                  )}
+                />
+                {errors.status && (
+                  <span className="text-sm text-red-600">
+                    {errors.status.message}
+                  </span>
+                )}
+              </div>
+            </div>
 
             {/* Image Upload Area */}
             <div>
@@ -174,7 +188,9 @@ const CreateService = ({ placeholder }) => {
                         className="sr-only"
                       />
                     </label>
-                    <p className="text-sm text-gray-600">PNG, JPG, GIF up to 10MB</p>
+                    <p className="text-sm text-gray-600">
+                      PNG, JPG, GIF up to 10MB
+                    </p>
                   </div>
                   {/* Image Preview */}
                   {imagePreview && (
@@ -191,7 +207,9 @@ const CreateService = ({ placeholder }) => {
             {/* Short Description */}
             <div>
               <Textarea
-                {...register("short_desc", { required: "Description is required" })}
+                {...register("short_desc", {
+                  required: "Description is required",
+                })}
                 label="Enter Description"
                 color="green"
                 className={`block w-full rounded-md py-2.5 mt-4 sm:text-sm ${
@@ -221,31 +239,31 @@ const CreateService = ({ placeholder }) => {
 
             {/* Submit Button */}
             <div className="flex justify-center mt-3">
-  <motion.button
-    type="submit"
-    disabled={isDisable}
-    className="px-5 py-2 bg-pink-500 text-white font-semibold rounded-md shadow-md transform transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
-    whileHover={{
-      scale: 1.05,
-      boxShadow: "0 4px 20px rgba(251, 113, 133, 0.5)", // Soft pink shadow effect
-      backgroundColor: "#f472b6",  // Lighter pink on hover
-      borderColor: "#f9a8d4",  // Light pink border on hover
-    }}
-    whileTap={{
-      scale: 0.98,
-    }}
-    initial={{ opacity: 0.8 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.3 }}
-    focus={{
-      ringWidth: 4,
-      ringColor: "#fbbf24",  // Yellow ring when focused
-      backgroundColor: "#ec4899",  // Darker pink when focused
-    }}
-  >
-    {isDisable ? "Submitting..." : "Submit"}
-  </motion.button>
-</div>
+              <motion.button
+                type="submit"
+                disabled={isDisable}
+                className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 4px 20px rgba(251, 113, 133, 0.5)", // Soft pink shadow effect
+                  backgroundColor: "#f472b6", // Lighter pink on hover
+                  borderColor: "#f9a8d4", // Light pink border on hover
+                }}
+                whileTap={{
+                  scale: 0.98,
+                }}
+                initial={{ opacity: 0.8 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                focus={{
+                  ringWidth: 4,
+                  ringColor: "#fbbf24", // Yellow ring when focused
+                  backgroundColor: "#ec4899", // Darker pink when focused
+                }}
+              >
+                {isDisable ? "Submitting..." : "Submit"}
+              </motion.button>
+            </div>
           </form>
         </div>
       </div>
