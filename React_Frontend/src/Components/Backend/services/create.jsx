@@ -1,10 +1,13 @@
 import { useState, useRef, useMemo } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form"; 
 import "react-toastify/dist/ReactToastify.css";
 import { apiUrl, token } from "../http";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import JoditEditor from "jodit-react";
+import { Textarea, Input, Select, Option } from "@material-tailwind/react";
+import { PhotoIcon } from '@heroicons/react/24/solid';
+import {motion} from 'framer-motion'
 import AdminLayout from "../../../layouts/admin/AdminLayout";
 
 const CreateService = ({ placeholder }) => {
@@ -24,6 +27,7 @@ const CreateService = ({ placeholder }) => {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm();
@@ -37,6 +41,7 @@ const CreateService = ({ placeholder }) => {
   const onSubmit = async (data) => {
     const cleanedContent = cleanContent(content);
     const newData = { ...data, content: cleanedContent, imageId: imageId };
+    setIsDisable(true); 
     const res = await fetch(apiUrl + "services/store", {
       method: "POST",
       headers: {
@@ -55,6 +60,7 @@ const CreateService = ({ placeholder }) => {
     } else {
       toast.error(result.message);
     }
+    setIsDisable(false); 
   };
 
   const handleFile = async (e) => {
@@ -76,163 +82,174 @@ const CreateService = ({ placeholder }) => {
       .then((result) => {
         if (result.status === false) {
           toast.error(result.errors.image[0]);
-        }
-        else {
+        } else {
           setImageId(result.data.id);
         }
       });
   };
 
   return (
-    <>
-      <AdminLayout>
-        <div className="flex min-h-screen bg-gray-700">
-          <div className="w-full bg-white p-8 rounded-md shadow-lg">
-            <h2 className="text-center text-2xl font-bold text-gray-900 mb-6">
-              Add New Service
-            </h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              {/* Title and Status in the same row */}
-              <div className="flex flex-wrap gap-4 md:flex-nowrap">
-                {/* Service Name */}
-                <div className="flex-1 min-w-[300px]">
-                  <label className="block text-sm font-medium text-gray-900">
-                    Service Name
-                  </label>
-                  <input
-                    type="text"
-                    {...register("title", {
-                      required: "Service Name is required",
-                    })}
-                    placeholder="Service Name"
-                    className={`block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm ${
-                      errors.title ? "ring-red-500 focus:ring-red-500" : ""
-                    }`}
-                  />
-                  {errors.title && (
-                    <span className="text-sm text-red-600">
-                      {errors.title.message}
-                    </span>
-                  )}
-                </div>
+    <AdminLayout>
+      <div className="flex min-h-screen bg-gray-100">
+        <div className="w-full bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-center text-3xl font-bold text-gray-900 mb-6">
+            Add New Service
+          </h2>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+            {/* Title and Slug Inputs */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-5">
+  {/* Service Name */}
+  <div className="sm:col-span-2">
+    <Input
+      type="text"
+      {...register("title", { required: "Service Name is required" })}
+      variant="standard"
+      label="Service Name"
+      placeholder="Enter Service Name"
+      className={`block w-full rounded-md py-2.5 text-gray-900 ${
+        errors.title ? "ring-red-500 focus:ring-red-500" : ""
+      }`}
+    />
+    {errors.title && (
+      <span className="text-sm text-red-600">{errors.title.message}</span>
+    )}
+  </div>
 
-                {/* Status */}
-                <div className="flex-1 min-w-[300px]">
-                  <label className="block text-sm font-medium text-gray-900">
-                    Status
-                  </label>
-                  <select
-                    {...register("status", { required: "Status is required" })}
-                    className="block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
-                  >
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                  </select>
-                  {errors.status && (
-                    <span className="text-sm text-red-600">
-                      {errors.status.message}
-                    </span>
-                  )}
-                </div>
-              </div>
+  {/* Service Slug */}
+  <div className="sm:col-span-2">
+    <Input
+      type="text"
+      {...register("slug", { required: "Slug is required" })}
+      variant="standard"
+      label="Service Slug"
+      placeholder="Enter Slug"
+      className={`block w-full rounded-md py-2.5 text-gray-900 ${
+        errors.slug ? "ring-red-500 focus:ring-red-500" : ""
+      }`}
+    />
+    {errors.slug && (
+      <span className="text-sm text-red-600">{errors.slug.message}</span>
+    )}
+  </div>
 
-              <div className="flex flex-wrap gap-4 md:flex-nowrap">
-                {/* Slug */}
-                <div className="flex-1 min-w-[300px]">
-                  <label className="block text-sm font-medium text-gray-900">
-                    Slug
-                  </label>
-                  <input
-                    type="text"
-                    {...register("slug", { required: "Slug is required" })}
-                    placeholder="Slug"
-                    className={`block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm ${
-                      errors.slug ? "ring-red-500 focus:ring-red-500" : ""
-                    }`}
-                  />
-                  {errors.slug && (
-                    <span className="text-sm text-red-600">
-                      {errors.slug.message}
-                    </span>
-                  )}
-                </div>
+  {/* Status Select */}
+  <div className="sm:col-span-1">
+    <Controller
+      name="status"
+      control={control}
+      rules={{ required: "Status is required" }}
+      render={({ field }) => (
+        <Select
+          {...field}
+          label="Select Status"
+          className="block w-full py-2.5"
+        >
+          <Option value="1">Active</Option>
+          <Option value="0">Inactive</Option>
+        </Select>
+      )}
+    />
+    {errors.status && (
+      <span className="text-sm text-red-600">{errors.status.message}</span>
+    )}
+  </div>
+</div>
 
-                {/* Service Image */}
-                <div className="flex-1 min-w-[300px]">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-900">
-                        Service Image
-                      </label>
+
+            {/* Image Upload Area */}
+            <div>
+              <div className="mt-4 flex items-center justify-between">
+                <div className="w-[100%] flex items-center gap-6">
+                  <div className="w-full rounded-lg border border-dashed border-gray-900/25 p-6 text-center">
+                    <PhotoIcon className="mx-auto text-gray-300 w-12 h-12" />
+                    <label
+                      htmlFor="file-upload"
+                      className="cursor-pointer text-indigo-600 hover:text-indigo-500"
+                    >
+                      <span>Upload a file</span>
                       <input
-                        onChange={handleFile}
+                        id="file-upload"
                         type="file"
-                        className="mt-2 w-full p-2 border rounded"
+                        onChange={handleFile}
+                        className="sr-only"
                       />
-                    </div>
-                    {imagePreview && (
-                      <div>
-                        <img
-                          src={imagePreview}
-                          alt="Uploaded Preview"
-                          className="w-20 h-20 object-cover rounded-lg shadow-md"
-                        />
-                      </div>
-                    )}
+                    </label>
+                    <p className="text-sm text-gray-600">PNG, JPG, GIF up to 10MB</p>
                   </div>
-                </div>
-              </div>
-              <div>
-                {/* Description */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-900">
-                    Description
-                  </label>
-                  <textarea
-                    {...register("short_desc", {
-                      required: "Description is required",
-                    })}
-                    placeholder="Description"
-                    className={`block w-full rounded-md py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm ${
-                      errors.short_desc ? "ring-red-500 focus:ring-red-500" : ""
-                    }`}
-                  />
-                  {errors.short_desc && (
-                    <span className="text-sm text-red-600">
-                      {errors.short_desc.message}
-                    </span>
+                  {/* Image Preview */}
+                  {imagePreview && (
+                    <img
+                      src={imagePreview}
+                      alt="Uploaded Preview"
+                      className="w-36 h-36 object-cover rounded-md shadow-md"
+                    />
                   )}
                 </div>
-
-                {/* Content */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-900">
-                    Content
-                  </label>
-                  <JoditEditor
-                    ref={editor}
-                    value={content}
-                    config={config}
-                    tabIndex={1}
-                    onBlur={(newContent) => setContent(newContent)}
-                  />
-                </div>
               </div>
+            </div>
 
-              {/* Submit Button */}
-              <div className="flex justify-center mt-4">
-                <button
-                  disabled={isDisable}
-                  className="px-6 py-2 text-sm bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                >
-                  Submit
-                </button>
-              </div>
-            </form>
-          </div>
+            {/* Short Description */}
+            <div>
+              <Textarea
+                {...register("short_desc", { required: "Description is required" })}
+                label="Enter Description"
+                color="green"
+                className={`block w-full rounded-md py-2.5 mt-4 sm:text-sm ${
+                  errors.short_desc ? "ring-red-500 focus:ring-red-500" : ""
+                }`}
+              />
+              {errors.short_desc && (
+                <span className="text-sm text-red-600">
+                  {errors.short_desc.message}
+                </span>
+              )}
+            </div>
+
+            {/* Content Editor */}
+            <div>
+              <label className="block text-sm font-medium text-gray-900">
+                Content
+              </label>
+              <JoditEditor
+                ref={editor}
+                value={content}
+                config={config}
+                tabIndex={1}
+                onBlur={(newContent) => setContent(newContent)}
+              />
+            </div>
+
+            {/* Submit Button */}
+            <div className="flex justify-center mt-3">
+  <motion.button
+    type="submit"
+    disabled={isDisable}
+    className="px-5 py-2 bg-pink-500 text-white font-semibold rounded-md shadow-md transform transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
+    whileHover={{
+      scale: 1.05,
+      boxShadow: "0 4px 20px rgba(251, 113, 133, 0.5)", // Soft pink shadow effect
+      backgroundColor: "#f472b6",  // Lighter pink on hover
+      borderColor: "#f9a8d4",  // Light pink border on hover
+    }}
+    whileTap={{
+      scale: 0.98,
+    }}
+    initial={{ opacity: 0.8 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 0.3 }}
+    focus={{
+      ringWidth: 4,
+      ringColor: "#fbbf24",  // Yellow ring when focused
+      backgroundColor: "#ec4899",  // Darker pink when focused
+    }}
+  >
+    {isDisable ? "Submitting..." : "Submit"}
+  </motion.button>
+</div>
+          </form>
         </div>
-      </AdminLayout>
-    </>
+      </div>
+    </AdminLayout>
   );
 };
 

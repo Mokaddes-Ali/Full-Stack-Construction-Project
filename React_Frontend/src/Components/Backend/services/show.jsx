@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
 import AdminLayout from "../../../layouts/admin/AdminLayout";
@@ -12,7 +12,7 @@ const Show = () => {
   const [search, setSearch] = useState("");
   const [perPage, setPerPage] = useState(5);
   const [sortedBy, setSortedBy] = useState("id");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortOrder, setSortOrder] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
 
   const imgUrl = fileUrl + "uploads/services/small";
@@ -20,18 +20,18 @@ const Show = () => {
   // Fetch services from the API
   const fetchServices = async () => {
     setLoading(true);
-      const res = await fetch(apiUrl + "services", {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token()}`,
-        },
-      });
+    const res = await fetch(apiUrl + "services", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token()}`,
+      },
+    });
 
-      const result = await res.json();
-      setServices(result.data || result);
-      setLoading(false);
+    const result = await res.json();
+    setServices(result.data || result);
+    setLoading(false);
   };
 
   // Delete service
@@ -111,33 +111,38 @@ const Show = () => {
 
   return (
     <AdminLayout>
-      <div className="p-4 bg-gray-50">
-        <h2 className="text-xl font-bold mb-4">Service Table</h2>
+      <div className="p-4 bg-blue-50">
+        <h2 className="text-2xl font-bold mb-4 text-center">Service Table</h2>
         {/* Search and Sorting Controls */}
         <div className="mb-4 flex justify-between items-center">
-          <div className="flex space-x-4">
-            <input
-              type="text"
-              className="px-4 py-2 border border-gray-300 rounded"
-              placeholder="Search by Title or Slug"
-              value={search}
-              onChange={handleSearch}
-            />
-            <button
-              onClick={() => {
-                setSearch("");
-                filterData(""); // Clear the filter
-                setCurrentPage(1); // Reset to page 1
-              }}
-              className="bg-gray-300 px-4 py-2 rounded"
-            >
-              Reset
-            </button>
-          </div>
+        <div className="flex space-x-4">
+  <button className="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 shadow-lg shadow-purple-500/50 dark:shadow-lg dark:shadow-purple-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+    <NavLink to="/service/add">Add Service</NavLink> 
+  </button>
+  <input
+    type="text"
+    className="px-4 py-2 border w-[400px] border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+    placeholder="Search by Title or Slug"
+    value={search}
+    onChange={handleSearch}
+  />
+  <button
+    onClick={() => {
+      setSearch("");
+      filterData(""); // Clear the filter
+      setCurrentPage(1); // Reset to page 1
+    }}
+    className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
+  >
+    Reset
+
+  </button>
+</div>
+
           <div className="flex space-x-4">
             <select
               onChange={handlePerPageChange}
-              className="px-4 py-2 border rounded"
+              className="text-black bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-lg px-2 py-2 text-center me-2 mb-2"
             >
               <option value="5">5 per page</option>
               <option value="10">10 per page</option>
@@ -152,7 +157,7 @@ const Show = () => {
                 <select
                   value={sortedBy}
                   onChange={(e) => setSortedBy(e.target.value)}
-                  className="border p-2"
+                  className="text-black bg-gradient-to-r from-pink-300 via-pink-400 to-pink-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-sm px-3 py-2.5 text-center me-2 mb-2"
                 >
                   <option value="id">ID</option>
                   <option value="title">Title</option>
@@ -161,7 +166,7 @@ const Show = () => {
                 <select
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}
-                  className="border p-2 ml-2"
+                  className="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-4 py-2.5 text-center me-2 mb-2"
                 >
                   <option value="asc">ASC</option>
                   <option value="desc">DESC</option>
@@ -175,13 +180,13 @@ const Show = () => {
         {loading ? (
           <div className="text-center">Loading...</div>
         ) : filteredServices.length === 0 ? (
-          <div className="text-center text-xl pt-[250px] text-red-500 h-[480px] bg-gray-50">
+          <div className="text-center text-xl pt-[250px] text-red-500 h-[480px] bg-blue-50">
             No matched data found
           </div>
         ) : (
-          <table className="min-w-full bg-white border border-gray-300">
+          <table className="min-w-full bg-white border border-blue-300">
             <thead>
-              <tr className="bg-gray-200 text-center">
+              <tr className="bg-blue-100 text-center">
                 <th className="py-2 px-4 border-b">ID</th>
                 <th className="py-2 px-4 border-b">Title</th>
                 <th className="py-2 px-4 border-b">Image</th>
@@ -194,10 +199,10 @@ const Show = () => {
             </thead>
             <tbody>
               {paginatedServices.map((service) => (
-                <tr key={service.id} className="bg-gray-100 text-left">
-                  <td className="py-2 px-4 border-b">{service.id}</td>
-                  <td className="py-2 px-4 border-b">{service.title}</td>
-                  <td className="py-2 px-4 border-b">
+                <tr key={service.id} className="bg-blue-50 text-left">
+                  <td className="py-2 px-4 border-b border-white">{service.id}</td>
+                  <td className="py-2 px-4 border-b border-white">{service.title}</td>
+                  <td className="py-2 px-4 border-b border-white">
                     {service.image ? (
                       <img
                         src={`${imgUrl}/${service.image}`}
@@ -208,64 +213,38 @@ const Show = () => {
                       <span className="text-gray-400">No Image</span>
                     )}
                   </td>
-                  <td className="py-2 px-4 border-b">{service.short_desc}</td>
-                  <td className="py-2 px-4 border-b">{service.content}</td>
-                  <td className="py-2 px-4 border-b">{service.slug}</td>
-                  <td className="py-2 px-4 border-b">
+                  <td className="py-2 px-4 border-b border-white">{service.short_desc}</td>
+                  <td className="py-2 px-4 border-b border-white">{service.content}</td>
+                  <td className="py-2 px-4 border-b border-white">{service.slug}</td>
+                  <td className="py-2 px-4 border-b border-white">
                     <span
                       className={`px-2 py-1 rounded-full text-white ${
-                        service.status === 1 ? "bg-green-500" : "bg-red-500"
+                        service.status === 1 ? "bg-blue-500" : "bg-red-400"
                       }`}
                     >
                       {service.status === 1 ? "Active" : "Inactive"}
                     </span>
                   </td>
-                  <td className="py-2 px-4 border-b">
-                    <div className="flex">
-                      <div className="">
-                    <Link
-                      to={`/admin/services/edit/${service.id}`}
-                      className="bg-blue-600 text-white hover:bg-orange-500 text-center py-2 px-4 pl-4 rounded-lg inline-flex items-center"
-                    >
-                      <FaEdit className="inline mr-2" />
-                    </Link>
-                    </div>
-                    <div>
-                    <button
-                      onClick={() => deleteService(service.id)}
-                      className="bg-red-600 text-white hover:bg-black text-center py-2 px-4 pl-4 rounded-lg inline-flex items-center ml-2"
-                    >
-                      <FaTrash className="inline mr-2" />
-                    </button>
-                    </div>
+                  <td className="py-2 px-4 border-b border-white">
+                    <div className="flex space-x-2">
+                      <Link
+                        to={`/edit-service/${service.id}`}
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        <FaEdit />
+                      </Link>
+                      <button
+                        onClick={() => deleteService(service.id)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <FaTrash />
+                      </button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )}
-
-        {/* Pagination */}
-        {perPage !== "all" && (
-          <div className="mt-4 flex justify-center">
-            {/* Pagination Controls */}
-            {[...Array(Math.ceil(filteredServices.length / perPage))].map(
-              (_, index) => (
-                <button
-                  key={index}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={`px-4 py-2 mx-1 ${
-                    currentPage === index + 1
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-300"
-                  }`}
-                >
-                  {index + 1}
-                </button>
-              )
-            )}
-          </div>
         )}
       </div>
     </AdminLayout>
