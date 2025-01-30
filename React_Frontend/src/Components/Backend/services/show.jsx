@@ -6,6 +6,115 @@ import AdminLayout from "../../../layouts/admin/AdminLayout";
 import { apiUrl, token, fileUrl } from "../http";
 
 const Show = () => {
+  // const [services, setServices] = useState([]);
+  // const [filteredServices, setFilteredServices] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [search, setSearch] = useState("");
+  // const [perPage, setPerPage] = useState(5);
+  // const [sortedBy, setSortedBy] = useState("id");
+  // const [sortOrder, setSortOrder] = useState("desc");
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  // const imgUrl = fileUrl + "uploads/services/small";
+
+  // // Fetch services from the API
+  // const fetchServices = async () => {
+  //   setLoading(true);
+  //   const res = await fetch(apiUrl + "services", {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //       Accept: "application/json",
+  //       Authorization: `Bearer ${token()}`,
+  //     },
+  //   });
+
+  //   const result = await res.json();
+  //   setServices(result.data || result);
+  //   setLoading(false);
+  // };
+
+  // // Delete service
+  // const deleteService = async (id) => {
+  //   if (confirm("Are you sure you want to delete this service?")) {
+  //     const res = await fetch(apiUrl + "services/delete/" + id, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-type": "application/json",
+  //         Accept: "application/json",
+  //         Authorization: `Bearer ${token()}`,
+  //       },
+  //     });
+
+  //     const result = await res.json();
+
+  //     if (result.status === true) {
+  //       const newServices = services.filter((service) => service.id !== id);
+  //       setServices(newServices);
+  //       toast.success(result.message);
+  //     } else {
+  //       toast.error(result.message);
+  //     }
+  //   }
+  // };
+
+  // const handleSearch = (e) => {
+  //   setSearch(e.target.value);
+  //   filterData(e.target.value);
+  // };
+
+  // const filterData = (query) => {
+  //   const filtered = services.filter(
+  //     (service) =>
+  //       service.title.toLowerCase().includes(query.toLowerCase()) ||
+  //       service.slug.toLowerCase().includes(query.toLowerCase())
+  //   );
+  //   setFilteredServices(filtered);
+  //   setCurrentPage(1);
+  // };
+
+  // const sortServices = (data) => {
+  //   return data.sort((a, b) => {
+  //     if (sortOrder === "asc") {
+  //       return a[sortedBy] > b[sortedBy] ? 1 : -1;
+  //     } else {
+  //       return a[sortedBy] < b[sortedBy] ? 1 : -1;
+  //     }
+  //   });
+  // };
+
+
+
+  // const handlePerPageChange = (e) => {
+  //   const value = e.target.value === "all" ? "all" : parseInt(e.target.value, 5);
+  //   setPerPage(value);
+  //   setCurrentPage(1); // Reset to first page
+  // };
+  
+
+  // const paginatedServices =
+  //   perPage === "all"
+  //     ? filteredServices
+  //     : filteredServices.slice(
+  //         (currentPage - 1) * perPage,
+  //         currentPage * perPage
+  //       );
+
+  // const handlePageChange = (page) => {
+  //   setCurrentPage(page);
+  // };
+
+  // useEffect(() => {
+  //   fetchServices();
+  // }, []);
+
+  // useEffect(() => {
+  //   filterData(search);
+  // }, [services]);
+
+  // const sortedServices = sortServices(filteredServices);
+
+
   const [services, setServices] = useState([]);
   const [filteredServices, setFilteredServices] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -47,10 +156,8 @@ const Show = () => {
       });
 
       const result = await res.json();
-
       if (result.status === true) {
-        const newServices = services.filter((service) => service.id !== id);
-        setServices(newServices);
+        setServices(services.filter((service) => service.id !== id));
         toast.success(result.message);
       } else {
         toast.error(result.message);
@@ -64,10 +171,9 @@ const Show = () => {
   };
 
   const filterData = (query) => {
-    const filtered = services.filter(
-      (service) =>
-        service.title.toLowerCase().includes(query.toLowerCase()) ||
-        service.slug.toLowerCase().includes(query.toLowerCase())
+    const filtered = services.filter((service) =>
+      service.title.toLowerCase().includes(query.toLowerCase()) ||
+      service.slug.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredServices(filtered);
     setCurrentPage(1);
@@ -75,29 +181,28 @@ const Show = () => {
 
   const sortServices = (data) => {
     return data.sort((a, b) => {
-      if (sortOrder === "asc") {
-        return a[sortedBy] > b[sortedBy] ? 1 : -1;
-      } else {
-        return a[sortedBy] < b[sortedBy] ? 1 : -1;
-      }
+      return sortOrder === "asc"
+        ? a[sortedBy] > b[sortedBy]
+          ? 1
+          : -1
+        : a[sortedBy] < b[sortedBy]
+        ? 1
+        : -1;
     });
   };
 
   const handlePerPageChange = (e) => {
-    setPerPage(e.target.value);
+    const value = e.target.value === "all" ? "all" : parseInt(e.target.value, 10);
+    setPerPage(value);
+    setCurrentPage(1);
   };
 
   const paginatedServices =
     perPage === "all"
       ? filteredServices
-      : filteredServices.slice(
-          (currentPage - 1) * perPage,
-          currentPage * perPage
-        );
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
+      : filteredServices.length > perPage
+      ? filteredServices.slice((currentPage - 1) * perPage, currentPage * perPage)
+      : filteredServices;
 
   useEffect(() => {
     fetchServices();
@@ -106,8 +211,6 @@ const Show = () => {
   useEffect(() => {
     filterData(search);
   }, [services]);
-
-  const sortedServices = sortServices(filteredServices);
 
   return (
     <>
@@ -122,7 +225,7 @@ const Show = () => {
   </div>
 ) : (
 <AdminLayout>
-      <div className="p-4 bg-blue-50">
+      <div className="p-4 bg-blue-50 dark:bg-gray-900">
         <h2 className="text-2xl font-bold mb-4 text-center">Service Table</h2>
         {/* Search and Sorting Controls */}
         <div className="mb-4 flex justify-between items-center">
@@ -132,7 +235,7 @@ const Show = () => {
   </button>
   <input
     type="text"
-    className="px-4 py-2 border w-[400px] border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
+    className="px-4 py-2 border w-[400px] dark:bg-black border-blue-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200"
     placeholder="Search by Title or Slug"
     value={search}
     onChange={handleSearch}
@@ -194,9 +297,9 @@ const Show = () => {
             No matched data found
           </div>
         ):(
-          <table className="min-w-full bg-white border border-blue-300">
+          <table className="min-w-full dark:bg-gray-400 border border-blue-300">
             <thead>
-              <tr className="bg-blue-100 text-center">
+              <tr className="bg-blue-100 dark:bg-black text-center">
                 <th className="py-2 px-4 border-b">ID</th>
                 <th className="py-2 px-4 border-b">Title</th>
                 <th className="py-2 px-4 border-b">Image</th>
@@ -209,7 +312,7 @@ const Show = () => {
             </thead>
             <tbody>
               {paginatedServices.map((service) => (
-                <tr key={service.id} className="bg-blue-50 text-left">
+                <tr key={service.id} className="bg-blue-5 dark:bg-black text-left">
                   <td className="py-2 px-4 border-b border-white">{service.id}</td>
                   <td className="py-2 px-4 border-b border-white">{service.title}</td>
                   <td className="py-2 px-4 border-b border-white">
@@ -256,6 +359,49 @@ const Show = () => {
             </tbody>
           </table>
         )}
+
+       {/* Pagination Controls */}
+<div className="flex justify-center items-center space-x-2 mt-4 p-4 rounded-lg">
+  <button
+    onClick={() => handlePageChange(currentPage - 1)}
+    disabled={currentPage === 1}
+    className={`px-4 py-2 rounded-md transition ${
+      currentPage === 1 
+        ? "bg-gray-700 text-gray-400 cursor-not-allowed" 
+        : "bg-gray-800 text-white hover:bg-gray-700"
+    }`}
+  >
+    Previous
+  </button>
+
+  {Array.from({ length: Math.ceil(filteredServices.length / perPage) }, (_, index) => (
+    <button
+      key={index + 1}
+      onClick={() => handlePageChange(index + 1)}
+      className={`px-4 py-2 rounded-md transition ${
+        currentPage === index + 1 
+          ? "bg-blue-600 text-white" 
+          : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+      }`}
+    >
+      {index + 1}
+    </button>
+  ))}
+
+  <button
+    onClick={() => handlePageChange(currentPage + 1)}
+    disabled={currentPage === Math.ceil(filteredServices.length / perPage)}
+    className={`px-4 py-2 rounded-md transition ${
+      currentPage === Math.ceil(filteredServices.length / perPage) 
+        ? "bg-gray-700 text-gray-400 cursor-not-allowed" 
+        : "bg-gray-800 text-white hover:bg-gray-700"
+    }`}
+  >
+    Next
+  </button>
+</div>
+
+
       </div>
     </AdminLayout>
         )}
