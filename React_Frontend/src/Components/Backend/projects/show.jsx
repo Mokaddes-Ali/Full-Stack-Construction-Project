@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import AdminLayout from "../../../layouts/admin/AdminLayout";
 import { toast } from "react-toastify";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { exportToCSV, exportToPDF, exportToExcel } from "../utils/exportUtils"; // Utility functions for export
+import { exportToCSV, exportToPDF, exportToExcel } from "../utils/exportUtils";
 
 const Show = () => {
   const [projects, setProjects] = useState([]);
