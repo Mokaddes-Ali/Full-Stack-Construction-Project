@@ -19,12 +19,13 @@ import ProductsCategories from "../Pages/AdminDashboardPages/ProductsCategories"
 import More from "../Pages/AdminDashboardPages/More";
 import MoreSettings from "../Pages/AdminDashboardPages/MoreSettings";
 import {default as CreateHeroSlide } from "../Components/Backend/hero_slider/create";
-import CreateService from "../Pages/AdminDashboardPages/Services/create";
 import ProtectedRoute from "../Components/Backend/ProtectedRoute";
 import Login from "../Components/Backend/login";
 import ArticleAdd from "../Components/Backend/article/ArticleAdd";
 import ArticleEdit from "../Components/Backend/article/ArticleEdit";
 import ArticleIndex from "../Components/Backend/article/ArticleIndex";
+import SubscriberTable from "../Components/Backend/SubscriberTable";
+import SendEmailPage from "../Components/Backend/SendEmailPage";
 
 
       
@@ -39,6 +40,17 @@ const AdminRoute = () => (
                 </ProtectedRoute>
               }
             /> 
+
+  <Route path="/subscribers" element={
+     <RequireAuth>
+      <SubscriberTable />
+      </RequireAuth>
+    } />
+  <Route path="/send-email" element={
+     <RequireAuth>
+      <SendEmailPage />
+      </RequireAuth>} />
+
        
 
         

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\front\ContactController;
@@ -98,6 +99,11 @@ Route::prefix('construction-projects')->group(function () {
     Route::delete('/{id}', [ConstructionProjectController::class, 'destroy']); // Delete a project
 });
 
+// contact Subscribe
+
+Route::post('/subscribe/store',[SubscriberController::class, 'store']);
+Route::get('/subscribers', [SubscriberController::class, 'index']);
+Route::delete('/subscribers/{id}', [SubscriberController::class, 'destroy']);
 
 //Article Routes
 Route::get('articles', [ArticleController::class, 'index']);
